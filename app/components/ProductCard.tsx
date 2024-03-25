@@ -30,11 +30,11 @@ export const ProductCard = ({ item, label, style }: Props) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
   const router = useRouter()
   let carouselImages: string[] = []
-  if (item?.images?.medium) {
+  if (item?.images?.thumbnail) {
     carouselImages =
-      item.images.medium.length > 1
-        ? item.images.medium.slice(1)
-        : item.images.medium
+      item.images.thumbnail.length > 1
+        ? item.images.thumbnail.slice(1)
+        : item.images.thumbnail
   }
 
   let hasSecondFilterLayer = false
@@ -77,12 +77,11 @@ export const ProductCard = ({ item, label, style }: Props) => {
     <div className="col-6 col-sm-4 col-lg-6 col-xxl-4 col-product-grid">
       <div className="product-grid-item style-2 bg-grey-light position-relative">
         {style === 'product' && (
-          <Image
+          <img
             className="img-fluid w-100"
-            src={item?.images?.medium?.[0] ? item.images.medium[0] : ''}
+            src={item?.images?.thumbnail?.[0] ? item.images.thumbnail[0] : ''}
             width={245}
             height={300}
-            quality={100}
             sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
             alt={item.name}
           />
@@ -105,12 +104,11 @@ export const ProductCard = ({ item, label, style }: Props) => {
                   key={i}
                   className={`carousel-item${i === 0 ? ' active' : ''}`}
                 >
-                  <Image
+                  <img
                     src={image}
                     className="img-fluid w-100"
                     width={150}
                     height={150}
-                    quality={100}
                     alt={item.name}
                   />
                 </div>
