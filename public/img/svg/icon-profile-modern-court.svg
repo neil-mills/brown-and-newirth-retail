@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="67" height="28.335" viewBox="0 0 67 28.335">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_323" data-name="Rectangle 323" width="67" height="28.335" transform="translate(0 0)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="modern_court" data-name="modern court" transform="translate(0 0)">
+    <g id="modern_court-2" data-name="modern court" clip-path="url(#clip-path)">
+      <path id="Path_1735" data-name="Path 1735" d="M33.5,28.335c-13.906,0-26.476-2.7-32.023-6.866a3.756,3.756,0,0,1-1.477-3L.013,9.416A3.732,3.732,0,0,1,1.516,6.4C6.892,2.452,19.148,0,33.5,0S60.109,2.452,65.486,6.4a3.747,3.747,0,0,1,1.5,3.016L67,18.467a3.756,3.756,0,0,1-1.478,3c-5.546,4.169-18.115,6.865-32.022,6.865m0-27.35C19.347.985,7.314,3.364,2.1,7.194A2.744,2.744,0,0,0,1,9.417L.985,18.469a2.767,2.767,0,0,0,1.084,2.212c5.388,4.051,17.725,6.668,31.431,6.668s26.044-2.617,31.43-6.667a2.766,2.766,0,0,0,1.085-2.214L66,9.417a2.757,2.757,0,0,0-1.1-2.223C59.686,3.364,47.654.985,33.5.985"/>
+    </g>
+  </g>
+</svg>

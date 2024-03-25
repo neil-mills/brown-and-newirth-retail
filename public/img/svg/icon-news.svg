@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+  <g id="news" transform="translate(-161 -225)">
+    <g id="Icon" transform="translate(161 225)">
+      <path id="Path_1654" data-name="Path 1654" d="M162.867,226.867H162.4a1.4,1.4,0,0,0-1.4,1.4V237.6a1.4,1.4,0,0,0,1.4,1.4h11.2a1.4,1.4,0,0,0,1.4-1.4V226.4a1.4,1.4,0,0,0-1.4-1.4h-9.333a1.4,1.4,0,0,0-1.4,1.4Zm0,.933v9.8a.466.466,0,0,1-.466.466h0a.466.466,0,0,1-.466-.466v-9.334a.467.467,0,0,1,.467-.467Zm.854,10.267H173.6a.467.467,0,0,0,.467-.467V226.4a.467.467,0,0,0-.467-.467h-9.333a.467.467,0,0,0-.467.467v11.2A1.4,1.4,0,0,1,163.721,238.067Z" transform="translate(-161 -225)" fill-rule="evenodd"/>
+      <path id="Path_1655" data-name="Path 1655" d="M171.467,239.959h5.6a.467.467,0,1,0,0-.933h-5.6a.467.467,0,1,0,0,.933Z" transform="translate(-166.333 -229.656)" fill-rule="evenodd"/>
+      <path id="Path_1656" data-name="Path 1656" d="M171.467,239.959h5.6a.467.467,0,1,0,0-.933h-5.6a.467.467,0,1,0,0,.933Z" transform="translate(-166.333 -231.535)" fill-rule="evenodd"/>
+      <path id="Path_1657" data-name="Path 1657" d="M171.467,239.959h5.6a.467.467,0,1,0,0-.933h-5.6a.467.467,0,1,0,0,.933Z" transform="translate(-166.333 -233.414)" fill-rule="evenodd"/>
+      <path id="Path_1658" data-name="Path 1658" d="M171.467,239.959h2.8a.467.467,0,0,0,0-.933h-2.8a.467.467,0,1,0,0,.933Z" transform="translate(-166.333 -235.293)" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

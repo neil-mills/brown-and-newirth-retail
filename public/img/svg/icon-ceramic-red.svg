@@ -1,0 +1,25 @@
+<svg id="red" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="67" height="15.611" viewBox="0 0 67 15.611">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_359" data-name="Rectangle 359" width="67" height="15.611" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="Rectangle_357" data-name="Rectangle 357" width="66.642" height="10.183" transform="translate(0.168 2.714)" fill="#660202"/>
+  <g id="Group_245" data-name="Group 245" transform="translate(0 0)">
+    <g id="Group_244" data-name="Group 244" clip-path="url(#clip-path)">
+      <rect id="Rectangle_358" data-name="Rectangle 358" width="66.642" height="10.183" transform="translate(0.168 2.714)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="0.5"/>
+    </g>
+  </g>
+  <path id="Path_2010" data-name="Path 2010" d="M2.4.25.53,2.8H66.8L64.492.25Z" transform="translate(-0.174 -0.082)" fill="#fff"/>
+  <g id="Group_247" data-name="Group 247" transform="translate(0 0)">
+    <g id="Group_246" data-name="Group 246" clip-path="url(#clip-path)">
+      <path id="Path_2011" data-name="Path 2011" d="M66.8,2.8H.53L2.4.25H64.492Z" transform="translate(-0.174 -0.082)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="0.5"/>
+    </g>
+  </g>
+  <path id="Path_2012" data-name="Path 2012" d="M.53,19.2,2.4,21.746H64.492L66.8,19.2Z" transform="translate(-0.174 -6.303)" fill="#fff"/>
+  <g id="Group_249" data-name="Group 249" transform="translate(0 0)">
+    <g id="Group_248" data-name="Group 248" clip-path="url(#clip-path)">
+      <path id="Path_2013" data-name="Path 2013" d="M66.8,19.2H.53L2.4,21.746H64.492Z" transform="translate(-0.174 -6.303)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>
