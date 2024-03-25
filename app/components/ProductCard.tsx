@@ -33,7 +33,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
   if (item?.images?.thumbnail) {
     carouselImages =
       item.images.thumbnail.length > 1
-        ? item.images.thumbnail.slice(1)
+        ? item.images.large.slice(1)
         : item.images.thumbnail
   }
 
@@ -79,7 +79,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
         {style === 'product' && (
           <img
             className="img-fluid w-100"
-            src={item?.images?.thumbnail?.[0] ? item.images.medium[0] : ''}
+            src={item?.images?.large?.[0] ? item.images.thumbnail[0] : ''}
             width={245}
             height={300}
             sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
