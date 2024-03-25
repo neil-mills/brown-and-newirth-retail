@@ -19,14 +19,13 @@ export const ImageCarousel = () => {
         </a>
         {images.large.map((src, i) => (
           <div key={i} className="carousel-item bg-grey-light active">
-            <Image
+            <img
               src={src}
               width={720}
               height={880}
               className="img-fluid w-75 d-block mx-auto"
               alt={product?.name || ''}
               sizes="(max-width: 480px) 100vw, (max-width: 720px) 50vw, 33vw"
-              priority
             />
           </div>
         ))}
