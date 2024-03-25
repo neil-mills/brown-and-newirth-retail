@@ -8,7 +8,7 @@ interface Props {
 
 export const CategoryCard = ({ item }: Props) => {
   return (
-    <div className="col-6 col-sm-4 col-lg-6 col-xl-4 col-xxl-3 col-product-grid">
+    <div className="col-6 col-sm-4 col-lg-6 col-xl-4 col-xxl-3 col-product-grid front-page-category">
       <Link
         href={`/category/${item?.slug || ''}`}
         className="product-grid-item style-1 letter-spacing bg-cover d-flex flex-column justify-content-between position-relative"
