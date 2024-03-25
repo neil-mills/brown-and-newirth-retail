@@ -30,11 +30,11 @@ export const ProductCard = ({ item, label, style }: Props) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
   const router = useRouter()
   let carouselImages: string[] = []
-  if (item?.images?.thumbnail) {
+  if (item?.images?.large) {
     carouselImages =
-      item.images.thumbnail.length > 1
+      item.images.large.length > 1
         ? item.images.large.slice(1)
-        : item.images.thumbnail
+        : item.images.large
   }
 
   let hasSecondFilterLayer = false
