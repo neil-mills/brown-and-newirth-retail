@@ -1276,23 +1276,24 @@ a {
 
 
 /* Temp front page icon reorder  */
-.front-page-category:nth-child(7) {order: 1}
-.front-page-category:nth-child(2) {order: 2}
-.front-page-category:nth-child(6) {order: 3}
-.front-page-category:nth-child(9) {order: 4}
-.front-page-category:nth-child(18) {order: 5}
-.front-page-category:nth-child(15) {order: 6}
-.front-page-category:nth-child(19) {order: 7}
-.front-page-category:nth-child(17) {order: 8}
-.front-page-category:nth-child(12) {order: 9}
-.front-page-category:nth-child(16) {order: 10}
-.front-page-category:nth-child(13) {order: 11}
-.front-page-category:nth-child(14) {order: 12}
-.front-page-category:nth-child(1) {order: 13}
-.front-page-category:nth-child(4) {order: 14}
-.front-page-category:nth-child(3) {order: 15}
-.front-page-category:nth-child(8) {order: 16}
 .front-page-category {
+  &:nth-child(7) {order: 1}
+  &:nth-child(2) {order: 2}
+  &:nth-child(6) {order: 3}
+  &:nth-child(9) {order: 4}
+  &:nth-child(18) {order: 5}
+  &:nth-child(15) {order: 6}
+  &:nth-child(19) {order: 7}
+  &:nth-child(17) {order: 8}
+  &:nth-child(12) {order: 9}
+  &:nth-child(16) {order: 10}
+  &:nth-child(13) {order: 11}
+  &:nth-child(14) {order: 12}
+  &:nth-child(1) {order: 13}
+  &:nth-child(4) {order: 14}
+  &:nth-child(3) {order: 15}
+  &:nth-child(8) {order: 16}
+  
   &:nth-child(5),
   &:nth-child(10),
   &:nth-child(11),
