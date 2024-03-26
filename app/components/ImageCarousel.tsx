@@ -18,7 +18,7 @@ export const ImageCarousel = () => {
           <span>View Online</span>
         </a>
         {images.map((src: string, i: number) => (
-          <div key={i} className="carousel-item bg-grey-light active">
+          <div key={i} className="carousel-item bg-grey-light">
             <Image
             priority
               src={src}
