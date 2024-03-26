@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['www.brownandnewirth.com'],
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '*.brownandnewirth.com',
+        hostname: 'www.brownandnewirth.com',
         port: '',
         pathname: '/wp-content/uploads/wpallimport/files/*',
       },
