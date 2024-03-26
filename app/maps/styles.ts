@@ -65,7 +65,7 @@ export const stylesMap: StyleMap = {
     label: 'Pendants',
     slug: 'pendant',
     image: '/img/15_pendants.png',
-    filterLayers: ['pa_shape', 'pa_diamond', 'pa_centre-carat'],
+    filterLayers: ['pa_shape', 'pa_diamond', 'pa_total-carat'],
   },
   'DRESS RING': {
     label: 'Dress',
