@@ -6,7 +6,11 @@ import {
   Filters,
 } from '@/app/types'
 import { useStore } from '@/app/hooks'
-import { getUniqueArrayValues, productToVariation } from '@/app/utils'
+import {
+  getImages,
+  getUniqueArrayValues,
+  productToVariation,
+} from '@/app/utils'
 import { rangeFilterMap } from '@/app/maps'
 
 interface Props {
@@ -37,8 +41,8 @@ export const useVariations = ({
         if (!rangeAttributes.includes(filter as RangeFilterAttribute)) {
           filteredVariations = filteredVariations.filter((variation) =>
             values.includes(
-              variation?.attributes?.[filter as VariationAttributeKeys]!
-            )
+              variation?.attributes?.[filter as VariationAttributeKeys]!,
+            ),
           )
         } else {
           values = values.map((value) => value.replace('-', '.'))
@@ -49,7 +53,7 @@ export const useVariations = ({
               ? parseFloat(
                   variation.attributes[
                     filter as VariationAttributeKeys
-                  ]!.replace('-', '.')
+                  ]!.replace('-', '.'),
                 )
               : null
             const map = rangeFilterMap[filter as RangeFilterAttribute]
@@ -60,7 +64,7 @@ export const useVariations = ({
             })
 
             const allKeys = Object.keys(map).sort(
-              (a, b) => parseFloat(a) - parseFloat(b)
+              (a, b) => parseFloat(a) - parseFloat(b),
             )
             const lastOption = parseFloat(allKeys[allKeys.length - 1])
             if (numericValue && numericValue < lastOption) {
@@ -80,13 +84,13 @@ export const useVariations = ({
       })
     }
     const productSkus = getUniqueArrayValues<string[]>(
-      filteredVariations.map((variation) => variation.sku)
+      filteredVariations.map((variation) => variation.sku),
     )
     let uniqueAtts: string[] = []
     filteredVariations.forEach((variation) => {
       if (variation?.attributes?.[filterByAttribute as VariationAttributeKeys])
         uniqueAtts.push(
-          variation.attributes[filterByAttribute as VariationAttributeKeys]!
+          variation.attributes[filterByAttribute as VariationAttributeKeys]!,
         )
     })
     uniqueAtts = getUniqueArrayValues<string[]>(uniqueAtts)
@@ -99,7 +103,7 @@ export const useVariations = ({
             variation.sku === sku &&
             variation.attributes[
               filterByAttribute as VariationAttributeKeys
-            ] === attr
+            ] === attr,
         )
         if (variation) groupedFilteredVariations.push(variation)
       })
@@ -110,14 +114,13 @@ export const useVariations = ({
       filteredVariations = groupedFilteredVariations
     }
 
-    filteredVariations = filteredVariations.map((variation) => ({
-      ...variation,
-      images: {
-        thumbnail: [variation['variation-images'].thumbnail],
-        medium: [variation['variation-images'].medium],
-        large: [variation['variation-images'].large],
-      },
-    }))
+    filteredVariations = filteredVariations.map((variation) => {
+      const images = getImages(variation)
+      return {
+        ...variation,
+        images,
+      }
+    })
     let sortBy: RangeFilterAttribute | null = null
     if (filterLayers.includes('pa_width')) sortBy = 'pa_width'
     if (filterLayers.includes('pa_total-carat')) sortBy = 'pa_total-carat'
@@ -127,7 +130,7 @@ export const useVariations = ({
       filteredVariations = filteredVariations.sort(
         (a, b) =>
           parseInt(a.attributes[sortBy!]!.replace('-', '.')) -
-          parseInt(b.attributes[sortBy!]!.replace('-', '.'))
+          parseInt(b.attributes[sortBy!]!.replace('-', '.')),
       )
     }
   }

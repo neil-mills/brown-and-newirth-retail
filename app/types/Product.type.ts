@@ -41,11 +41,18 @@ export type VariationDiamondQuality = 'gsi' | 'hsi' | 'd-fvs' | 'gvs'
 export type VariationCeramicColours = 'Black' | 'Grey' | 'Blue' | 'Red'
 export type ProductCeramicColours = 'BLACK' | 'GREY' | 'BLUE' | 'RED'
 
-export interface Images<T> {
-  thumbnail: T
-  medium: T
-  large: T
+export interface Images {
+  thumbnail?: string
+  medium?: string
+  large: string
+  extra1?: string
+  extra2?: string
+  extra3?: string
+  extra4?: string
+  extra5?: string
+  extra6?: string
 }
+
 export type DiamondOrigin = 'NATURAL' | 'LAB GROWN'
 export type ProductType = 'DRESS RING' | 'PENDANT' | 'EARRING' | 'BRACELET'
 export type ProductShoulders = 'Plain' | 'Diamond'
@@ -112,8 +119,8 @@ export interface Product {
     'pa_ceramic-colour'?: ProductCeramicColours[]
   }
   collection: string | null
-  'product-images': Images<string>
-  images?: Images<string[]>
+  'product-images': Images
+  images?: string[]
   price: number
   'sale-price': number
   'related-upsell': number[]
@@ -130,8 +137,8 @@ export interface Variation {
   price: number
   'sale-price': number
   'stock-status': VariationStockStatus
-  'variation-images': Images<string>
-  images?: Images<string[]>
+  'variation-images': Images
+  images?: string[]
   attributes: VariationAttributes
   productId?: number
 }

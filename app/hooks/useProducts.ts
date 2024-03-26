@@ -1,8 +1,11 @@
-import { getUniqueArrayValues, productToVariation } from '@/app/utils'
+import {
+  getImages,
+  getUniqueArrayValues,
+  productToVariation,
+} from '@/app/utils'
 import {
   Product,
   ProductAttributeKeys,
-  Images,
   ProductFilters,
   Styles,
 } from '@/app/types'
@@ -17,7 +20,7 @@ interface Result {
 
 export const useProducts = (
   category: Styles,
-  filters: ProductFilters | null
+  filters: ProductFilters | null,
 ): Result => {
   let products: Product[] = []
   const { data, error, isLoading } = useGetData()
@@ -36,26 +39,26 @@ export const useProducts = (
     ) {
       if (category === 'Diamond') {
         products = data.filter((product) =>
-          product.attributes.pa_shoulders?.includes('Diamond')
+          product.attributes.pa_shoulders?.includes('Diamond'),
         )
       }
       if (category === 'Shaped') {
         products = data.filter(
-          (product) => product.attributes.pa_shaped?.length
+          (product) => product.attributes.pa_shaped?.length,
         )
       }
       if (category === 'HALF SET') {
         products = data.filter(
           (product) =>
             product?.attributes?.pa_coverage &&
-            product.attributes.pa_coverage.includes('Half')
+            product.attributes.pa_coverage.includes('Half'),
         )
       }
       if (category === 'FULL SET') {
         products = data.filter(
           (product) =>
             product?.attributes?.pa_coverage &&
-            product.attributes.pa_coverage.includes('Full')
+            product.attributes.pa_coverage.includes('Full'),
         )
       }
       if (category === 'Patterns') {
@@ -63,29 +66,29 @@ export const useProducts = (
           (product) =>
             product?.attributes?.pa_pattern &&
             product.attributes.pa_pattern.some(
-              (filter) => !['PLAIN', 'CERAMIC'].includes(filter)
-            )
+              (filter) => !['PLAIN', 'CERAMIC'].includes(filter),
+            ),
         )
       }
       if (category === 'Two Colour') {
         products = data.filter(
           (product) =>
             product?.attributes?.pa_pattern &&
-            product.attributes.pa_pattern.includes('MIXED METAL')
+            product.attributes.pa_pattern.includes('MIXED METAL'),
         )
       }
       if (category === 'PLAIN') {
         products = data.filter(
           (product) =>
             product?.attributes?.pa_pattern &&
-            product.attributes.pa_pattern.includes('PLAIN')
+            product.attributes.pa_pattern.includes('PLAIN'),
         )
       }
       if (category === 'CERAMIC') {
         products = data.filter(
           (product) =>
             product?.attributes?.pa_pattern &&
-            product.attributes.pa_pattern.includes('CERAMIC')
+            product.attributes.pa_pattern.includes('CERAMIC'),
         )
       }
     } else {
@@ -95,12 +98,12 @@ export const useProducts = (
           : data.filter(
               (product) =>
                 product?.attributes?.pa_style?.includes(category) ||
-                product?.attributes?.['pa_type-2']?.includes(category)
+                product?.attributes?.['pa_type-2']?.includes(category),
             )
     }
     stylesMap[category].filterLayers.forEach((filterLayer) => {
       products = products.filter(
-        (product) => product?.attributes?.[filterLayer]
+        (product) => product?.attributes?.[filterLayer],
       )
     })
 
@@ -108,8 +111,8 @@ export const useProducts = (
       Object.entries(filters).forEach(([filter, values]) => {
         products = products.filter((product) =>
           product?.attributes?.[filter as ProductAttributeKeys]?.some(
-            (attrValue) => values.includes(attrValue)
-          )
+            (attrValue) => values.includes(attrValue),
+          ),
         )
       })
     }
@@ -117,17 +120,8 @@ export const useProducts = (
       const variations = !product?.variations?.length
         ? [productToVariation(product)]
         : product.variations
-      const images: Images<string[]> = {
-        thumbnail: getUniqueArrayValues(
-          variations.map((variation) => variation['variation-images'].thumbnail)
-        ),
-        medium: getUniqueArrayValues(
-          variations.map((variation) => variation['variation-images'].medium)
-        ),
-        large: getUniqueArrayValues(
-          variations.map((variation) => variation['variation-images'].large)
-        ),
-      }
+      const images = getImages(product)
+
       return { ...product, images }
     })
   }

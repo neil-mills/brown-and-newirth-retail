@@ -29,13 +29,10 @@ export const ProductCard = ({ item, label, style }: Props) => {
   const searchParams = useSearchParams()
   const { filterLayers } = useStore((store) => store.selectedSku)
   const router = useRouter()
-  let carouselImages: string[] = []
-  if (item?.images?.large) {
-    carouselImages =
-      item.images.large.length > 1
-        ? item.images.large.slice(1)
-        : item.images.large
-  }
+  const carouselImages =
+    item?.images && item?.images?.length > 1
+      ? item.images.slice(1)
+      : [item.images![0]]
 
   let hasSecondFilterLayer = false
   const filterLayerKeys: FilterLayerKeys[] = [
@@ -62,8 +59,8 @@ export const ProductCard = ({ item, label, style }: Props) => {
   const url = isVariation(item)
     ? `sku/${item.sku}?${params}`
     : hasSecondFilterLayer
-    ? `productId/${item.productId}`
-    : `sku/${item.sku}`
+      ? `productId/${item.productId}`
+      : `sku/${item.sku}`
 
   useEffect(() => {
     router.prefetch(`/products/${url}`)
@@ -77,11 +74,11 @@ export const ProductCard = ({ item, label, style }: Props) => {
     <div className="col-6 col-sm-4 col-lg-6 col-xxl-4 col-product-grid">
       <div className="product-grid-item style-2 bg-grey-light position-relative">
         {style === 'product' && (
-          <img
+          <Image
+            src={item?.images?.[0] || ''}
             className="img-fluid w-100"
-            src={item?.images?.large?.[0] ? item.images.large[0] : ''}
-            width={245}
-            height={300}
+            width={612}
+            height={749}
             sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
             alt={item.name}
           />
@@ -104,11 +101,11 @@ export const ProductCard = ({ item, label, style }: Props) => {
                   key={i}
                   className={`carousel-item${i === 0 ? ' active' : ''}`}
                 >
-                  <img
+                  <Image
                     src={image}
                     className="img-fluid w-100"
-                    width={150}
-                    height={150}
+                    width={612}
+                    height={749}
                     alt={item.name}
                   />
                 </div>
@@ -152,12 +149,12 @@ export const ProductCard = ({ item, label, style }: Props) => {
               ) : (
                 <>
                   {filterLayers?.some((filterLayer) =>
-                    ['pa_centre-carat', 'pa_total-carat'].includes(filterLayer)
+                    ['pa_centre-carat', 'pa_total-carat'].includes(filterLayer),
                   ) && (
                     <>
                       <p className="mb-0">
                         {formatDiamondQuality(
-                          item?.attributes?.['pa_diamond-quality']
+                          item?.attributes?.['pa_diamond-quality'],
                         )}
                       </p>
                     </>

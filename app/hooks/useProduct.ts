@@ -1,12 +1,10 @@
-import {
-  Product,
-  Variation,
-  Images,
-  Styles,
-  FilterLayerKeys,
-} from '@/app/types'
+import { Product, Variation, Styles, FilterLayerKeys } from '@/app/types'
 import { useGetData } from '@/app/hooks'
-import { getUniqueArrayValues, productToVariation } from '@/app/utils'
+import {
+  getImages,
+  getUniqueArrayValues,
+  productToVariation,
+} from '@/app/utils'
 import { stylesMap } from '@/app/maps'
 
 interface ReturnValues {
@@ -14,7 +12,7 @@ interface ReturnValues {
   error: Error | null
   product: Product | null
   variations: Variation[]
-  images: Images<string[]>
+  images: string[]
   otherOptions: Variation[]
   relatedProducts: Product[]
   category: Styles[] | null
@@ -29,7 +27,7 @@ interface Props {
 export const useProduct = ({ sku, productId }: Props): ReturnValues => {
   let product: Product | null = null
   let variations: Variation[] = []
-  let images: Images<string[]> = { thumbnail: [], medium: [], large: [] }
+  let images: string[] = []
   let otherOptions: Variation[] = []
   let relatedProducts: Product[] = []
   let category: Styles[] | null = null
@@ -40,32 +38,32 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
     if (productId) {
       product =
         products?.find(
-          (product) => product?.productId.toString() === productId
+          (product) => product?.productId.toString() === productId,
         ) || null
     }
 
     if (sku) {
       product =
         products?.find((product) =>
-          product.variations.some((variation) => variation.sku === sku)
+          product.variations.some((variation) => variation.sku === sku),
         ) || null
     }
 
     if (product) {
       relatedProducts = products?.filter((p) =>
-        product?.['related-cross-sell'].includes(p.productId)
+        product?.['related-cross-sell'].includes(p.productId),
       )
       const productVariations = product?.variations?.length
         ? product.variations
         : [productToVariation(product)]
       if (productId) {
         const skus = getUniqueArrayValues<string[]>(
-          productVariations.map((variation) => variation.sku)
+          productVariations.map((variation) => variation.sku),
         )
         variations =
           skus.map(
             (sku) =>
-              productVariations.filter((variation) => variation.sku === sku)[0]
+              productVariations.filter((variation) => variation.sku === sku)[0],
           ) || []
       }
       if (sku) {
@@ -108,45 +106,19 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
       }
 
       if (variations?.length) {
-        images = {
-          thumbnail: getUniqueArrayValues<string[]>(
-            variations.map(
-              (variation) => variation['variation-images'].thumbnail
-            )
-          ),
-          medium: getUniqueArrayValues<string[]>(
-            variations.map((variation) => variation['variation-images'].medium)
-          ),
-          large: getUniqueArrayValues<string[]>(
-            variations.map((variation) => variation['variation-images'].large)
-          ),
-        }
+        images = getImages(product)
         const otherSkus = Array.from(
           new Set(
             productVariations
               .filter((variation) => variation.sku !== variations[0].sku)
-              .map((variation) => variation.sku)
-          )
+              .map((variation) => variation.sku),
+          ),
         )
         otherOptions = otherSkus.map((sku) => {
           const variations = productVariations.filter(
-            (variation) => variation.sku === sku
+            (variation) => variation.sku === sku,
           )
-          const images: Images<string[]> = {
-            thumbnail: getUniqueArrayValues<string[]>(
-              variations.map(
-                (variation) => variation['variation-images'].thumbnail
-              )
-            ),
-            medium: getUniqueArrayValues<string[]>(
-              variations.map(
-                (variation) => variation['variation-images'].medium
-              )
-            ),
-            large: getUniqueArrayValues<string[]>(
-              variations.map((variation) => variation['variation-images'].large)
-            ),
-          }
+          const images = getImages(product!)
 
           return {
             ...variations[0],
