@@ -3,7 +3,7 @@ import Image from 'next/image'
 import {
   FilterLayerKeys,
   Product,
-  ProductAttributeKeys,
+  ProductAttributeKeys, 
   Variation,
   isProduct,
   isVariation,
