@@ -117,7 +117,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
                 <button
                   className="carousel-control-prev"
                   type="button"
-                  data-bs-target="#carouselProductPreview"
+                  data-bs-target={`#${item.sku}`}
                   data-bs-slide="prev"
                 >
                   <span
@@ -129,7 +129,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
                 <button
                   className="carousel-control-next"
                   type="button"
-                  data-bs-target="#carouselProductPreview"
+                   data-bs-target={`#${item.sku}`}
                   data-bs-slide="next"
                 >
                   <span
