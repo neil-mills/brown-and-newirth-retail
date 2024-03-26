@@ -1,5 +1,5 @@
-import { Product, Variation, isProduct } from '../types'
-import { getUniqueArrayValues } from './getUniqueArrayValues'
+import { Product, Variation, isProduct } from '@/app/types'
+import { getUniqueArrayValues, productToVariation } from '@/app/utils'
 
 export const getImages = (item: Variation | Product): string[] => {
   let images: string[] = []
@@ -9,8 +9,11 @@ export const getImages = (item: Variation | Product): string[] => {
       item?.['product-images']?.thumbnail ||
       item?.['product-images']?.medium ||
       ''
+    const variations = !item?.variations?.length
+      ? [productToVariation(item)]
+      : item.variations
     const otherImageUrls = getUniqueArrayValues<string[]>(
-      item.variations
+      variations
         .reduce((acc, variation) => {
           const variationImages = Object.entries(
             variation['variation-images'],
