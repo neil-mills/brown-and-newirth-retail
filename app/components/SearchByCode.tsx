@@ -16,7 +16,7 @@ export const SearchByCode = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    const code = inputRef?.current?.value
+    const code = inputRef?.current?.value.toUpperCase()
     if (code) {
       const product = products?.find((product) =>
         product.variations.some((variation) => variation.sku === code)
