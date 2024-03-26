@@ -7,7 +7,7 @@ export const caratMap: Map = {
     label: '0.25',
     slug: '0.25',
     class: 'carat-025',
-    start: 0.25,
+    start: 0,
     end: 0.29,
   },
   '0.30': {

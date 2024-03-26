@@ -7,7 +7,7 @@ export const widthMap: Map = {
     label: '1.5mm',
     slug: '1.5',
     image: '/img/svg/icon-gauge-15.svg',
-    start: 1.5,
+    start: 0,
     end: 1.99,
   },
   '2': {
