@@ -14,7 +14,7 @@ interface SelectedSku {
   product: Product | null
   variations: Variation[]
   variation?: Variation | null
-  images: Images<string[]>
+  images: string[]
   otherOptions: Variation[]
   diamondOrigin?: string
   centreCarat?: string
@@ -55,7 +55,7 @@ const selectedSku = {
   product: null,
   variations: [],
   variationId: null,
-  images: { thumbnail: [], medium: [], large: [] },
+  images: [],
   otherOptions: [],
   diamondOrigin: '',
   centreCarat: '',
