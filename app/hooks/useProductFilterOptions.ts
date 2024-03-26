@@ -18,7 +18,7 @@ import {
   caratMap,
   ceramicColoursMap,
 } from '@/app/maps'
-import { getUniqueArrayValues } from '@/app/utils'
+import { getCategoryProducts, getUniqueArrayValues } from '@/app/utils'
 
 type ProductFilterAttributesMap = { [K in ProductFilterAttributeKeys]: Map }
 
@@ -57,51 +57,8 @@ export const useProductFilterOptions = ({
   let filteredProducts = products
   if (!isLoading && !error && products) {
     if (category) {
-      filteredProducts = products.filter((product: Product) => {
-        if (category === 'Patterns') {
-          return (
-            product?.attributes?.pa_pattern &&
-            !product.attributes.pa_pattern.some((pattern) =>
-              ['PLAIN', 'MIXED METAL', 'CERAMIC'].includes(pattern)
-            )
-          )
-        } else if (category === 'Diamond') {
-          return (
-            product?.attributes?.pa_shoulders &&
-            product.attributes.pa_shoulders.includes('Diamond')
-          )
-        } else if (category === 'PLAIN') {
-          return (
-            product?.attributes?.pa_pattern &&
-            product.attributes.pa_pattern.includes('PLAIN')
-          )
-        } else if (category === 'CERAMIC') {
-          return (
-            product?.attributes?.pa_pattern &&
-            product.attributes.pa_pattern.includes('CERAMIC')
-          )
-        } else if (category === 'Two Colour') {
-          return (
-            product?.attributes?.pa_pattern &&
-            product.attributes.pa_pattern.includes('MIXED METAL')
-          )
-        } else if (category === 'HALF SET') {
-          return (
-            product?.attributes?.pa_coverage &&
-            product.attributes.pa_coverage.includes('Half')
-          )
-        } else if (category === 'FULL SET') {
-          return (
-            product?.attributes?.pa_coverage &&
-            product.attributes.pa_coverage.includes('Full')
-          )
-        } else {
-          return (
-            product.attributes?.pa_style?.includes(category as Styles) ||
-            product.attributes?.['pa_type-2']?.includes(category as Styles)
-          )
-        }
-      })
+      filteredProducts = getCategoryProducts(products, category)
+     
       stylesMap[category].filterLayers.forEach((filterLayer) => {
         filteredProducts = filteredProducts.filter(
           (product) => product?.attributes?.[filterLayer]
