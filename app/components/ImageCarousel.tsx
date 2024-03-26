@@ -20,6 +20,7 @@ export const ImageCarousel = () => {
         {images.map((src: string, i: number) => (
           <div key={i} className="carousel-item bg-grey-light active">
             <Image
+            priority
               src={src}
               width={720}
               height={880}
