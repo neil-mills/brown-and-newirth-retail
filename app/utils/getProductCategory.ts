@@ -33,7 +33,7 @@ export const getProductCategory = (product: Product): Styles[] | null => {
   if (
     !category &&
     product?.attributes?.pa_pattern &&
-    product.attributes.pa_pattern.some(
+    product.attributes.pa_pattern.every(
       (filter) => !['PLAIN', 'CERAMIC', 'MIXED METAL'].includes(filter)
     )
   ) {
