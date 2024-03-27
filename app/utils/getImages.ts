@@ -16,11 +16,11 @@ export const getImages = (item: Variation | Product): string[] => {
       variations
         .reduce((acc, variation) => {
           const variationImages = Object.entries(
-            variation['variation-images'],
+            variation['variation-images']
           ).map(([_key, url]) => url)
           return [...acc, ...variationImages]
         }, [] as string[])
-        .filter((url) => url !== mainImageUrl),
+        .filter((url) => url !== mainImageUrl)
     )
     images = [mainImageUrl, ...otherImageUrls]
   } else {
@@ -32,7 +32,7 @@ export const getImages = (item: Variation | Product): string[] => {
     const otherImageUrls = getUniqueArrayValues<string[]>(
       Object.entries(item['variation-images'])
         .map(([_key, url]) => url)
-        .filter((url) => url !== mainImageUrl),
+        .filter((url) => url !== mainImageUrl)
     )
     images = [mainImageUrl, ...otherImageUrls]
   }

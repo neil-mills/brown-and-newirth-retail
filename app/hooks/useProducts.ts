@@ -1,7 +1,4 @@
-import {
-  getCategoryProducts,
-  getImages,
-} from '@/app/utils'
+import { getCategoryProducts, getImages } from '@/app/utils'
 import {
   Product,
   ProductAttributeKeys,
@@ -19,7 +16,7 @@ interface Result {
 
 export const useProducts = (
   category: Styles,
-  filters: ProductFilters | null,
+  filters: ProductFilters | null
 ): Result => {
   let products: Product[] = []
   const { data, error, isLoading } = useGetData()
@@ -28,7 +25,7 @@ export const useProducts = (
 
     stylesMap[category].filterLayers.forEach((filterLayer) => {
       products = products.filter(
-        (product) => product?.attributes?.[filterLayer],
+        (product) => product?.attributes?.[filterLayer]
       )
     })
 
@@ -36,8 +33,8 @@ export const useProducts = (
       Object.entries(filters).forEach(([filter, values]) => {
         products = products.filter((product) =>
           product?.attributes?.[filter as ProductAttributeKeys]?.some(
-            (attrValue) => values.includes(attrValue),
-          ),
+            (attrValue) => values.includes(attrValue)
+          )
         )
       })
     }

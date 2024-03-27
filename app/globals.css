@@ -7,7 +7,8 @@
 @font-face {
   font-family: 'Stem';
   src: url('/webfonts/hinted-Stem-Light.eot');
-  src: url('/webfonts/hinted-Stem-Light.eot?#iefix') format('embedded-opentype'),
+  src:
+    url('/webfonts/hinted-Stem-Light.eot?#iefix') format('embedded-opentype'),
     url('/webfonts/hinted-Stem-Light.woff2') format('woff2'),
     url('/webfonts/hinted-Stem-Light.woff') format('woff'),
     url('/webfonts/hinted-Stem-Light.ttf') format('truetype'),
@@ -20,7 +21,8 @@
 @font-face {
   font-family: 'Stem Extra';
   src: url('/webfonts/hinted-Stem-ExtraLight.eot');
-  src: url('/webfonts/hinted-Stem-ExtraLight.eot?#iefix')
+  src:
+    url('/webfonts/hinted-Stem-ExtraLight.eot?#iefix')
       format('embedded-opentype'),
     url('/webfonts/hinted-Stem-ExtraLight.woff2') format('woff2'),
     url('/webfonts/hinted-Stem-ExtraLight.woff') format('woff'),
@@ -1269,31 +1271,57 @@ a {
 }
 */
 
-
-
-
-
-
-
 /* Temp front page icon reorder  */
 .front-page-category {
-  &:nth-child(7) {order: 1}
-  &:nth-child(2) {order: 2}
-  &:nth-child(6) {order: 3}
-  &:nth-child(9) {order: 4}
-  &:nth-child(18) {order: 5}
-  &:nth-child(15) {order: 6}
-  &:nth-child(19) {order: 7}
-  &:nth-child(17) {order: 8}
-  &:nth-child(12) {order: 9}
-  &:nth-child(16) {order: 10}
-  &:nth-child(13) {order: 11}
-  &:nth-child(14) {order: 12}
-  &:nth-child(1) {order: 13}
-  &:nth-child(4) {order: 14}
-  &:nth-child(3) {order: 15}
-  &:nth-child(8) {order: 16}
-  
+  &:nth-child(7) {
+    order: 1;
+  }
+  &:nth-child(2) {
+    order: 2;
+  }
+  &:nth-child(6) {
+    order: 3;
+  }
+  &:nth-child(9) {
+    order: 4;
+  }
+  &:nth-child(18) {
+    order: 5;
+  }
+  &:nth-child(15) {
+    order: 6;
+  }
+  &:nth-child(19) {
+    order: 7;
+  }
+  &:nth-child(17) {
+    order: 8;
+  }
+  &:nth-child(12) {
+    order: 9;
+  }
+  &:nth-child(16) {
+    order: 10;
+  }
+  &:nth-child(13) {
+    order: 11;
+  }
+  &:nth-child(14) {
+    order: 12;
+  }
+  &:nth-child(1) {
+    order: 13;
+  }
+  &:nth-child(4) {
+    order: 14;
+  }
+  &:nth-child(3) {
+    order: 15;
+  }
+  &:nth-child(8) {
+    order: 16;
+  }
+
   &:nth-child(5),
   &:nth-child(10),
   &:nth-child(11),

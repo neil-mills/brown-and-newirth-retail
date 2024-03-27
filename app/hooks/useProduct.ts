@@ -39,32 +39,32 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
     if (productId) {
       product =
         products?.find(
-          (product) => product?.productId.toString() === productId,
+          (product) => product?.productId.toString() === productId
         ) || null
     }
 
     if (sku) {
       product =
         products?.find((product) =>
-          product.variations.some((variation) => variation.sku === sku),
+          product.variations.some((variation) => variation.sku === sku)
         ) || null
     }
 
     if (product) {
       relatedProducts = products?.filter((p) =>
-        product?.['related-cross-sell'].includes(p.productId),
+        product?.['related-cross-sell'].includes(p.productId)
       )
       const productVariations = product?.variations?.length
         ? product.variations
         : [productToVariation(product)]
       if (productId) {
         const skus = getUniqueArrayValues<string[]>(
-          productVariations.map((variation) => variation.sku),
+          productVariations.map((variation) => variation.sku)
         )
         variations =
           skus.map(
             (sku) =>
-              productVariations.filter((variation) => variation.sku === sku)[0],
+              productVariations.filter((variation) => variation.sku === sku)[0]
           ) || []
       }
       if (sku) {
@@ -81,12 +81,12 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
           new Set(
             productVariations
               .filter((variation) => variation.sku !== variations[0].sku)
-              .map((variation) => variation.sku),
-          ),
+              .map((variation) => variation.sku)
+          )
         )
         otherOptions = otherSkus.map((sku) => {
           const variations = productVariations.filter(
-            (variation) => variation.sku === sku,
+            (variation) => variation.sku === sku
           )
           const images = getImages(product!)
 

@@ -3,7 +3,7 @@ import { metalsMap } from '@/app/maps'
 type MetalCode = 'plt' | '18y' | '18w' | '18r'
 const keys = ['y', 'w', 'r'] as const
 
-type Key = typeof keys[number]
+type Key = (typeof keys)[number]
 
 const isMetalCode = (str: string | MetalCode): str is MetalCode => {
   return ['plt', '18w', '18y', '18r'].includes(str)

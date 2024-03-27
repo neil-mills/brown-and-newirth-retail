@@ -41,8 +41,8 @@ export const useVariations = ({
         if (!rangeAttributes.includes(filter as RangeFilterAttribute)) {
           filteredVariations = filteredVariations.filter((variation) =>
             values.includes(
-              variation?.attributes?.[filter as VariationAttributeKeys]!,
-            ),
+              variation?.attributes?.[filter as VariationAttributeKeys]!
+            )
           )
         } else {
           values = values.map((value) => value.replace('-', '.'))
@@ -53,7 +53,7 @@ export const useVariations = ({
               ? parseFloat(
                   variation.attributes[
                     filter as VariationAttributeKeys
-                  ]!.replace('-', '.'),
+                  ]!.replace('-', '.')
                 )
               : null
             const map = rangeFilterMap[filter as RangeFilterAttribute]
@@ -64,7 +64,7 @@ export const useVariations = ({
             })
 
             const allKeys = Object.keys(map).sort(
-              (a, b) => parseFloat(a) - parseFloat(b),
+              (a, b) => parseFloat(a) - parseFloat(b)
             )
             const lastOption = parseFloat(allKeys[allKeys.length - 1])
             if (numericValue && numericValue < lastOption) {
@@ -84,13 +84,13 @@ export const useVariations = ({
       })
     }
     const productSkus = getUniqueArrayValues<string[]>(
-      filteredVariations.map((variation) => variation.sku),
+      filteredVariations.map((variation) => variation.sku)
     )
     let uniqueAtts: string[] = []
     filteredVariations.forEach((variation) => {
       if (variation?.attributes?.[filterByAttribute as VariationAttributeKeys])
         uniqueAtts.push(
-          variation.attributes[filterByAttribute as VariationAttributeKeys]!,
+          variation.attributes[filterByAttribute as VariationAttributeKeys]!
         )
     })
     uniqueAtts = getUniqueArrayValues<string[]>(uniqueAtts)
@@ -103,7 +103,7 @@ export const useVariations = ({
             variation.sku === sku &&
             variation.attributes[
               filterByAttribute as VariationAttributeKeys
-            ] === attr,
+            ] === attr
         )
         if (variation) groupedFilteredVariations.push(variation)
       })
@@ -130,7 +130,7 @@ export const useVariations = ({
       filteredVariations = filteredVariations.sort(
         (a, b) =>
           parseInt(a.attributes[sortBy!]!.replace('-', '.')) -
-          parseInt(b.attributes[sortBy!]!.replace('-', '.')),
+          parseInt(b.attributes[sortBy!]!.replace('-', '.'))
       )
     }
   }

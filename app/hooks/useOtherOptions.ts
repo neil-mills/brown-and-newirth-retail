@@ -8,7 +8,7 @@ import { Variation, Images } from '@/app/types'
 
 export const useOtherOptions = () => {
   const { product, variations: productVariations } = useStore(
-    (store) => store.selectedSku,
+    (store) => store.selectedSku
   )
   let otherOptions: Variation[] = []
   if (product) {
@@ -18,12 +18,12 @@ export const useOtherOptions = () => {
     const otherSkus = getUniqueArrayValues<string[]>(
       variations
         .filter((variation) => variation.sku !== variations[0].sku)
-        .map((variation) => variation.sku),
+        .map((variation) => variation.sku)
     )
 
     otherOptions = otherSkus.map((sku) => {
       const allVariations = variations.filter(
-        (variation) => variation.sku === sku,
+        (variation) => variation.sku === sku
       )
       const images = getImages(product)
 

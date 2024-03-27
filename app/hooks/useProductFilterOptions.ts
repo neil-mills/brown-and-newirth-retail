@@ -58,7 +58,7 @@ export const useProductFilterOptions = ({
   if (!isLoading && !error && products) {
     if (category) {
       filteredProducts = getCategoryProducts(products, category)
-     
+
       stylesMap[category].filterLayers.forEach((filterLayer) => {
         filteredProducts = filteredProducts.filter(
           (product) => product?.attributes?.[filterLayer]

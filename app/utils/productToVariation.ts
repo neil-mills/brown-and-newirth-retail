@@ -18,7 +18,7 @@ export const productToVariation = (product: Product): Variation => {
   } = product
 
   const attributes: VariationAttributes = Object.entries(
-    productAttributes,
+    productAttributes
   ).reduce((acc, [key, valueArr]) => {
     return { ...acc, [key]: valueArr[0].toLowerCase().replace('.', '-') }
   }, {} as VariationAttributes)

@@ -1,5 +1,5 @@
 export const searchParamsToObject = (
-  searchParamsStr: string,
+  searchParamsStr: string
 ): Record<string, string> => {
   const searchParams = new URLSearchParams(searchParamsStr)
   const searchParamsObj: Record<string, string> = {}

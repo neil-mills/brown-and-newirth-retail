@@ -84,7 +84,7 @@ export interface Product {
   name: string
   sku: string
   permalink: string
-  category: 'ENGAGEMENT' | 'ETERNITY' | 'WEDDING' | 'JEWELLERY',
+  category: 'ENGAGEMENT' | 'ETERNITY' | 'WEDDING' | 'JEWELLERY'
   attributes: {
     'pa_metal-code': MetalCode[]
     pa_gauge?: ('Light' | 'Medium' | 'Heavy' | 'Super Heavy')[]

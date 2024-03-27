@@ -3,7 +3,7 @@ import Image from 'next/image'
 import {
   FilterLayerKeys,
   Product,
-  ProductAttributeKeys, 
+  ProductAttributeKeys,
   Variation,
   isProduct,
   isVariation,
@@ -129,7 +129,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
                 <button
                   className="carousel-control-next"
                   type="button"
-                   data-bs-target={`#${item.sku}`}
+                  data-bs-target={`#${item.sku}`}
                   data-bs-slide="next"
                 >
                   <span
@@ -149,12 +149,12 @@ export const ProductCard = ({ item, label, style }: Props) => {
               ) : (
                 <>
                   {filterLayers?.some((filterLayer) =>
-                    ['pa_centre-carat', 'pa_total-carat'].includes(filterLayer),
+                    ['pa_centre-carat', 'pa_total-carat'].includes(filterLayer)
                   ) && (
                     <>
                       <p className="mb-0">
                         {formatDiamondQuality(
-                          item?.attributes?.['pa_diamond-quality'],
+                          item?.attributes?.['pa_diamond-quality']
                         )}
                       </p>
                     </>
