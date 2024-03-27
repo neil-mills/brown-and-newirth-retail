@@ -2,13 +2,19 @@
 import { useStore } from '@/app/hooks'
 import { BasketModal } from '@/app/components'
 import { basket as basketUtils } from '@/app/utils'
+import axios, { AxiosError } from 'axios'
+import { useState } from 'react'
 
 export const AddToBasket = () => {
   const { variation } = useStore((store) => store.selectedSku)
   const basket = useStore((store) => store.basket)
   const setBasket = useStore((store) => store.setBasket)
+  const setShowModal = useStore((store) => store.setShowModal)
+  const setToastMessage = useStore((store) => store.setToastMessage)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    setToastMessage('')
     if (variation) {
       const variationId = variation['variation-id']
       const updatedBasket = basketUtils.add({
@@ -17,6 +23,18 @@ export const AddToBasket = () => {
         currentBasket: basket,
       })
       setBasket(updatedBasket)
+      try {
+        setIsLoading(true)
+        const res = await axios.post('/api/basket', { variationId })
+        if (res.status === 200) {
+          setShowModal(true)
+        }
+        setIsLoading(false)
+      } catch (err) {
+        const error = err as AxiosError
+        setToastMessage(`Error: ${error.message}`)
+        setIsLoading(false)
+      }
     }
   }
 
@@ -32,8 +50,7 @@ export const AddToBasket = () => {
         <div className="product-single-add-to-basket">
           <button
             className="btn bg-pink w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#modalBasket"
+            disabled={isLoading}
             onClick={() => handleClick()}
           >
             <span>Add to basket</span>

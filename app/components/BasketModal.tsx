@@ -1,11 +1,41 @@
+'use client'
 import { useStore } from '@/app/hooks'
 import { formatMetal } from '../utils'
 import Image from 'next/image'
+import { MutableRefObject, useEffect, useRef } from 'react'
+import { Modal } from 'bootstrap'
 
 export const BasketModal = () => {
   const { variation, size, metal } = useStore((store) => store.selectedSku)
+  const modalRef = useRef<Element | string>('')
+  const setShowModal = useStore((store) => store.setShowModal)
+  const showModal = useStore((store) => store.showModal)
+
+  useEffect(() => {
+    const reset = () => {
+      bsModal?.hide()
+      setShowModal(false)
+    }
+    const modal = modalRef.current
+    let bsModal = Modal.getInstance(modal)
+    ;(modalRef.current as HTMLDivElement).removeEventListener(
+      'hidden.bs.modal',
+      () => reset()
+    )
+    ;(modalRef.current as HTMLDivElement).addEventListener(
+      'hidden.bs.modal',
+      () => reset()
+    )
+    if (!bsModal) {
+      bsModal = new Modal(modal, { keyboard: false })
+      reset()
+    } else {
+      showModal ? bsModal.show() : bsModal.hide()
+    }
+  })
   return (
     <div
+      ref={modalRef as MutableRefObject<HTMLDivElement>}
       className={`modal modal-added-to-basket fade`}
       id="modalBasket"
       tabIndex={-1}
