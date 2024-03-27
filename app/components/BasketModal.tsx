@@ -3,7 +3,6 @@ import { useStore } from '@/app/hooks'
 import { formatMetal } from '../utils'
 import Image from 'next/image'
 import { MutableRefObject, useEffect, useRef } from 'react'
-import dynamic from 'next/dynamic'
 
 export const BasketModal = () => {
   const { variation, size, metal } = useStore((store) => store.selectedSku)
