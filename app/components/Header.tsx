@@ -47,6 +47,7 @@ export const Header = () => {
         </div>
         <Link className="navbar-logo position-absolute" href="/">
           <Image
+            priority
             src="/img/svg/logo-brown-and-newirth.svg"
             alt="Brown and Newirth"
             width={179}
