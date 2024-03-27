@@ -4,7 +4,13 @@ import {
   QueryClient,
   dehydrate,
 } from '@tanstack/react-query'
-import { SearchByCode, SearchByStyle } from '@/app/components'
+import { CategoryGridSkeleton, SearchByCode } from '@/app/components'
+import dynamic from 'next/dynamic'
+
+const SearchByStyle = dynamic(() => import('@/app/components/SearchByStyle'), {
+  ssr: false,
+  loading: () => <CategoryGridSkeleton />,
+})
 
 export default async function Home() {
   const queryClient = new QueryClient()
