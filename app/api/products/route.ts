@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
   const res = await axios.get<Product[]>(
-    'https://www.brownandnewirth.com/wp-json/productData/v1/data'
+    // 'https://www.brownandnewirth.com/wp-json/productData/v1/data'
+    'https://www.brownandnewirth.com/product-data/get-products.json'
   )
   return NextResponse.json(res.data)
 }
