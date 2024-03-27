@@ -3,7 +3,7 @@ import { useStore } from '@/app/hooks'
 import { formatMetal } from '../utils'
 import Image from 'next/image'
 import { MutableRefObject, useEffect, useRef } from 'react'
-import { Modal } from 'bootstrap'
+import dynamic from 'next/dynamic'
 
 export const BasketModal = () => {
   const { variation, size, metal } = useStore((store) => store.selectedSku)
@@ -12,26 +12,31 @@ export const BasketModal = () => {
   const showModal = useStore((store) => store.showModal)
 
   useEffect(() => {
-    const reset = () => {
-      bsModal?.hide()
-      setShowModal(false)
+    const setupModal = async () => {
+      const bootstrap = await import('bootstrap')
+      const Modal = bootstrap.Modal
+      const reset = () => {
+        bsModal?.hide()
+        setShowModal(false)
+      }
+      const modal = modalRef.current
+      let bsModal = Modal.getInstance(modal)
+      ;(modalRef.current as HTMLDivElement).removeEventListener(
+        'hidden.bs.modal',
+        () => reset()
+      )
+      ;(modalRef.current as HTMLDivElement).addEventListener(
+        'hidden.bs.modal',
+        () => reset()
+      )
+      if (!bsModal) {
+        bsModal = new Modal(modal, { keyboard: false })
+        reset()
+      } else {
+        showModal ? bsModal.show() : bsModal.hide()
+      }
     }
-    const modal = modalRef.current
-    let bsModal = Modal.getInstance(modal)
-    ;(modalRef.current as HTMLDivElement).removeEventListener(
-      'hidden.bs.modal',
-      () => reset()
-    )
-    ;(modalRef.current as HTMLDivElement).addEventListener(
-      'hidden.bs.modal',
-      () => reset()
-    )
-    if (!bsModal) {
-      bsModal = new Modal(modal, { keyboard: false })
-      reset()
-    } else {
-      showModal ? bsModal.show() : bsModal.hide()
-    }
+    setupModal()
   })
   return (
     <div

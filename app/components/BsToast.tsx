@@ -1,34 +1,39 @@
 'use client'
 import { MutableRefObject, useEffect, useRef } from 'react'
-import { Toast } from 'bootstrap'
 import { useStore } from '@/app/hooks'
 
 export const BsToast = () => {
   const toastRef = useRef<Element | string>('')
   const setToastMessage = useStore((store) => store.setToastMessage)
   const toastMessage = useStore((store) => store.toastMessage)
-  useEffect(() => {
-    const reset = () => {
-      bsToast?.hide()
-      setToastMessage('')
-    }
-    const toast = toastRef.current
-    let bsToast = Toast.getInstance(toast)
 
-    if (!bsToast) {
-      bsToast = new Toast(toast, { autohide: false })
-      ;(toastRef.current as HTMLDivElement).removeEventListener(
-        'hidden.bs.toast',
-        () => reset()
-      )
-      ;(toastRef.current as HTMLDivElement).addEventListener(
-        'hidden.bs.toast',
-        () => reset()
-      )
-      reset()
-    } else {
-      toastMessage ? bsToast.show() : bsToast.hide()
+  useEffect(() => {
+    const setupToast = async () => {
+      const bootstrap = await import('bootstrap')
+      const Toast = bootstrap.Toast
+      const reset = () => {
+        bsToast?.hide()
+        setToastMessage('')
+      }
+      const toast = toastRef.current
+      let bsToast = Toast.getInstance(toast)
+
+      if (!bsToast) {
+        bsToast = new Toast(toast, { autohide: false })
+        ;(toastRef.current as HTMLDivElement).removeEventListener(
+          'hidden.bs.toast',
+          () => reset()
+        )
+        ;(toastRef.current as HTMLDivElement).addEventListener(
+          'hidden.bs.toast',
+          () => reset()
+        )
+        reset()
+      } else {
+        toastMessage ? bsToast.show() : bsToast.hide()
+      }
     }
+    setupToast()
   })
 
   return (
