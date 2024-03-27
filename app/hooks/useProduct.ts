@@ -74,6 +74,7 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
       }
 
       category = getProductCategory(product)
+      if (category) filterLayers = stylesMap[category[0]].filterLayers
 
       if (variations?.length) {
         images = getImages(product)
