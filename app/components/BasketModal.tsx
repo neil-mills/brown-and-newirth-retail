@@ -45,7 +45,7 @@ export const BasketModal = () => {
       tabIndex={-1}
     >
       <div className="modal-dialog modal-dialog-centered mx-auto">
-        <div className="modal-content">
+      <div className="modal-content">
           <button
             type="button"
             className="btn-close position-absolute"
@@ -57,10 +57,10 @@ export const BasketModal = () => {
               <div className="col-sm-6 col-pad-sm mb-16px">
                 <div className="bg-grey-light">
                   <Image
-                    src={variation?.['variation-images'].medium || ''}
+                    src={variation?.['variation-images'].large || ''}
                     className="img-fluid w-100"
-                    width={150}
-                    height={150}
+                    width={612}
+                    height={749}
                     quality={75}
                     alt={variation?.name || ''}
                   />
