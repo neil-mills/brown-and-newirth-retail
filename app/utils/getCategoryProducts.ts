@@ -52,8 +52,8 @@ export const getCategoryProducts = (
       products = data.filter(
         (product) =>
           product?.attributes?.pa_pattern &&
-          product.attributes.pa_pattern.some(
-            (filter) => !['PLAIN', 'CERAMIC'].includes(filter)
+          product.attributes.pa_pattern.every(
+            (filter) => !['PLAIN', 'CERAMIC', 'MIXED METAL'].includes(filter)
           ) &&
           product.category === 'WEDDING'
       )
@@ -68,8 +68,8 @@ export const getCategoryProducts = (
       products = data.filter(
         (product) =>
           product?.attributes?.pa_pattern &&
-          product.attributes.pa_pattern.includes('PLAIN') /* && */
-        // product.category === 'WEDDING',
+          product.attributes.pa_pattern.includes('PLAIN') &&
+          product.category === 'WEDDING'
       )
     } else if (category === 'CERAMIC') {
       products = data.filter(
