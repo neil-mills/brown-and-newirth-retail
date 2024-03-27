@@ -28,6 +28,10 @@ interface Store {
   basket: BasketItem[]
   searchParams: string
   filters: Filters
+  toastMessage: string
+  showModal: boolean
+  setToastMessage: (toastMessage: string) => void
+  setShowModal: (showModal: boolean) => void
   setFilters: (filters: Filters) => void
   setSearchParams: (searchParams: string) => void
   setSelectedSku: (selectedSku: SelectedSku) => void
@@ -54,7 +58,7 @@ const selectedSku = {
   sku: null,
   product: null,
   variations: [],
-  variationId: null,
+  variation: null,
   images: [],
   otherOptions: [],
   diamondOrigin: '',
@@ -68,6 +72,8 @@ export const useStore = create<Store>((set) => ({
   selectedSku,
   basket: [],
   searchParams: '',
+  toastMessage: '',
+  showModal: false,
   filters: {
     pa_diamond: [],
     'pa_centre-carat': [],
@@ -82,6 +88,10 @@ export const useStore = create<Store>((set) => ({
     pa_profile: [],
     'pa_ceramic-colour': [],
   },
+  setToastMessage: (toastMessage: string) =>
+    set((store) => ({ ...store, toastMessage })),
+  setShowModal: (showModal: boolean) =>
+    set((store) => ({ ...store, showModal })),
   productsQuery: {} as ProductsQuery,
   setSelectedSku: (selectedSku: SelectedSku) =>
     set((store) => ({ ...store, selectedSku })),
