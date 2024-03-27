@@ -6,4 +6,9 @@ export const metalsMap: Record<string, string> = {
   '9r': 'Rose Gold',
   '18r': 'Rose Gold',
   plt: 'Platinum',
+  '18pl': 'Platinum',
+  pl18: 'Platinum',
+  pl9: 'Platinum',
+  '9pl': 'Platinum',
+  '18k': '18k?',
 }
