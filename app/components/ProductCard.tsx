@@ -79,6 +79,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
             className="img-fluid w-100"
             width={612}
             height={749}
+            quality={70}
             sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
             alt={item.name}
           />
@@ -106,6 +107,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
                     className="img-fluid w-100"
                     width={612}
                     height={749}
+                    quality={70}
                     sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
                     alt={item.name}
                   />
