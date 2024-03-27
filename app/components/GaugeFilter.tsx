@@ -41,11 +41,12 @@ export const GaugeFilter = () => {
               onClick={() => handleClick(gauge.slug)}
               disabled={
                 !availableGauges.includes(gauge.slug as VariationGauge) ||
-                gauges.length === 1
+                availableGauges.length === 1
               }
               aria-pressed={
                 storeFilters.pa_gauge.includes(gauge.slug) ||
-                gauges.length === 1
+                (availableGauges.includes(gauge.slug as VariationGauge) &&
+                  availableGauges.length === 1)
               }
             >
               <span>{gauge.label}</span>
