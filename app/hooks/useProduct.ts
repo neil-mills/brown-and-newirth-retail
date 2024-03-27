@@ -2,6 +2,7 @@ import { Product, Variation, Styles, FilterLayerKeys } from '@/app/types'
 import { useGetData } from '@/app/hooks'
 import {
   getImages,
+  getProductCategory,
   getUniqueArrayValues,
   productToVariation,
 } from '@/app/utils'
@@ -72,38 +73,7 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
           : []
       }
 
-      category =
-        product?.attributes?.['pa_type-2'] ||
-        product?.attributes?.pa_style ||
-        product?.attributes?.pa_pattern ||
-        null
-      if (
-        !category &&
-        product?.attributes?.pa_shaped &&
-        product.attributes.pa_shaped.length
-      ) {
-        category = ['Shaped']
-      }
-      if (
-        !category &&
-        product?.attributes?.pa_coverage &&
-        product.attributes.pa_coverage.includes('Half')
-      ) {
-        category = ['HALF SET']
-      }
-      if (
-        !category &&
-        product?.attributes?.pa_coverage &&
-        product.attributes.pa_coverage.includes('Full')
-      ) {
-        category = ['FULL SET']
-      }
-      if (category) {
-        category.forEach((cat) => {
-          filterLayers = [...filterLayers, ...stylesMap[cat].filterLayers]
-        })
-        filterLayers = getUniqueArrayValues<FilterLayerKeys[]>(filterLayers)
-      }
+      category = getProductCategory(product)
 
       if (variations?.length) {
         images = getImages(product)
