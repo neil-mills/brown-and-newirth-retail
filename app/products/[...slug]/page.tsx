@@ -76,7 +76,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const FilteredVariations = dynamic(
     () => import('@/app/components/FilteredVariations'),
     {
-      ssr: false,
+      ssr: true,
       loading: () => (
         <>
           <TitleBar>
@@ -113,7 +113,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
             </div>
           </>
         ) : (
-          <FilteredVariations isLoading={true} filters={filters} />
+          <FilteredVariations isLoading={isLoading} filters={filters} />
         )}
       </div>
     </>
