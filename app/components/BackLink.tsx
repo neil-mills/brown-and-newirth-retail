@@ -6,6 +6,7 @@ export const BackLink = () => {
   const router = useRouter()
   return (
     <Link
+      prefetch={false}
       href="#"
       onClick={() => router.back()}
       className="mb-2 fw-300"
