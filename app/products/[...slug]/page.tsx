@@ -113,7 +113,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
             </div>
           </>
         ) : (
-          <FilteredVariations isLoading={isLoading} filters={filters} />
+          <FilteredVariations isLoading={true} filters={filters} />
         )}
       </div>
     </>
