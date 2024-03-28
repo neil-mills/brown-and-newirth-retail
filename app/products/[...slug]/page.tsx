@@ -15,6 +15,7 @@ import {
   useGetParams,
 } from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
+import FilteredVariations from '@/app/components/FilteredVariations'
 import dynamic from 'next/dynamic'
 
 interface Props {
@@ -73,20 +74,20 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   ])
   if (error) return <p>{error.message}</p>
 
-  const FilteredVariations = dynamic(
-    () => import('@/app/components/FilteredVariations'),
-    {
-      ssr: false,
-      loading: () => (
-        <>
-          <TitleBar>
-            <span style={{ visibility: 'hidden' }}>Loading</span>
-          </TitleBar>
-          <ProductGridSkeleton />
-        </>
-      ),
-    }
-  )
+  // const FilteredVariations = dynamic(
+  //   () => import('@/app/components/FilteredVariations'),
+  //   {
+  //     ssr: false,
+  //     loading: () => (
+  //       <>
+  //         <TitleBar>
+  //           <span style={{ visibility: 'hidden' }}>Loading</span>
+  //         </TitleBar>
+  //         <ProductGridSkeleton />
+  //       </>
+  //     ),
+  //   }
+  // )
 
   return (
     <>
@@ -113,7 +114,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
             </div>
           </>
         ) : (
-          <FilteredVariations isLoading={true} filters={filters} />
+          <FilteredVariations isLoading={isLoading} filters={filters} />
         )}
       </div>
     </>
