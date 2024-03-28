@@ -44,6 +44,10 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   } = useProduct({ productId, sku })
 
   useEffect(() => {
+    setIsLoading(isLoading)
+  }, [isLoading, setIsLoading])
+
+  useEffect(() => {
     setSelectedSku({
       sku,
       product,
@@ -56,7 +60,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
       diamondOrigin: searchParams.get('pa_diamond') || '',
       centreCarat: searchParams.get('pa_centre-carat') || '',
     })
-    setIsLoading(isLoading)
+
     setSearchParams(searchParams.toString())
     return () => resetSelectedSku()
   }, [
@@ -70,8 +74,6 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     setSearchParams,
     filterLayers,
     resetSelectedSku,
-    isLoading,
-    setIsLoading,
   ])
   if (error) return <p>{error.message}</p>
 
