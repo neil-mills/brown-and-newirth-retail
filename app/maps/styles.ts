@@ -138,7 +138,7 @@ export const stylesMap: StyleMap = {
     label: 'Diamond',
     slug: 'diamond',
     image: '/img/10_diamond.png',
-    filterLayers: ['pa_shape', 'pa_setting'],
+    filterLayers: ['pa_shape', 'pa_setting', 'pa_total-carat'],
   },
   'Two Colour': {
     label: '2-Colour',
