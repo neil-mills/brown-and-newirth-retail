@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '/wp-content/uploads/wpallimport/files/*',
       },
+      {
+        protocol: 'https',
+        hostname: 'staging.retailer.brownandnewirth.com',
+        port: '',
+        pathname: '/wp-content/uploads/wpallimport/files/*',
+      },
     ],
   },
   async headers() {
