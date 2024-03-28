@@ -12,6 +12,7 @@ import {
   TitleBar,
 } from '@/app/components'
 import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
+import { useEffect } from 'react'
 
 interface Props {
   params: { slug: string }
@@ -104,7 +105,9 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
   }
   const { filterLayers } = stylesMap[category]
 
-  setFilterLayers(filterLayers)
+  useEffect(() => {
+    setFilterLayers(filterLayers)
+  }, [setFilterLayers, filterLayers])
 
   const showPatternFilter =
     stylesMap[category as Styles].filterLayers.includes('pa_pattern')
