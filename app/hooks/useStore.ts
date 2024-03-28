@@ -76,7 +76,7 @@ export const useStore = create<Store>((set) => ({
   searchParams: '',
   toastMessage: '',
   showModal: false,
-  isLoading: false,
+  isLoading: true,
   filters: {
     pa_diamond: [],
     'pa_centre-carat': [],
