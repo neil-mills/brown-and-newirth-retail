@@ -9,7 +9,7 @@ import {
   VariationSelection,
 } from '@/app/components'
 
-export const ProductDetails = () => {
+export const ProductDetails = ({ isLoading }: { isLoading: boolean }) => {
   const { sku } = useGetParams()
 
   const ImageCarousel = dynamic(
@@ -47,7 +47,7 @@ export const ProductDetails = () => {
         {!sku && <ProductFilterByMenus />}
         {sku && (
           <>
-            <DataTable />
+            <DataTable isLoading={isLoading} />
             <VariationSelection />
           </>
         )}

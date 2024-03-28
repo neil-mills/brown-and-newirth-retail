@@ -9,9 +9,9 @@ import { diamondOriginsMap } from '@/app/maps'
 import { useSearchParams } from 'next/navigation'
 import { DataTableSkeleton } from './DataTableSkeleton'
 
-const DataTable = () => {
+const DataTable = ({ isLoading }: { isLoading: boolean }) => {
   const { product, variations } = useStore((store) => store.selectedSku)
-  const isLoading = useStore((store) => store.isLoading)
+  // const isLoading = useStore((store) => store.isLoading)
   const searchParams = useSearchParams()
   const variationId = searchParams.get('variation-id')
   const variation = variationId
