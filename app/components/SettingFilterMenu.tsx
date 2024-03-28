@@ -1,7 +1,7 @@
 'use client'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
-import { FilterGrid, TitleBar } from '@/app/components'
+import { FilterGrid, FilterGridSkeleton, TitleBar } from '@/app/components'
 import { Styles } from '@/app/types'
 import { useEffect } from 'react'
 
@@ -20,11 +20,6 @@ const SettingFilterMenu = ({ category }: { category: Styles }) => {
     filters,
     category,
   })
-  const { filterOptions: shapes } = useProductFilterOptions({
-    filter: 'pa_shape',
-    filters,
-    category,
-  })
 
   useEffect(() => {
     settings.forEach((setting) =>
@@ -36,7 +31,11 @@ const SettingFilterMenu = ({ category }: { category: Styles }) => {
   return (
     <div className="mb-225rem">
       <TitleBar>Choose your setting</TitleBar>
-      <FilterGrid type={'pa_setting'} filters={settings} />
+      {isLoading ? (
+        <FilterGridSkeleton />
+      ) : (
+        <FilterGrid type={'pa_setting'} filters={settings} />
+      )}
     </div>
   )
 }

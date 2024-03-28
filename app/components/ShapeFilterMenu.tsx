@@ -1,5 +1,10 @@
 'use client'
-import { FilterGrid, TitleBar } from '@/app/components'
+import {
+  FilterGrid,
+  TitleBar,
+  FilterButtonSkeleton,
+  FilterGridSkeleton,
+} from '@/app/components'
 import { useFilterSearchParams, useProductFilterOptions } from '../hooks'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Styles } from '@/app/types'
@@ -37,11 +42,15 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
   return (
     <div className="mb-225rem">
       <TitleBar>Choose your shape</TitleBar>
-      <FilterGrid
-        type={filter}
-        filters={shapes}
-        childType={hasChild ? 'pa_setting' : null}
-      />
+      {isLoading ? (
+        <FilterGridSkeleton />
+      ) : (
+        <FilterGrid
+          type={filter}
+          filters={shapes}
+          childType={hasChild ? 'pa_setting' : null}
+        />
+      )}
     </div>
   )
 }

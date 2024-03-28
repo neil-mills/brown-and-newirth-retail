@@ -1,7 +1,7 @@
 'use client'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
-import { FilterGrid, TitleBar } from '@/app/components'
+import { FilterGrid, TitleBar, FilterGridSkeleton } from '@/app/components'
 import { Styles } from '@/app/types'
 import { useEffect } from 'react'
 
@@ -28,10 +28,14 @@ const PatternFilterMenu = ({ category }: { category: Styles }) => {
 
   if (error) return <p>{error.message}</p>
   return (
-    <>
+    <div className="mb-225rem">
       <TitleBar>Choose your style</TitleBar>
-      <FilterGrid type={'pa_pattern'} filters={patterns} />
-    </>
+      {isLoading ? (
+        <FilterGridSkeleton />
+      ) : (
+        <FilterGrid type={'pa_pattern'} filters={patterns} />
+      )}
+    </div>
   )
 }
 

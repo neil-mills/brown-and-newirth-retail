@@ -1,5 +1,5 @@
 'use client'
-import { FilterGrid, TitleBar } from '@/app/components'
+import { FilterGrid, FilterGridSkeleton, TitleBar } from '@/app/components'
 import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
 import { Styles } from '@/app/types'
@@ -18,10 +18,14 @@ const ProfileFilterMenu = ({ category }: { category: Styles }) => {
   })
   if (error) return <p>{error.message}</p>
   return (
-    <>
+    <div className="mb-225rem">
       <TitleBar>Choose your profile</TitleBar>
-      <FilterGrid type={'pa_profile'} filters={profiles} />
-    </>
+      {isLoading ? (
+        <FilterGridSkeleton />
+      ) : (
+        <FilterGrid type={'pa_profile'} filters={profiles} />
+      )}
+    </div>
   )
 }
 

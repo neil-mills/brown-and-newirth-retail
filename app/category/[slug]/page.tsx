@@ -9,6 +9,7 @@ import {
   FilteredProducts,
   DiamondSetFilter,
   FilterGridSkeleton,
+  TitleBar,
 } from '@/app/components'
 import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
 
@@ -20,7 +21,12 @@ const ShapeFilterMenu = dynamic(
   () => import('@/app/components/ShapeFilterMenu'),
   {
     ssr: false,
-    loading: () => <FilterGridSkeleton />,
+    loading: () => (
+      <div className="mb-225rem">
+        <TitleBar>Choose your shape</TitleBar>
+        <FilterGridSkeleton />
+      </div>
+    ),
   }
 )
 
@@ -28,28 +34,48 @@ const SettingFilterMenu = dynamic(
   () => import('@/app/components/SettingFilterMenu'),
   {
     ssr: false,
-    loading: () => <FilterGridSkeleton />,
+    loading: () => (
+      <div className="mb-225rem">
+        <TitleBar>Choose your setting</TitleBar>
+        <FilterGridSkeleton />
+      </div>
+    ),
   }
 )
 const PatternFilterMenu = dynamic(
   () => import('@/app/components/PatternFilterMenu'),
   {
     ssr: false,
-    loading: () => <FilterGridSkeleton />,
+    loading: () => (
+      <div className="mb-225rem">
+        <TitleBar>Choose your style</TitleBar>
+        <FilterGridSkeleton />
+      </div>
+    ),
   }
 )
 const ProfileFilterMenu = dynamic(
   () => import('@/app/components/ProfileFilterMenu'),
   {
     ssr: false,
-    loading: () => <FilterGridSkeleton />,
+    loading: () => (
+      <div className="mb-225rem">
+        <TitleBar>Choose your profile</TitleBar>
+        <FilterGridSkeleton />
+      </div>
+    ),
   }
 )
 const CeramicColourFilterMenu = dynamic(
   () => import('@/app/components/CeramicColourFilterMenu'),
   {
     ssr: false,
-    loading: () => <FilterGridSkeleton />,
+    loading: () => (
+      <div className="mb-225rem">
+        <TitleBar>Choose your colour</TitleBar>
+        <FilterGridSkeleton />
+      </div>
+    ),
   }
 )
 

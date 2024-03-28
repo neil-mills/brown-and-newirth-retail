@@ -2,7 +2,7 @@ import { TitleBar } from '@/app/components/TitleBar'
 import { useSearchParams } from 'next/navigation'
 import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
 import { Styles } from '@/app/types'
-import { FilterGrid } from '@/app/components/FilterGrid'
+import { FilterGrid, FilterGridSkeleton } from '@/app/components'
 
 const CeramicColourFilterMenu = ({ category }: { category: Styles }) => {
   const searchParams = useSearchParams()
@@ -18,10 +18,14 @@ const CeramicColourFilterMenu = ({ category }: { category: Styles }) => {
     category,
   })
   return (
-    <>
+    <div className="mb-225rem">
       <TitleBar>Choose your colour</TitleBar>
-      <FilterGrid type={'pa_profile'} filters={colours} />
-    </>
+      {isLoading ? (
+        <FilterGridSkeleton />
+      ) : (
+        <FilterGrid type={'pa_ceramic-colour'} filters={colours} />
+      )}
+    </div>
   )
 }
 
