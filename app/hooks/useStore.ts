@@ -132,6 +132,6 @@ export const useStore = create<Store>((set) => ({
     })),
 }))
 
-if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('Store', useStore)
-}
+// if (process.env.NODE_ENV === 'development') {
+mountStoreDevtool('Store', useStore)
+// }
