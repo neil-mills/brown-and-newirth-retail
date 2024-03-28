@@ -6,7 +6,7 @@ import ProductGrid from '@/app/components/ProductGrid'
 
 const FilteredVariations = ({
   filters,
-  isLoading,
+  isLoading = true,
 }: {
   filters: Filters | null
   isLoading: boolean
