@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(res.data, { status: res.status })
   } catch (err) {
     const error = err as AxiosError
-    console.log(error)
     return new NextResponse('Error', { status: 400 })
   }
 }

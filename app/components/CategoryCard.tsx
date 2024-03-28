@@ -14,6 +14,7 @@ export const CategoryCard = ({ item }: Props) => {
         className="product-grid-item style-1 letter-spacing bg-cover d-flex flex-column justify-content-between position-relative"
       >
         <Image
+          priority
           width={114}
           height={114}
           className="img-fluid w-100"
