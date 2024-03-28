@@ -31,10 +31,15 @@ export const SearchByCode = () => {
 
   return (
     <>
-      <div
+      <Image
         className="position-absolute cover bg-cover banner-img"
-        style={bgStyle}
-      ></div>
+        src={'/img/768x970_01.jpg'}
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center"
+        alt=""
+        priority
+      />
       <div className="row g-0 justify-content-center w-100 position-relative text-center">
         <div className="col-9">
           <form onSubmit={handleSubmit}>
