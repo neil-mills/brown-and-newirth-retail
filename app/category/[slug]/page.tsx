@@ -100,14 +100,15 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
   const [category, categoryData] = useCategory(slug)
-  if (!category || !categoryData) {
-    return notFound()
-  }
-  const { filterLayers } = stylesMap[category]
+  const { filterLayers } = stylesMap[category!]
 
   useEffect(() => {
     setFilterLayers(filterLayers)
   }, [setFilterLayers, filterLayers])
+
+  if (!category || !categoryData) {
+    return notFound()
+  }
 
   const showPatternFilter =
     stylesMap[category as Styles].filterLayers.includes('pa_pattern')
