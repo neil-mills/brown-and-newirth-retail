@@ -7,9 +7,8 @@ import {
   ProductFilterByMenusSkeleton,
 } from '@/app/components'
 
-const ProductFilterByMenus = () => {
+const ProductFilterByMenus = ({ isLoading }: { isLoading: boolean }) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
-  const isLoading = useStore((store) => store.isLoading)
   const showCentreCaratFilter = filterLayers.includes('pa_centre-carat')
   const showTotalCaratFilter = filterLayers.includes('pa_total-carat')
   return (
