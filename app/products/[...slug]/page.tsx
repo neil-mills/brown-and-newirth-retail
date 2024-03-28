@@ -5,7 +5,8 @@ import {
   OtherOptions,
   ResultsFilter,
   ResultsTabs,
-  FilteredVariations,
+  TitleBar,
+  ProductGridSkeleton,
 } from '@/app/components'
 import {
   useProduct,
@@ -14,6 +15,7 @@ import {
   useGetParams,
 } from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 
 interface Props {
   params: {
@@ -27,6 +29,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const setSelectedSku = useStore((store) => store.setSelectedSku)
   const resetSelectedSku = useStore((store) => store.resetSelectedSku)
   const setSearchParams = useStore((store) => store.setSearchParams)
+  const setIsLoading = useStore((store) => store.setIsLoading)
   const searchByCode = searchParams.get('search') === 'code'
   const filters = useFilterSearchParams(searchParams.toString())
   const {
@@ -53,6 +56,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
       diamondOrigin: searchParams.get('pa_diamond') || '',
       centreCarat: searchParams.get('pa_centre-carat') || '',
     })
+    setIsLoading(isLoading)
     setSearchParams(searchParams.toString())
     return () => resetSelectedSku()
   }, [
@@ -66,10 +70,25 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     setSearchParams,
     filterLayers,
     resetSelectedSku,
+    isLoading,
+    setIsLoading,
   ])
-  // if (isLoading) return null
   if (error) return <p>{error.message}</p>
-  // if (!product) return <p>No product found</p>
+
+  const FilteredVariations = dynamic(
+    () => import('@/app/components/FilteredVariations'),
+    {
+      ssr: false,
+      loading: () => (
+        <>
+          <TitleBar>
+            <span style={{ visibility: 'hidden' }}>Loading</span>
+          </TitleBar>
+          <ProductGridSkeleton />
+        </>
+      ),
+    }
+  )
 
   return (
     <>

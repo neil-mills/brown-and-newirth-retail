@@ -1,33 +1,27 @@
 'use client'
-import { useStore } from '@/app/hooks'
+import { useGetParams, useStore } from '@/app/hooks'
+import dynamic from 'next/dynamic'
+
 import {
   VariationOptions,
-  DataTable,
   AddToBasket,
-  ImageCarousel,
   BackLink,
-  DiamondCaratFilter,
-  DiamondOriginFilter,
-  GaugeFilter,
-  WidthFilter,
+  ImageCarouselSkeleton,
+  DataTableSkeleton,
+  ProductFilterByMenusSkeleton,
 } from '@/app/components'
 import { useEffect, useState } from 'react'
 
 export const ProductDetails = () => {
   const [showAddToBasket, setShowAddToBasket] = useState<boolean>(false)
   const {
-    variations,
     size: selectedSize,
     metal: selectedMetal,
     product,
-    sku,
-    filterLayers,
   } = useStore((store) => store.selectedSku)
-
+  const isLoading = useStore((store) => store.isLoading)
   const showSize = !product?.attributes?.['pa_type-2']?.length
-
-  const showCentreCaratFilter = filterLayers.includes('pa_centre-carat')
-  const showTotalCaratFilter = filterLayers.includes('pa_total-carat')
+  const { sku } = useGetParams()
 
   useEffect(() => {
     const show = !showSize
@@ -36,43 +30,39 @@ export const ProductDetails = () => {
     setShowAddToBasket(show)
   }, [selectedSize, selectedMetal, showSize])
 
-  if (!product) return null
-  if (!variations) return null
+  const ImageCarousel = dynamic(
+    () => import('@/app/components/ImageCarousel'),
+    {
+      ssr: false,
+      loading: () => <ImageCarouselSkeleton />,
+    }
+  )
+  const DataTable = dynamic(() => import('@/app/components/DataTable'), {
+    ssr: false,
+    loading: () => <DataTableSkeleton />,
+  })
+
+  const ProductFilterByMenus = dynamic(
+    () => import('@/app/components/ProductFilterByMenus'),
+    {
+      ssr: false,
+      loading: () => (
+        <>
+          <p className="fw-300">Filter By:</p>
+          <ProductFilterByMenusSkeleton />
+          <hr />
+          <ProductFilterByMenusSkeleton />
+        </>
+      ),
+    }
+  )
 
   return (
     <>
       <BackLink />
       <div className="col-left-inner d-flex flex-column justify-content-between has-border">
         <ImageCarousel />
-        {!sku && (
-          <>
-            <p className="fw-300">Filter By:</p>
-            {filterLayers.some((filterLayer) =>
-              ['pa_gauge', 'pa_diamond'].includes(filterLayer)
-            ) && (
-              <>
-                {filterLayers.includes('pa_gauge') && <GaugeFilter />}
-                {filterLayers.includes('pa_diamond') && (
-                  <DiamondOriginFilter
-                    childType={
-                      showCentreCaratFilter
-                        ? 'pa_centre-carat'
-                        : 'pa_total-carat'
-                    }
-                  />
-                )}
-                <hr />
-              </>
-            )}
-            {filterLayers.includes('pa_width') && <WidthFilter />}
-            {showCentreCaratFilter && (
-              <DiamondCaratFilter attribute="pa_centre-carat" />
-            )}
-            {showTotalCaratFilter && (
-              <DiamondCaratFilter attribute="pa_total-carat" />
-            )}
-          </>
-        )}
+        {!sku && <ProductFilterByMenus />}
         {sku && (
           <>
             <DataTable />

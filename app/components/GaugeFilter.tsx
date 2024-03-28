@@ -9,12 +9,12 @@ export const GaugeFilter = () => {
   const setFilters = useStore((store) => store.setFilters)
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
-
   const [gauges, availableGauges] = useRangeFilter<VariationGauge>({
     rangeFilter: 'pa_gauge',
     childRangeFilter: 'pa_width',
     filters,
   })
+
   const handleClick = (value: string) => {
     const newOptions = storeFilters.pa_gauge.includes(value)
       ? storeFilters.pa_gauge.filter((option) => option !== value)

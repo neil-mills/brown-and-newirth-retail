@@ -30,8 +30,10 @@ interface Store {
   filters: Filters
   toastMessage: string
   showModal: boolean
+  isLoading: boolean
   setToastMessage: (toastMessage: string) => void
   setShowModal: (showModal: boolean) => void
+  setIsLoading: (isLoading: boolean) => void
   setFilters: (filters: Filters) => void
   setSearchParams: (searchParams: string) => void
   setSelectedSku: (selectedSku: SelectedSku) => void
@@ -74,6 +76,7 @@ export const useStore = create<Store>((set) => ({
   searchParams: '',
   toastMessage: '',
   showModal: false,
+  isLoading: false,
   filters: {
     pa_diamond: [],
     'pa_centre-carat': [],
@@ -92,6 +95,8 @@ export const useStore = create<Store>((set) => ({
     set((store) => ({ ...store, toastMessage })),
   setShowModal: (showModal: boolean) =>
     set((store) => ({ ...store, showModal })),
+  setIsLoading: (isLoading: boolean) =>
+    set((store) => ({ ...store, isLoading })),
   productsQuery: {} as ProductsQuery,
   setSelectedSku: (selectedSku: SelectedSku) =>
     set((store) => ({ ...store, selectedSku })),

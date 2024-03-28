@@ -1,4 +1,4 @@
-import { useStore } from '@/app/hooks'
+import { useFilterOptions, useStore } from '@/app/hooks'
 import { rangeFilterMap } from '@/app/maps'
 import {
   Mapping,
@@ -20,9 +20,7 @@ export const useRangeFilter = <T>({
   childRangeFilter,
   filters,
 }: Props): [Mapping[], T[]] => {
-  const allOptions = Object.entries(rangeFilterMap[rangeFilter])
-    .sort(([a], [b]) => parseFloat(a) - parseFloat(b))
-    .map(([_key, mapping]) => mapping)
+  const allOptions = useFilterOptions(rangeFilter)
   let availableOptions: T[] = []
 
   const { product } = useStore((store) => store.selectedSku)

@@ -15,6 +15,7 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
   } = useStore((store) => store.selectedSku)
   const setVariation = useStore((store) => store.setVariation)
   const setToastMessage = useStore((store) => store.setToastMessage)
+  const productIsLoading = useStore((store) => store.isLoading)
   const { sizes, metals } = useVariationOptions()
   const setSize = useStore((store) => store.setSize)
   const setMetal = useStore((store) => store.setMetal)
@@ -77,6 +78,7 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
             options={sizes}
             value={selectedSize}
             defaultLabel="Size"
+            disabled={productIsLoading}
             onChange={(event: ChangeEvent<HTMLSelectElement>) =>
               setSize(event.target.value)
             }
@@ -88,6 +90,7 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
           options={metals}
           value={selectedMetal}
           defaultLabel="Metal"
+          disabled={productIsLoading}
           onChange={(event: ChangeEvent<HTMLSelectElement>) =>
             setMetal(event.target.value)
           }

@@ -6,9 +6,9 @@ import dynamic from 'next/dynamic'
 import {
   BackLink,
   CategoryBanner,
-  FilteredProducts,
   DiamondSetFilter,
   FilterGridSkeleton,
+  ProductGridSkeleton,
   TitleBar,
 } from '@/app/components'
 import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
@@ -75,6 +75,21 @@ const CeramicColourFilterMenu = dynamic(
         <TitleBar>Choose your colour</TitleBar>
         <FilterGridSkeleton />
       </div>
+    ),
+  }
+)
+
+const FilteredProducts = dynamic(
+  () => import('@/app/components/FilteredProducts'),
+  {
+    ssr: false,
+    loading: () => (
+      <>
+        <TitleBar>
+          <span style={{ visibility: 'hidden' }}>Loading</span>
+        </TitleBar>
+        <ProductGridSkeleton />
+      </>
     ),
   }
 )
