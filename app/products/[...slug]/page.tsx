@@ -43,10 +43,6 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     error,
   } = useProduct({ productId, sku })
 
-  // useEffect(() => {
-  //   setIsLoading(isLoading)
-  // }, [isLoading, setIsLoading])
-
   useEffect(() => {
     setSelectedSku({
       sku,
@@ -117,7 +113,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
             </div>
           </>
         ) : (
-          <FilteredVariations filters={filters} />
+          <FilteredVariations isLoading={isLoading} filters={filters} />
         )}
       </div>
     </>

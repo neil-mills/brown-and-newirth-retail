@@ -43,7 +43,7 @@ export const ProductDetails = ({ isLoading }: { isLoading: boolean }) => {
     <>
       <BackLink />
       <div className="col-left-inner d-flex flex-column justify-content-between has-border">
-        <ImageCarousel />
+        <ImageCarousel isLoading={isLoading} />
         {!sku && <ProductFilterByMenus />}
         {sku && (
           <>

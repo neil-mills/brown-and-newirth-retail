@@ -2,9 +2,8 @@ import { useStore } from '../hooks'
 import Image from 'next/image'
 import { ImageCarouselSkeleton } from './ImageCarouselSkeleton'
 
-const ImageCarousel = () => {
+const ImageCarousel = ({ isLoading }: { isLoading: boolean }) => {
   const { product, images } = useStore((store) => store.selectedSku)
-  const isLoading = useStore((store) => store.isLoading)
   return (
     <>
       {isLoading ? (

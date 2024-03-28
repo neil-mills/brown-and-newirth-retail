@@ -4,8 +4,13 @@ import { useStore, useVariations } from '@/app/hooks'
 import { FilterLayerKeys, Filters } from '@/app/types'
 import ProductGrid from '@/app/components/ProductGrid'
 
-const FilteredVariations = ({ filters }: { filters: Filters | null }) => {
-  const isLoading = useStore((store) => store.isLoading)
+const FilteredVariations = ({
+  filters,
+  isLoading,
+}: {
+  filters: Filters | null
+  isLoading: boolean
+}) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
   const filterByAttribute: FilterLayerKeys =
     filterLayers[filterLayers.length - 1]
