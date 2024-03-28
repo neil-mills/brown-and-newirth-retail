@@ -6,7 +6,7 @@ export const getCategoryProducts = (
 ): Product[] => {
   let products: Product[] = []
   if (data) {
-    if (['Solitaire', 'Halo', 'Cluster', 'Three Stone'].includes(category)) {
+    if (['SOLITAIRE', 'HALO', 'CLUSTER', 'THREE STONE'].includes(category)) {
       products = data.filter(
         (product) =>
           product?.attributes?.pa_style?.includes(category) &&

@@ -7,37 +7,37 @@ interface StyleMapping extends Mapping {
 type StyleMap = { [K in Styles]: StyleMapping }
 
 export const stylesMap: StyleMap = {
-  Halo: {
+  HALO: {
     label: 'Halos',
     slug: 'halo',
     image: '/img/02_halos.png',
     filterLayers: ['pa_shape', 'pa_diamond', 'pa_centre-carat'],
   },
-  Solitaire: {
+  SOLITAIRE: {
     label: 'Solitaires',
     slug: 'solitaire',
     image: '/img/01_solitaires.png',
     filterLayers: ['pa_shape', 'pa_diamond', 'pa_total-carat'],
   },
-  Cluster: {
+  CLUSTER: {
     label: 'Clusters',
     slug: 'cluster',
     image: '/img/03_clusters.png',
     filterLayers: ['pa_shape', 'pa_diamond', 'pa_total-carat'],
   },
-  'Three Stone': {
+  'THREE STONE': {
     label: '3-Stones',
     slug: '3-stone',
     image: '/img/04_3-stones.png',
     filterLayers: ['pa_shape', 'pa_diamond', 'pa_centre-carat'],
   },
-  'Five Stone': {
+  'FIVE STONE': {
     label: '5-Stones',
     slug: '5-stone',
     image: '/img/04_3-stones.png',
     filterLayers: ['pa_shape', 'pa_diamond', 'pa_centre-carat'],
   },
-  Trilogy: {
+  TRILOGY: {
     label: 'Trilogies',
     slug: 'trilogy',
     image: '/img/04_3-stones.png',
