@@ -5,8 +5,6 @@ import {
   OtherOptions,
   ResultsFilter,
   ResultsTabs,
-  TitleBar,
-  ProductGridSkeleton,
 } from '@/app/components'
 import {
   useProduct,
@@ -59,6 +57,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     })
 
     setSearchParams(searchParams.toString())
+    setIsLoading(isLoading)
     return () => resetSelectedSku()
   }, [
     setSelectedSku,
@@ -71,23 +70,10 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     setSearchParams,
     filterLayers,
     resetSelectedSku,
+    isLoading,
+    setIsLoading,
   ])
   if (error) return <p>{error.message}</p>
-
-  // const FilteredVariations = dynamic(
-  //   () => import('@/app/components/FilteredVariations'),
-  //   {
-  //     ssr: false,
-  //     loading: () => (
-  //       <>
-  //         <TitleBar>
-  //           <span style={{ visibility: 'hidden' }}>Loading</span>
-  //         </TitleBar>
-  //         <ProductGridSkeleton />
-  //       </>
-  //     ),
-  //   }
-  // )
 
   return (
     <>
