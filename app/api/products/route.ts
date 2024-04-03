@@ -9,3 +9,13 @@ export async function GET(request: NextRequest) {
   )
   return NextResponse.json(res.data)
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '70mb',
+    },
+  },
+  // Specifies the maximum allowed duration for this function to execute (in seconds)
+  maxDuration: 60,
+}
