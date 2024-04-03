@@ -17,6 +17,7 @@ export const Header = () => {
           </div>
           <Link
             href="/"
+            prefetch={false}
             className="btn nav-btn h-100 bg-pink d-flex align-items-center text-sm px-lg-4 px-xxl-5"
           >
             <span className="d-none d-lg-inline-block">Home/Search</span>
@@ -45,7 +46,11 @@ export const Header = () => {
           </a>
           <BasketLink />
         </div>
-        <Link className="navbar-logo position-absolute" href="/">
+        <Link
+          className="navbar-logo position-absolute"
+          href="/"
+          prefetch={false}
+        >
           <Image
             priority
             src="/img/svg/logo-brown-and-newirth.svg"
