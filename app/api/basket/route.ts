@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   const { variationId } = body
   try {
     const res = await axios.post(
-      'https://staging.retailer.brownandnewirth.com/add-to-basket/',
+      'https://staging.retailer.brownandnewirth.com/wp-json/addToCart/v1/add-item',
       { variationId },
       { timeout: 4000 }
     )
