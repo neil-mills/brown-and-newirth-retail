@@ -1,8 +1,8 @@
 export const metalsMap: Record<string, string> = {
   '9w': 'White Gold',
   '18w': 'White Gold',
-  '9y': 'Gold',
-  '18y': 'Gold',
+  '9y': 'Yellow Gold',
+  '18y': 'Yellow Gold',
   '9r': 'Rose Gold',
   '18r': 'Rose Gold',
   plt: 'Platinum',
@@ -10,5 +10,11 @@ export const metalsMap: Record<string, string> = {
   pl18: 'Platinum',
   pl9: 'Platinum',
   '9pl': 'Platinum',
-  '18k': '18k?',
+  '9k': 'Gold',
+  '18k': 'Gold',
+  pd: 'Palladium',
+  '9pd': 'Palladium',
+  '18pd': 'Palladium',
+  pd9: 'Palladium',
+  pd18: 'Palladium',
 }
