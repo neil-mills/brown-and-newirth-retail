@@ -38,8 +38,8 @@ export type VariationGauge =
   | 'super-heavy'
 export type ProductDiamondQuality = 'GSI' | 'HSI' | 'D-FVS' | 'GVS'
 export type VariationDiamondQuality = 'gsi' | 'hsi' | 'd-fvs' | 'gvs'
-export type VariationCeramicColours = 'black' | 'grey' | 'blue' | 'red'
-export type ProductCeramicColours = 'Black' | 'Grey' | 'Blue' | 'Red'
+export type VariationCeramicColours = 'Black' | 'Grey' | 'Blue' | 'Red'
+export type ProductCeramicColours = 'BLACK' | 'GREY' | 'BLUE' | 'RED'
 
 export interface Images {
   thumbnail?: string
