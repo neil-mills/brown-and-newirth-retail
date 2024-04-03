@@ -16,4 +16,6 @@ export const config = {
       sizeLimit: '70mb',
     },
   },
+  // Specifies the maximum allowed duration for this function to execute (in seconds)
+  maxDuration: 60,
 }
