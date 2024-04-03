@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  cacheMaxMemorySize: 20,
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
