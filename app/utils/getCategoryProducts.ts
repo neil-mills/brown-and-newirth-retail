@@ -25,7 +25,7 @@ export const getCategoryProducts = (
     } else if (category === 'Diamond') {
       products = data.filter(
         (product) =>
-          product.attributes.pa_shoulders?.includes('Diamond') &&
+          product.attributes['pa_diamond-set']?.includes('Yes') &&
           product.category === 'WEDDING'
       )
     } else if (category === 'Shaped') {
