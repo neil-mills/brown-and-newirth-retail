@@ -7,7 +7,7 @@ const fetchData = async () => {
   const req1 = await axios.get<Product[]>(`${url}?chunk=4`)
   const req2 = await axios.get<Product[]>(`${url}?chunk=5`)
   const req3 = await axios.get<Product[]>(`${url}?chunk=6`)
-  const req4 = await axios.get<Product[]>(`${url}?chunk=67`)
+  const req4 = await axios.get<Product[]>(`${url}?chunk=7`)
   let products: Product[] = []
   const totalChunks = 7
   const requests = Array.from({ length: totalChunks }).map(
