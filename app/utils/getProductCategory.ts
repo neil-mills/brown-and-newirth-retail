@@ -39,7 +39,7 @@ export const getProductCategory = (product: Product): Styles[] | null => {
   ) {
     category = ['Patterns']
   }
-  if (!category && product.attributes.pa_shoulders?.includes('Diamond')) {
+  if (!category && product.attributes['pa_diamond-set']?.includes('Yes')) {
     category = ['Diamond']
   }
   if (
