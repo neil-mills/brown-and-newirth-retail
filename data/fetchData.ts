@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { Product } from '@/app/types'
 
 const fetchData = async (): Promise<Product[]> => {
-  const url = 'http://127.0.0.1:3000/api/products'
+  const url = '/api/products'
   const totalChunks = 7
   let products: Product[] = []
   const endpoints = Array.from({ length: totalChunks }).map(
