@@ -31,6 +31,7 @@ export default async function Home() {
           <SearchByCode />
         </div>
         <div className="col col-right h-100">
+          <p>ENV: {process.env.NEXT_PUBLIC_VERCEL_URL}</p>
           <SearchByStyle />
         </div>
       </HydrationBoundary>
