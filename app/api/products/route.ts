@@ -4,8 +4,12 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
   const chunk = request.nextUrl.searchParams.get('chunk')
+  // console.log({ chunk })
   const res = await axios.get<Product[]>(
-    `https://staging.retailer.brownandnewirth.com/cache-data/product-data/product-data-${chunk}.json`
+    'https://www.brownandnewirth.com/product-data/get-products.json', /// Test data
+    // `https://staging.retailer.brownandnewirth.com/cache-data/product-data/product-data-${chunk}.json`
+    { timeout: 120000 }
   )
+  // console.log(res.data)
   return NextResponse.json(res.data)
 }
