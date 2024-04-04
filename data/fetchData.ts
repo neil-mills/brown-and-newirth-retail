@@ -19,7 +19,6 @@ const fetchData = async (): Promise<Product[]> => {
     const error = err as AxiosError
     console.log(`Error: ${error.message}`)
   }
-  console.log(products)
   return products
 }
 
