@@ -44,7 +44,6 @@ export type ProductFilterAttributeKeys =
   | 'pa_pattern'
   | 'pa_setting'
   | 'pa_ceramic-colour'
-  | 'pa_coverage'
 
 export type SearchParamKeys =
   | 'pa_diamond'
@@ -59,7 +58,6 @@ export type SearchParamKeys =
   | 'pa_pattern'
   | 'pa_setting'
   | 'pa_ceramic-colour'
-  | 'pa_coverage'
 
 export type Filters = {
   [TKey in FilterLayerKeys]?: string[]

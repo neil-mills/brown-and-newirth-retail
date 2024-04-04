@@ -1,10 +1,4 @@
-import {
-  diamondOriginsMap,
-  caratMap,
-  widthMap,
-  gaugeMap,
-  coverageMap,
-} from '@/app/maps'
+import { diamondOriginsMap, caratMap, widthMap, gaugeMap } from '@/app/maps'
 
 export interface Mapping {
   label: string
@@ -27,7 +21,6 @@ export type RangeFilterAttribute =
   | 'pa_total-carat'
   | 'pa_diamond'
   | 'pa_gauge'
-  | 'pa_coverage'
 
 export type RangeFilterMaps = {
   [K in RangeFilterAttribute]: Map
@@ -39,5 +32,4 @@ export const maps: RangeFilterMaps = {
   'pa_total-carat': caratMap,
   pa_diamond: diamondOriginsMap,
   pa_gauge: gaugeMap,
-  pa_coverage: coverageMap,
 }

@@ -90,7 +90,6 @@ export const useStore = create<Store>((set) => ({
     pa_setting: [],
     pa_profile: [],
     'pa_ceramic-colour': [],
-    pa_coverage: [],
   },
   setToastMessage: (toastMessage: string) =>
     set((store) => ({ ...store, toastMessage })),
@@ -133,6 +132,6 @@ export const useStore = create<Store>((set) => ({
     })),
 }))
 
-if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('Store', useStore)
-}
+// if (process.env.NODE_ENV === 'development') {
+mountStoreDevtool('Store', useStore)
+// }
