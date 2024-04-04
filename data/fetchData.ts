@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { Product } from '@/app/types'
 
 const fetchData = async (): Promise<Product[]> => {
-  const url = '/api/products'
+  const url = 'https://retailer-brown-and-newrith.vercel.app/api/products'
   const totalChunks = 7
   let products: Product[] = []
   const endpoints = Array.from({ length: totalChunks }).map(
