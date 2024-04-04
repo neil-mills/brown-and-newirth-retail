@@ -21,7 +21,7 @@ export const GaugeFilter = () => {
       : [value, ...storeFilters.pa_gauge]
     const newUrl = getFilterSearchParamUrl({
       type: 'pa_gauge',
-      childType: 'pa_width',
+      childType: ['pa_width'],
       selectedOptions: newOptions,
     })
     setFilters({ ...storeFilters, pa_gauge: newOptions, pa_width: [] })

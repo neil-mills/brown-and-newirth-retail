@@ -7,7 +7,7 @@ import Image from 'next/image'
 interface Props {
   type: ProductFilterAttributeKeys
   filters: Mapping[]
-  childType?: ProductFilterAttributeKeys | null
+  childType?: ProductFilterAttributeKeys[] | null
 }
 
 export const FilterGrid = ({ type, filters, childType }: Props) => {
@@ -23,8 +23,11 @@ export const FilterGrid = ({ type, filters, childType }: Props) => {
       childType,
       selectedOptions: newOptions,
     })
+    const childTypes = childType?.reduce((acc, type) => {
+      return { ...acc, [type]: [] }
+    }, {})
     if (childType) {
-      setFilters({ ...storeFilters, [type]: newOptions, [childType]: [] })
+      setFilters({ ...storeFilters, [type]: newOptions, ...childTypes })
     } else {
       setFilters({ ...storeFilters, [type]: newOptions })
     }

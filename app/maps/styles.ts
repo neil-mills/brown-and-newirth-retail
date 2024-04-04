@@ -71,7 +71,7 @@ export const stylesMap: StyleMap = {
     label: 'Dress',
     slug: 'dress',
     image: '/img/13_dress.png',
-    filterLayers: ['pa_coverage', 'pa_shape', 'pa_setting', 'pa_total-carat'],
+    filterLayers: ['pa_coverage', 'pa_shape', 'pa_setting'],
   },
   'FULL SET': {
     label: 'Full set',

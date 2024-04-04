@@ -18,7 +18,7 @@ export const DiamondSetFilter = () => {
       : [value, ...storeFilters.pa_diamond]
     const newUrl = getFilterSearchParamUrl({
       type: 'pa_diamond-set',
-      childType: 'pa_shaped',
+      childType: ['pa_shaped'],
       selectedOptions: newOptions,
     })
     setFilters({

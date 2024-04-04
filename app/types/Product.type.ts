@@ -15,6 +15,7 @@ type MetalCode =
   | 'PLT'
 
 type ProductSize = 'A-Q' | 'R-Z' | 'Z+'
+type VariationCoverage = 'Third' | 'Half' | 'Three Quarter' | 'Full'
 
 export interface VariationAttributes {
   'pa_metal-code'?: string
@@ -26,7 +27,9 @@ export interface VariationAttributes {
   pa_width?: string
   pa_size?: VariationSize
   'pa_ceramic-colour'?: VariationCeramicColours
+  pa_coverage?: VariationCoverage
 }
+
 export type VariationStatus = 'publish'
 export type VariationStockStatus = 'instock'
 export type VariationSize = 'a-q' | 'r-z' | 'z'
@@ -111,7 +114,7 @@ export interface Product {
     pa_shoulders?: ProductShoulders[]
     pa_finish?: ('Matte' | 'Polished' | 'Matte &amp; Polished')[]
     pa_pattern?: Styles[]
-    pa_coverage?: ('Third' | 'Half' | 'Three Quarter' | 'Full')[]
+    pa_coverage?: VariationCoverage[]
     pa_setting?: ProductSettings[]
     pa_shaped?: ('Pinch' | 'Twist' | 'Curved' | 'Cutaway')[]
     'pa_diamond-set'?: 'Yes' | 'No'

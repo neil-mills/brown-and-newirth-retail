@@ -31,7 +31,9 @@ const ProductFilterByMenus = ({ isLoading }: { isLoading: boolean }) => {
               {filterLayers.includes('pa_diamond') && (
                 <DiamondOriginFilter
                   childType={
-                    showCentreCaratFilter ? 'pa_centre-carat' : 'pa_total-carat'
+                    showCentreCaratFilter
+                      ? ['pa_centre-carat']
+                      : ['pa_total-carat']
                   }
                 />
               )}

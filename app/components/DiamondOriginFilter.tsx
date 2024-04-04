@@ -7,7 +7,7 @@ import { decode } from 'html-entities'
 export const DiamondOriginFilter = ({
   childType,
 }: {
-  childType: 'pa_centre-carat' | 'pa_total-carat'
+  childType: ('pa_centre-carat' | 'pa_total-carat')[]
 }) => {
   const storeFilters = useStore((store) => store.filters)
   const setFilters = useStore((store) => store.setFilters)
@@ -28,7 +28,10 @@ export const DiamondOriginFilter = ({
       childType,
       selectedOptions: newOptions,
     })
-    setFilters({ ...storeFilters, pa_diamond: newOptions, [childType]: [] })
+    const childTypes = childType?.reduce((acc, type) => {
+      return { ...acc, [type]: [] }
+    }, {})
+    setFilters({ ...storeFilters, pa_diamond: newOptions, ...childTypes })
     window.history.pushState({ path: newUrl }, '', newUrl)
   }
 
@@ -36,6 +39,7 @@ export const DiamondOriginFilter = ({
     <>
       <div className="row row-pad-sm">
         {diamondOrigins.map((diamondOrigin, i) => {
+          const value = diamondOrigin.slug.replace('-', ' ').toUpperCase()
           const btnClass = classNames({
             'bg-pink': diamondOrigin.slug === searchParamsObj?.pa_diamond,
             'btn-border': diamondOrigin.slug !== searchParamsObj?.pa_diamond,
@@ -51,12 +55,12 @@ export const DiamondOriginFilter = ({
                 className={`btn btn-filter ${btnClass} ${diamondOrigin.class} w-100`}
                 onClick={() => handleClick(diamondOrigin.slug)}
                 disabled={
-                  !availableDiamondOrigins.includes(diamondOrigin.slug) ||
+                  !availableDiamondOrigins.includes(value) ||
                   availableDiamondOrigins.length === 1
                 }
                 aria-pressed={
                   storeFilters.pa_diamond.includes(diamondOrigin.slug) ||
-                  availableDiamondOrigins.length === 1
+                  availableDiamondOrigins.includes(value)
                 }
               >
                 <span>{decode(diamondOrigin.label, { level: 'html5' })}</span>
