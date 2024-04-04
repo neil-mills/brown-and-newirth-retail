@@ -6,13 +6,15 @@ const fetchData = async () => {
   const url = '/api/products'
   const req1 = await axios.get<Product[]>(`${url}?chunk=4`)
   const req2 = await axios.get<Product[]>(`${url}?chunk=5`)
+  const req3 = await axios.get<Product[]>(`${url}?chunk=6`)
+  const req4 = await axios.get<Product[]>(`${url}?chunk=67`)
   let products: Product[] = []
   const totalChunks = 7
   const requests = Array.from({ length: totalChunks }).map(
     async (_item, i) => await axios.get<Product[]>(url)
   )
   try {
-    const responses = await axios.all([req1, req2])
+    const responses = await axios.all([req1, req2, req3, req4])
     console.log(responses)
     products = responses.reduce((acc, res) => {
       return [...acc, ...res.data]
