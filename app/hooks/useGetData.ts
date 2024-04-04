@@ -4,7 +4,7 @@ import { Product } from '@/app/types'
 
 export function useGetData() {
   return useQuery<Product[], Error>({
-    queryFn: async () => fetchData(),
+    queryFn: async () => await fetchData(),
     queryKey: ['products'],
   })
 }

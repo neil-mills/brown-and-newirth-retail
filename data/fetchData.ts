@@ -1,17 +1,19 @@
 import axios, { AxiosError } from 'axios'
 import { Product } from '@/app/types'
+axios.defaults.timeout === 120000
 
 const fetchData = async () => {
   const url = '/api/products'
-  const req = await axios.get<Product[]>(url)
-  const req2 = await axios.get<Product[]>(url)
+  const req1 = await axios.get<Product[]>(`${url}?chunk=4`)
+  const req2 = await axios.get<Product[]>(`${url}?chunk=5`)
   let products: Product[] = []
   const totalChunks = 7
-  // const endpoints = Array.from({ length: totalChunks }).map(
-  //   (_item, i) => `${url}?chunk=${i + 1}`
-  // )
+  const requests = Array.from({ length: totalChunks }).map(
+    async (_item, i) => await axios.get<Product[]>(url)
+  )
   try {
-    const responses = await Promise.all([req, req2])
+    const responses = await axios.all([req1, req2])
+    console.log(responses)
     products = responses.reduce((acc, res) => {
       return [...acc, ...res.data]
     }, [] as Product[])
@@ -19,7 +21,6 @@ const fetchData = async () => {
     const error = err as AxiosError
     console.log(`Error: ${error.message}`)
   }
-  // await wait(4000)
   return products
 }
 /*
