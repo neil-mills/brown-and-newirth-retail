@@ -1272,7 +1272,7 @@ a {
 */
 
 /* Temp front page icon reorder  */
-.front-page-category {
+/* .front-page-category {
   &:nth-child(7) {
     order: 1;
   }
@@ -1328,4 +1328,4 @@ a {
   &:nth-child(20) {
     display: none;
   }
-}
+} */
