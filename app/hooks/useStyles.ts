@@ -8,6 +8,7 @@ export const useStyles = (): {
   error: Error | null
 } => {
   const { data: products, error, isLoading } = useGetData()
+
   let styles: Mapping[] = []
   if (!isLoading && !error && products) {
     const productStyles = Array.from(

@@ -1,13 +1,20 @@
-import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
+'use client'
+import {
+  useFilterSearchParams,
+  useProductFilterOptions,
+  useStore,
+} from '@/app/hooks'
 import { Styles } from '@/app/types'
 import { useSearchParams } from 'next/navigation'
 import { FilterGrid } from './FilterGrid'
 import { FilterGridSkeleton } from './FilterGridSkeleton'
 import { TitleBar } from './TitleBar'
+import { useEffect } from 'react'
 
 const CoverageFilterMenu = ({ category }: { category: Styles }) => {
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
+  const setIsLoading = useStore((store) => store.setIsLoading)
 
   const {
     filterOptions: coverage,
@@ -18,6 +25,11 @@ const CoverageFilterMenu = ({ category }: { category: Styles }) => {
     filters,
     category,
   })
+
+  useEffect(() => {
+    setIsLoading(isLoading)
+  }, [isLoading, setIsLoading])
+
   return (
     <div className="mb-225rem">
       <TitleBar>Choose your coverage</TitleBar>

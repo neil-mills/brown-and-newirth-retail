@@ -1,6 +1,10 @@
 'use client'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
+import { useSearchParams } from 'next/navigation'
+import {
+  useFilterSearchParams,
+  useProductFilterOptions,
+  useStore,
+} from '@/app/hooks'
 import { FilterGrid, TitleBar, FilterGridSkeleton } from '@/app/components'
 import { Styles } from '@/app/types'
 import { useEffect } from 'react'
@@ -8,8 +12,8 @@ import { useEffect } from 'react'
 const PatternFilterMenu = ({ category }: { category: Styles }) => {
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
-  const router = useRouter()
-  const pathname = usePathname()
+  const setIsLoading = useStore((store) => store.setIsLoading)
+
   const {
     filterOptions: patterns,
     isLoading,
@@ -21,10 +25,8 @@ const PatternFilterMenu = ({ category }: { category: Styles }) => {
   })
 
   useEffect(() => {
-    patterns.forEach((pattern) =>
-      router.prefetch(`${pathname}?pa_pattern=${pattern.slug}`)
-    )
-  }, [patterns, router, pathname])
+    setIsLoading(isLoading)
+  }, [isLoading, setIsLoading])
 
   if (error) return <p>{error.message}</p>
   return (

@@ -1,6 +1,10 @@
 'use client'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
+import { useSearchParams } from 'next/navigation'
+import {
+  useFilterSearchParams,
+  useProductFilterOptions,
+  useStore,
+} from '@/app/hooks'
 import { FilterGrid, FilterGridSkeleton, TitleBar } from '@/app/components'
 import { Styles } from '@/app/types'
 import { useEffect } from 'react'
@@ -8,8 +12,7 @@ import { useEffect } from 'react'
 const SettingFilterMenu = ({ category }: { category: Styles }) => {
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
-  const router = useRouter()
-  const pathname = usePathname()
+  const setIsLoading = useStore((store) => store.setIsLoading)
 
   const {
     filterOptions: settings,
@@ -22,10 +25,8 @@ const SettingFilterMenu = ({ category }: { category: Styles }) => {
   })
 
   useEffect(() => {
-    settings.forEach((setting) =>
-      router.prefetch(`${pathname}?pa_setting=${setting.slug}`)
-    )
-  }, [settings, router, pathname])
+    setIsLoading(isLoading)
+  }, [isLoading, setIsLoading])
 
   if (error) return <p>{error.message}</p>
   return (

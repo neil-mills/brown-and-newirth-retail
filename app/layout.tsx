@@ -3,7 +3,7 @@ import '@/app/globals.css'
 import Head from 'next/head'
 import QueryProvider from '@/lib/QueryProvider'
 import InstallBootstrap from './components/InstallBootstrap'
-import { BsToast, Header, Sidebar } from '@/app/components'
+import { BsToast, Header, LoadingOverlay, Sidebar } from '@/app/components'
 
 export const metadata: Metadata = {
   title: 'Brown & Newirth',
@@ -65,6 +65,7 @@ export default function RootLayout({
       </Head>
       <body className="h-100 overflow-hidden">
         <InstallBootstrap />
+        <LoadingOverlay />
         <BsToast />
         <Header />
         <div className="wrapper d-flex">

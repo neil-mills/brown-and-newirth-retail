@@ -1,6 +1,6 @@
 'use client'
-import { FormEvent, useRef, useState } from 'react'
-import { useGetData } from '../hooks'
+import { FormEvent, useEffect, useRef, useState } from 'react'
+import { useGetData, useStore } from '@/app/hooks'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -13,6 +13,11 @@ export const SearchByCode = () => {
   const { data: products, error, isLoading } = useGetData()
   const [isInvalidCode, setIsInvalidCode] = useState(false)
   const router = useRouter()
+  const setIsLoading = useStore((store) => store.setIsLoading)
+
+  useEffect(() => {
+    setIsLoading(isLoading)
+  }, [isLoading, setIsLoading])
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()

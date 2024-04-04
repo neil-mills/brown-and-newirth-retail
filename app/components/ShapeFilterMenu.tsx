@@ -1,12 +1,11 @@
 'use client'
+import { FilterGrid, TitleBar, FilterGridSkeleton } from '@/app/components'
 import {
-  FilterGrid,
-  TitleBar,
-  FilterButtonSkeleton,
-  FilterGridSkeleton,
-} from '@/app/components'
-import { useFilterSearchParams, useProductFilterOptions } from '../hooks'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+  useFilterSearchParams,
+  useProductFilterOptions,
+  useStore,
+} from '../hooks'
+import { useSearchParams } from 'next/navigation'
 import { Styles } from '@/app/types'
 import { useEffect } from 'react'
 
@@ -20,8 +19,8 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
   const filters = useFilterSearchParams(searchParams.toString())
   const filter = category === 'Shaped' ? 'pa_shaped' : 'pa_shape'
   const shapeCategory = category === 'Shaped' ? null : category
-  const router = useRouter()
-  const pathname = usePathname()
+  const setIsLoading = useStore((store) => store.setIsLoading)
+
   const {
     filterOptions: shapes,
     isLoading,
@@ -31,11 +30,10 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
     filters: hasChild ? null : filters,
     category: shapeCategory,
   })
+
   useEffect(() => {
-    shapes.forEach((shape) =>
-      router.prefetch(`${pathname}?pa_shape=${shape.slug}`)
-    )
-  }, [shapes, router, pathname])
+    setIsLoading(isLoading)
+  }, [isLoading, setIsLoading])
 
   if (error) return <p>{error.message}</p>
 

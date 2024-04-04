@@ -1,12 +1,19 @@
 'use client'
 import { FilterGrid, FilterGridSkeleton, TitleBar } from '@/app/components'
-import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
+import {
+  useFilterSearchParams,
+  useProductFilterOptions,
+  useStore,
+} from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
 import { Styles } from '@/app/types'
+import { useEffect } from 'react'
 
 const ProfileFilterMenu = ({ category }: { category: Styles }) => {
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
+  const setIsLoading = useStore((store) => store.setIsLoading)
+
   const {
     filterOptions: profiles,
     isLoading,
@@ -16,6 +23,11 @@ const ProfileFilterMenu = ({ category }: { category: Styles }) => {
     filters,
     category,
   })
+
+  useEffect(() => {
+    setIsLoading(isLoading)
+  }, [isLoading, setIsLoading])
+
   if (error) return <p>{error.message}</p>
   return (
     <div className="mb-225rem">

@@ -35,6 +35,7 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
   let filterLayers: FilterLayerKeys[] = []
 
   const { data: products, error, isLoading } = useGetData()
+
   if (!isLoading && !error && products) {
     if (productId) {
       product =
