@@ -23,7 +23,7 @@ export const stylesMap: StyleMap = {
     label: 'Clusters',
     slug: 'cluster',
     image: '/img/03_clusters.png',
-    filterLayers: ['pa_shape', 'pa_diamond', 'pa_total-carat'],
+    filterLayers: ['pa_diamond', 'pa_total-carat'],
   },
   'Three Stone': {
     label: '3-Stones',
