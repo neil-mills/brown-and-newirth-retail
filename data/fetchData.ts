@@ -1,6 +1,12 @@
 import axios, { AxiosError } from 'axios'
 import { Product } from '@/app/types'
 
+const fetchData = async () => {
+  const res = await axios.get<Product[]>('/api/products')
+  // await wait(4000)
+  return res.data
+}
+/*
 const fetchData = async (): Promise<Product[]> => {
   const url = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/products`
   const totalChunks = 7
@@ -21,5 +27,5 @@ const fetchData = async (): Promise<Product[]> => {
   }
   return products
 }
-
+*/
 export default fetchData
