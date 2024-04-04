@@ -12,10 +12,6 @@ const fetchData = async () => {
   const req6 = await axios.get<Product[]>(`${url}?chunk=6`)
   const req7 = await axios.get<Product[]>(`${url}?chunk=7`)
   let products: Product[] = []
-  const totalChunks = 7
-  // const requests = Array.from({ length: totalChunks }).map(
-  //   async (_item, i) => await axios.get<Product[]>(url)
-  // )
   try {
     const responses = await Promise.all([
       req1,
@@ -26,7 +22,6 @@ const fetchData = async () => {
       req6,
       req7,
     ])
-    console.log(responses)
     products = responses.reduce((acc, res) => {
       return [...acc, ...res.data]
     }, [] as Product[])
@@ -36,26 +31,5 @@ const fetchData = async () => {
   }
   return products
 }
-/*
-const fetchData = async (): Promise<Product[]> => {
-  const url = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/products`
-  const totalChunks = 7
-  let products: Product[] = []
-  const endpoints = Array.from({ length: totalChunks }).map(
-    (_item, i) => `${url}?chunk=${i + 1}`
-  )
-  try {
-    const responses = await axios.all([
-      ...endpoints.map((endpoint) => axios.get(endpoint)),
-    ])
-    products = responses.reduce((acc, res) => {
-      return [...acc, ...res.data]
-    }, [] as Product[])
-  } catch (err) {
-    const error = err as AxiosError
-    console.log(`Error: ${error.message}`)
-  }
-  return products
-}
-*/
+
 export default fetchData
