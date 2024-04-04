@@ -79,6 +79,18 @@ const CeramicColourFilterMenu = dynamic(
     ),
   }
 )
+const CoverageFilterMenu = dynamic(
+  () => import('@/app/components/CoverageFilterMenu'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="mb-225rem">
+        <TitleBar>Choose your coverage</TitleBar>
+        <FilterGridSkeleton />
+      </div>
+    ),
+  }
+)
 
 const FilteredProducts = dynamic(
   () => import('@/app/components/FilteredProducts'),
@@ -127,6 +139,8 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
     stylesMap[category as Styles].filterLayers.includes('pa_profile')
   const showCeramicColourFilter =
     stylesMap[category as Styles].filterLayers.includes('pa_ceramic-colour')
+  const showCoverageFilter =
+    stylesMap[category as Styles].filterLayers.includes('pa_coverage')
   return (
     <>
       <div className="col-left h-100 d-flex flex-column">
@@ -143,6 +157,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
           {showCeramicColourFilter && (
             <CeramicColourFilterMenu category={category} />
           )}
+          {showCoverageFilter && <CoverageFilterMenu category={category} />}
         </div>
       </div>
       <div className="col col-right h-100">

@@ -17,6 +17,7 @@ import {
   settingMap,
   caratMap,
   ceramicColoursMap,
+  coverageMap,
 } from '@/app/maps'
 import { getCategoryProducts, getUniqueArrayValues } from '@/app/utils'
 
@@ -32,6 +33,7 @@ const map: ProductFilterAttributesMap = {
   'pa_centre-carat': caratMap,
   'pa_total-carat': caratMap,
   'pa_ceramic-colour': ceramicColoursMap,
+  pa_coverage: coverageMap,
 }
 
 interface Props {

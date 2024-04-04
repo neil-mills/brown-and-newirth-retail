@@ -1,6 +1,6 @@
 interface Props {
   type: string
-  childType?: string | null
+  childType?: string[] | null
   selectedOptions: string[]
 }
 
@@ -24,7 +24,7 @@ export const getFilterSearchParamUrl = ({
       delete newParams[type]
     }
     if (childType) {
-      delete newParams[childType]
+      childType.forEach((type) => delete newParams[type])
     }
     if (selectedOptions.length) {
       newParams[type] = selectedOptions.join(',')

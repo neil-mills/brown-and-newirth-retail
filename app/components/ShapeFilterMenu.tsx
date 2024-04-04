@@ -48,7 +48,7 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
         <FilterGrid
           type={filter}
           filters={shapes}
-          childType={hasChild ? 'pa_setting' : null}
+          childType={hasChild ? ['pa_setting', 'pa_coverage'] : null}
         />
       )}
     </div>
