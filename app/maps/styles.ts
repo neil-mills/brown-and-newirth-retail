@@ -144,6 +144,6 @@ export const stylesMap: StyleMap = {
     label: '2-Colour',
     slug: '2-colour',
     image: '/img/07_2-colour.png',
-    filterLayers: ['pa_profile', 'pa_gauge', 'pa_width'],
+    filterLayers: ['pa_pattern', 'pa_gauge', 'pa_width'],
   },
 }
