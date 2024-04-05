@@ -15,7 +15,7 @@ interface ReturnValues {
   variations: Variation[]
   images: string[]
   otherOptions: Variation[]
-  relatedProducts: Product[]
+  similarProducts: Product[]
   category: Styles[] | null
   filterLayers: FilterLayerKeys[]
 }
@@ -30,7 +30,7 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
   let variations: Variation[] = []
   let images: string[] = []
   let otherOptions: Variation[] = []
-  let relatedProducts: Product[] = []
+  let similarProducts: Product[] = []
   let category: Styles[] | null = null
   let filterLayers: FilterLayerKeys[] = []
 
@@ -52,9 +52,6 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
     }
 
     if (product) {
-      relatedProducts = products?.filter((p) =>
-        product?.['related-cross-sell'].includes(p.productId)
-      )
       const productVariations = product?.variations?.length
         ? product.variations
         : [productToVariation(product)]
@@ -86,12 +83,20 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
               .map((variation) => variation.sku)
           )
         )
+
+        similarProducts = products
+          ?.filter((p) =>
+            p?.variations.some((variation) =>
+              product?.['related-cross-sell'].includes(variation.sku)
+            )
+          )
+          .map((p) => ({ ...p, images: getImages(p) }))
+
         otherOptions = otherSkus.map((sku) => {
           const variations = productVariations.filter(
             (variation) => variation.sku === sku
           )
-          const images = getImages(product!)
-
+          const images = getImages(product!, sku)
           return {
             ...variations[0],
             images,
@@ -107,7 +112,7 @@ export const useProduct = ({ sku, productId }: Props): ReturnValues => {
     variations,
     images,
     otherOptions,
-    relatedProducts,
+    similarProducts,
     isLoading,
     error,
   }

@@ -115,7 +115,7 @@ export const useVariations = ({
     }
 
     filteredVariations = filteredVariations.map((variation) => {
-      const images = getImages(variation)
+      const images = getImages(product, variation.sku)
       return {
         ...variation,
         images,

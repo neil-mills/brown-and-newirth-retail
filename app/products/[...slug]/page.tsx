@@ -5,6 +5,7 @@ import {
   OtherOptions,
   ResultsFilter,
   ResultsTabs,
+  SimilarProducts,
 } from '@/app/components'
 import {
   useProduct,
@@ -34,10 +35,10 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const {
     product,
     filterLayers,
-    category,
     variations,
     images,
     otherOptions,
+    similarProducts,
     isLoading,
     error,
   } = useProduct({ productId, sku })
@@ -49,6 +50,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
       variations,
       images,
       otherOptions,
+      similarProducts,
       filterLayers,
       metal: '',
       size: '',
@@ -65,6 +67,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     variations,
     images,
     otherOptions,
+    similarProducts,
     sku,
     searchParams,
     setSearchParams,
@@ -96,6 +99,14 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
                 tabIndex={0}
               >
                 <OtherOptions />
+              </div>
+              <div
+                className="tab-pane fade show active"
+                id="other"
+                role="tabpanel"
+                tabIndex={0}
+              >
+                <SimilarProducts />
               </div>
             </div>
           </>

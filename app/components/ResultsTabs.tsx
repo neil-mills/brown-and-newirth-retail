@@ -2,7 +2,9 @@ import React from 'react'
 import { useStore } from '../hooks'
 
 export const ResultsTabs = () => {
-  const { otherOptions } = useStore((store) => store.selectedSku)
+  const { otherOptions, similarProducts } = useStore(
+    (store) => store.selectedSku
+  )
   return (
     <div className="result-tabs col-pad-sm">
       <div className="nav row g-0" role="tablist">
@@ -25,7 +27,7 @@ export const ResultsTabs = () => {
             type="button"
             role="tab"
           >
-            Similar products
+            Similar products ({similarProducts.length})
           </button>
         </div>
       </div>

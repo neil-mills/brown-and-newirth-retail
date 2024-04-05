@@ -16,6 +16,7 @@ interface SelectedSku {
   variation?: Variation | null
   images: string[]
   otherOptions: Variation[]
+  similarProducts: Product[]
   diamondOrigin?: string
   centreCarat?: string
   filterLayers: FilterLayerKeys[]
@@ -63,6 +64,7 @@ const selectedSku = {
   variation: null,
   images: [],
   otherOptions: [],
+  similarProducts: [],
   diamondOrigin: '',
   centreCarat: '',
   filterLayers: [],

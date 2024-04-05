@@ -126,8 +126,8 @@ export interface Product {
   images?: string[]
   price: number
   'sale-price': number
-  'related-upsell': number[]
-  'related-cross-sell': number[]
+  'related-upsell': string[]
+  'related-cross-sell': string[]
   variations: Variation[]
 }
 
