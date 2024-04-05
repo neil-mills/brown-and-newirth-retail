@@ -501,6 +501,13 @@ sup {
   opacity: 0.05;
 }
 
+.btn-icon img {
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
 /* Forms */
 
 .form-control,
