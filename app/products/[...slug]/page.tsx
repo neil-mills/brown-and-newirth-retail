@@ -101,8 +101,8 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
                 <OtherOptions />
               </div>
               <div
-                className="tab-pane fade show active"
-                id="other"
+                className="tab-pane fade"
+                id="similar"
                 role="tabpanel"
                 tabIndex={0}
               >
