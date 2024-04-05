@@ -6,7 +6,6 @@ export const Sidebar = () => {
       <div className="sidebar-links fw-300">
         <a
           href="https://staging.retailer.brownandnewirth.com/my-account/"
-          target="_blank"
           className="d-flex align items-center justify-content-between pb-3 mb-3 pb-xl-4 mb-xl-4"
         >
           Account
@@ -19,7 +18,6 @@ export const Sidebar = () => {
         </a>
         <a
           href="https://staging.retailer.brownandnewirth.com/my-account/orders/"
-          target="_blank"
           className="d-flex align items-center justify-content-between pb-3 mb-3 pb-xl-4 mb-xl-4"
         >
           Orders
@@ -32,7 +30,6 @@ export const Sidebar = () => {
         </a>
         <a
           href="https://staging.retailer.brownandnewirth.com/my-account/edit-account/"
-          target="_blank"
           className="d-flex align items-center justify-content-between pb-3 mb-3 pb-xl-4 mb-xl-4"
         >
           Settings
@@ -57,7 +54,6 @@ export const Sidebar = () => {
         </a>
         <a
           href="https://staging.retailer.brownandnewirth.com/news/"
-          target="_blank"
           className="d-flex align items-center justify-content-between pb-3 mb-3 pb-xl-4 mb-xl-4"
         >
           Latest News
@@ -70,7 +66,6 @@ export const Sidebar = () => {
         </a>
         <a
           href="https://staging.retailer.brownandnewirth.com/contact/"
-          target="_blank"
           className="d-flex align items-center justify-content-between pb-3 mb-3 pb-xl-4 mb-xl-4"
         >
           Contact
@@ -84,7 +79,6 @@ export const Sidebar = () => {
       </div>
       <a
         href="https://www.brownandnewirth.com"
-        target="_blank"
         className="btn btn-border w-100 d-flex align-items-center justify-content-between px-3 text-start"
       >
         Visit Client Website

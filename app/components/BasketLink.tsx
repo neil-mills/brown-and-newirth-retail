@@ -9,7 +9,6 @@ export const BasketLink = () => {
   return (
     <a
       href="https://staging.retailer.brownandnewirth.com/my-account/qpl-basket/"
-      target="_blank"
       className="btn nav-btn h-100 d-flex align-items-center text-sm px-lg-4 px-xxl-5"
     >
       <span className="d-none d-lg-inline-block">
