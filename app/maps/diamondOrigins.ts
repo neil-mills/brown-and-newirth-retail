@@ -2,12 +2,12 @@ import { Map } from '@/app/types'
 
 export const diamondOriginsMap: Map = {
   NATURAL: {
-    label: 'Naturally formed, mined',
+    label: 'Mined',
     class: 'btn-natural',
     slug: 'natural',
   },
   'LAB GROWN': {
-    label: 'Created&reg; Lab-Grown',
+    label: 'laboratory',
     class: 'btn-created',
     slug: 'lab-grown',
   },
