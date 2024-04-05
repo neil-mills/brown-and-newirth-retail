@@ -25,8 +25,8 @@ export const ResultsFilter = () => {
         onChange={handleChange}
       >
         <option value="">Select</option>
-        <option value="mined">Naturally Formed, Mined</option>
-        <option value="lab-grown">Created&reg; Lab-grown</option>
+        <option value="mined">Mined</option>
+        <option value="lab-grown">Laboratory</option>
       </select>
     </div>
   )
