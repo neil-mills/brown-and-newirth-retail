@@ -7,7 +7,7 @@ export const diamondOriginsMap: Map = {
     slug: 'natural',
   },
   'LAB GROWN': {
-    label: 'laboratory',
+    label: 'Laboratory',
     class: 'btn-created',
     slug: 'lab-grown',
   },

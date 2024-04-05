@@ -41,8 +41,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     similarProducts,
     isLoading,
     error,
-  } = useProduct({ productId, sku })
-
+  } = useProduct({ productId, sku, filters })
   useEffect(() => {
     setSelectedSku({
       sku,
