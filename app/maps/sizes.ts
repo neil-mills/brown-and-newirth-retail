@@ -19,5 +19,5 @@ export const sizesMap: Record<string, string[]> = {
     'q',
   ],
   'r-z': ['r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
-  'z+': ['z+'],
+  z: ['z+'],
 }

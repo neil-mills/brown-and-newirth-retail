@@ -17,10 +17,24 @@ export const useVariationOptions = () => {
 
   if (variations?.length) {
     if (variations[0]?.attributes?.pa_size) {
-      sizes = sizesMap[variations[0].attributes.pa_size].map((size) => ({
-        label: size.toUpperCase(),
-        value: size,
-      }))
+      const allVariationSizes = getUniqueArrayValues<string[]>(
+        variations.reduce((acc, variation) => {
+          if (variation.attributes?.pa_size) {
+            acc = [...acc, variation.attributes.pa_size]
+          }
+          return acc
+        }, [] as string[])
+      )
+      sizes = allVariationSizes.reduce((acc, size) => {
+        acc = [
+          ...acc,
+          ...sizesMap[size].map((s) => ({
+            label: s.toUpperCase(),
+            value: s,
+          })),
+        ]
+        return acc
+      }, [] as Option[])
     }
     if (variations[0]?.attributes['pa_metal-code']) {
       metals = getUniqueArrayValues<string[]>(
