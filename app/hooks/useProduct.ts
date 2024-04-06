@@ -47,27 +47,6 @@ export const useProduct = ({
   let category: Styles[] | null = null
   let filterLayers: FilterLayerKeys[] = []
 
-  const filterBySearchParams = (
-    items: Product[] | Variation[]
-  ): Product[] | Variation[] => {
-    if (!items?.length) return items
-    let filteredItems = items
-    if (filters && Object.keys(filters).length) {
-      Object.entries(filters).forEach(([filterAttr, filterValues]) => {
-        if (isProduct(items[0])) {
-          filteredItems = filteredItems.filter(
-            (product) =>
-              Object.keys(product.attributes).includes(filterAttr) &&
-              (
-                product.attributes[filterAttr as FilterLayerKeys] as string[]
-              ).some((value) => filterValues.includes(value))
-          )
-        }
-      })
-    }
-    return filteredProducts
-  }
-
   const { data: products, error, isLoading } = useGetData()
 
   if (!isLoading && !error && products) {
