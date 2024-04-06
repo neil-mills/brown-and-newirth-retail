@@ -1,6 +1,7 @@
 import { useStore } from '@/app/hooks'
 import { getUniqueArrayValues } from '@/app/utils'
 import { sizesMap, metalsMap } from '@/app/maps'
+import { VariationMetal } from '../types'
 
 interface Option {
   label: string
@@ -23,8 +24,19 @@ export const useVariationOptions = () => {
     }
     if (variations[0]?.attributes['pa_metal-code']) {
       metals = getUniqueArrayValues<string[]>(
-        variations.map((variation) => variation.attributes['pa_metal-code']!)
-      ).map((metal) => ({ label: metalsMap?.[metal] || '', value: metal }))
+        variations.reduce((acc, variation) => {
+          if (variation.attributes['pa_metal-code']) {
+            acc = [...acc, variation.attributes['pa_metal-code']]
+          }
+          return acc
+        }, [] as string[])
+      )
+        .map((metal) => ({
+          label: metalsMap?.[metal as VariationMetal]?.label || '',
+          value: metalsMap?.[metal as VariationMetal]?.slug,
+          index: metalsMap?.[metal as VariationMetal]?.index,
+        }))
+        .sort((a, b) => a.index! - b.index!)
     }
   }
 

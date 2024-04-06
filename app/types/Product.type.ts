@@ -16,9 +16,34 @@ type MetalCode =
 
 type ProductSize = 'A-Q' | 'R-Z' | 'Z+'
 type VariationCoverage = 'Third' | 'Half' | 'Three Quarter' | 'Full'
+export type VariationMetal =
+  | '9w'
+  | '18w'
+  | '18wf'
+  | '9y'
+  | '14y'
+  | '18y'
+  | '18yf'
+  | '9r'
+  | '18r'
+  | 'plt'
+  | '18pl'
+  | 'pl18'
+  | 'pl9'
+  | '9pl'
+  | '9k'
+  | '14k'
+  | '18k'
+  | '22k'
+  | 'pd'
+  | '9pd'
+  | '18pd'
+  | 'pd9'
+  | 'pd18'
+  | 'pd500'
 
 export interface VariationAttributes {
-  'pa_metal-code'?: string
+  'pa_metal-code'?: VariationMetal
   'pa_total-carat'?: string
   'pa_centre-carat'?: string
   'pa_diamond-quality'?: VariationDiamondQuality

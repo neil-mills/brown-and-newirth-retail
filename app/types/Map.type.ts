@@ -9,6 +9,7 @@ export interface Mapping {
   filter?: string[]
   start?: number
   end?: number
+  index?: number
 }
 
 export interface Map {
