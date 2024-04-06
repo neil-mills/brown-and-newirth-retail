@@ -4,7 +4,12 @@ import {
   QueryClient,
   dehydrate,
 } from '@tanstack/react-query'
-import { CategoryGridSkeleton, SearchByCode, TitleBar } from '@/app/components'
+import {
+  CategoryGridSkeleton,
+  SearchByCode,
+  SetUserId,
+  TitleBar,
+} from '@/app/components'
 import dynamic from 'next/dynamic'
 
 const SearchByStyle = dynamic(() => import('@/app/components/SearchByStyle'), {
@@ -27,6 +32,7 @@ export default async function Home() {
   return (
     <>
       <HydrationBoundary state={dehydrate(queryClient)}>
+        <SetUserId />
         <div className="col-left is-search h-100 position-relative bg-black d-flex align-items-center">
           <SearchByCode />
         </div>

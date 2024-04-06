@@ -15,6 +15,7 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
   } = useStore((store) => store.selectedSku)
   const setVariation = useStore((store) => store.setVariation)
   const setToastMessage = useStore((store) => store.setToastMessage)
+  const userId = useStore((store) => store.userId)
   const productIsLoading = useStore((store) => store.isLoading)
   const { sizes, metals } = useVariationOptions()
   const setSize = useStore((store) => store.setSize)
@@ -27,7 +28,7 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
       const variationId = variation['variation-id']
       try {
         setIsLoading(true)
-        const res = await axios.post('/api/save', { variationId })
+        const res = await axios.post('/api/save', { variationId, userId })
         if (res.status === 200) {
           setToastMessage('Item successfully saved.')
         }
