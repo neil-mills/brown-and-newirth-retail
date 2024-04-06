@@ -98,6 +98,11 @@ export const useProductFilterOptions = ({
       )
         .map((filter) => filterMap[filter])
         .filter((filter) => filter !== undefined)
+      if (category === 'EARRING') {
+        filterOptions = filterOptions.filter(
+          (option) => option.slug !== 'other'
+        )
+      }
       if (filterMap[Object.keys(filterMap)[0]]?.index) {
         filterOptions = filterOptions.sort((a, b) => a.index! - b.index!)
       }
