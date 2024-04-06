@@ -4,8 +4,8 @@ import {
   FilterLayerKeys,
   Product,
   Variation,
-  SearchParamKeys,
   VariationMetal,
+  StoreFilters,
 } from '@/app/types'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 
@@ -28,7 +28,7 @@ interface Store {
   selectedSku: SelectedSku
   basket: BasketItem[]
   searchParams: string
-  filters: Filters
+  filters: StoreFilters
   toastMessage: string
   showModal: boolean
   isLoading: boolean
@@ -37,7 +37,7 @@ interface Store {
   setShowModal: (showModal: boolean) => void
   setIsLoading: (isLoading: boolean) => void
   setUserId: (userId: string) => void
-  setFilters: (filters: Filters) => void
+  setFilters: (filters: StoreFilters) => void
   setSearchParams: (searchParams: string) => void
   setSelectedSku: (selectedSku: SelectedSku) => void
   resetSelectedSku: () => void
@@ -53,10 +53,6 @@ interface ProductsQuery {
   search?: string
   sku?: string
   category?: string
-}
-
-type Filters = {
-  [TKey in SearchParamKeys]: string[]
 }
 
 const selectedSku = {
@@ -115,7 +111,8 @@ export const useStore = create<Store>((set) => ({
       ...store,
       selectedSku: { ...store.selectedSku, filterLayers },
     })),
-  setFilters: (filters: Filters) => set((store) => ({ ...store, filters })),
+  setFilters: (filters: StoreFilters) =>
+    set((store) => ({ ...store, filters })),
   setSize: (size: string) =>
     set((store) => ({
       ...store,

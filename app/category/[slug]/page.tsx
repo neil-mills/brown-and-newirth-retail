@@ -1,7 +1,8 @@
 'use client'
 import { notFound, useSearchParams } from 'next/navigation'
 import { stylesMap } from '@/app/maps'
-import { Styles } from '@/app/types'
+import { Filters, StoreFilters, Styles } from '@/app/types'
+import { searchParamsToObject } from '@/app/utils'
 import dynamic from 'next/dynamic'
 import {
   BackLink,
@@ -109,8 +110,19 @@ const FilteredProducts = dynamic(
 
 const ProductCategoryPage = ({ params: { slug } }: Props) => {
   const setFilterLayers = useStore((store) => store.setFilterLayers)
+  const setFilters = useStore((store) => store.setFilters)
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
+  if (filters) {
+    const filterStore = Object.entries(
+      searchParamsToObject(searchParams.toString())
+    ).reduce((acc, [key, value]) => {
+      acc = { [key]: value.split(',') }
+      return acc
+    }, {} as Filters)
+    setFilters(filterStore as StoreFilters)
+  }
+
   const [category, categoryData] = useCategory(slug)
   const { filterLayers } = stylesMap[category!]
 

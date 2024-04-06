@@ -65,6 +65,10 @@ export type Filters = {
   [TKey in FilterLayerKeys]?: string[]
 }
 
+export type StoreFilters = {
+  [TKey in SearchParamKeys]: string[]
+}
+
 export type ProductFilters = {
   [TKey in ProductAttributeKeys]?: string[]
 }
