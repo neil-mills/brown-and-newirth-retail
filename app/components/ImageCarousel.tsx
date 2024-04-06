@@ -27,6 +27,7 @@ const ImageCarousel = ({ isLoading }: { isLoading: boolean }) => {
                   return (
                     <div
                       key={i}
+                      data-index={i}
                       className={`carousel-item bg-grey-light${i === 0 ? ' active' : ''}`}
                     >
                       <Image
