@@ -2,10 +2,10 @@ import { create } from 'zustand'
 import {
   BasketItem,
   FilterLayerKeys,
-  Images,
   Product,
   Variation,
   SearchParamKeys,
+  VariationMetal,
 } from '@/app/types'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 
@@ -21,7 +21,7 @@ interface SelectedSku {
   centreCarat?: string
   filterLayers: FilterLayerKeys[]
   size?: string
-  metal?: string
+  metal?: VariationMetal | string
 }
 interface Store {
   productsQuery: ProductsQuery

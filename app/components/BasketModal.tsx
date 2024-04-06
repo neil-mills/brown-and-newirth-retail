@@ -45,7 +45,7 @@ export const BasketModal = () => {
       tabIndex={-1}
     >
       <div className="modal-dialog modal-dialog-centered mx-auto">
-      <div className="modal-content">
+        <div className="modal-content">
           <button
             type="button"
             className="btn-close position-absolute"
