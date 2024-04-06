@@ -11,8 +11,8 @@ export const ceramicColoursMap = {
   },
   Blue: {
     label: 'Blue',
-    slug: 'grey',
-    image: '/img/svg/icon-ceramic-grey.svg',
+    slug: 'blue',
+    image: '/img/svg/icon-ceramic-blue.svg',
   },
   Red: {
     label: 'Red',
