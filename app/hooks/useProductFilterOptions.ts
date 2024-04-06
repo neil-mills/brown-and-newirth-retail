@@ -98,6 +98,9 @@ export const useProductFilterOptions = ({
       )
         .map((filter) => filterMap[filter])
         .filter((filter) => filter !== undefined)
+      if (filterMap[Object.keys(filterMap)[0]]?.index) {
+        filterOptions = filterOptions.sort((a, b) => a.index! - b.index!)
+      }
     }
   }
   return { filterOptions, isLoading, error }
