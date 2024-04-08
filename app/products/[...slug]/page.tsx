@@ -2,10 +2,11 @@
 import { useEffect } from 'react'
 import {
   ProductDetails,
-  OtherOptions,
+  ProductGridSkeleton,
   ResultsFilter,
   ResultsTabs,
   SimilarProducts,
+  TitleBar,
 } from '@/app/components'
 import {
   useProduct,
@@ -14,7 +15,6 @@ import {
   useGetParams,
 } from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
-import FilteredVariations from '@/app/components/FilteredVariations'
 import dynamic from 'next/dynamic'
 
 interface Props {
@@ -29,6 +29,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const setSelectedSku = useStore((store) => store.setSelectedSku)
   const resetSelectedSku = useStore((store) => store.resetSelectedSku)
   const setSearchParams = useStore((store) => store.setSearchParams)
+  const setSimilarProducts = useStore((store) => store.setSimilarProducts)
   const setIsLoading = useStore((store) => store.setIsLoading)
   const searchByCode = searchParams.get('search') === 'code'
   const filters = useFilterSearchParams(searchParams.toString())
@@ -37,7 +38,6 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     filterLayers,
     variations,
     images,
-    otherOptions,
     similarProducts,
     isLoading,
     error,
@@ -48,15 +48,13 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
       product,
       variations,
       images,
-      otherOptions,
-      similarProducts,
       filterLayers,
       metal: '',
       size: '',
       diamondOrigin: searchParams.get('pa_diamond') || '',
       centreCarat: searchParams.get('pa_centre-carat') || '',
     })
-
+    setSimilarProducts(similarProducts)
     setSearchParams(searchParams.toString())
     setIsLoading(isLoading)
     return () => resetSelectedSku()
@@ -65,8 +63,8 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     product,
     variations,
     images,
-    otherOptions,
     similarProducts,
+    setSimilarProducts,
     sku,
     searchParams,
     setSearchParams,
@@ -76,6 +74,23 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     setIsLoading,
   ])
   if (error) return <p>{error.message}</p>
+
+  const FilteredVariations = dynamic(
+    () => import('@/app/components/FilteredVariations'),
+    {
+      ssr: false,
+      loading: () => (
+        <>
+          {!searchByCode && (
+            <TitleBar>
+              <span style={{ visibility: 'hidden' }}>Loading</span>
+            </TitleBar>
+          )}
+          <ProductGridSkeleton />
+        </>
+      ),
+    }
+  )
 
   return (
     <>
@@ -97,7 +112,11 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
                 role="tabpanel"
                 tabIndex={0}
               >
-                <OtherOptions />
+                <FilteredVariations
+                  isLoading={isLoading}
+                  filters={filters}
+                  sku={sku}
+                />
               </div>
               <div
                 className="tab-pane fade"

@@ -7,26 +7,36 @@ import ProductGrid from '@/app/components/ProductGrid'
 const FilteredVariations = ({
   filters,
   isLoading = true,
+  sku,
 }: {
   filters: Filters | null
   isLoading: boolean
+  sku?: string | null
 }) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
+  const setOtherOptionsResults = useStore(
+    (store) => store.setOtherOptionsResults
+  )
   const filterByAttribute: FilterLayerKeys =
     filterLayers[filterLayers.length - 1]
-  const variations = useVariations({ filterByAttribute, filters })
+  const variations = useVariations({ filterByAttribute, filters, sku })
+  if (sku) setOtherOptionsResults(variations.length)
   return (
     <>
       {isLoading ? (
         <>
-          <TitleBar>
-            <span style={{ visibility: 'hidden' }}>Loading</span>
-          </TitleBar>
-          <ProductGridSkeleton />
+          <>
+            {!sku && (
+              <TitleBar>
+                <span style={{ visibility: 'hidden' }}>Loading</span>
+              </TitleBar>
+            )}
+            <ProductGridSkeleton />
+          </>
         </>
       ) : (
         <>
-          <TitleBar>Results ({variations.length})</TitleBar>
+          {!sku && <TitleBar>Results ({variations.length})</TitleBar>}
           <ProductGrid style="variation" items={variations} />
         </>
       )}

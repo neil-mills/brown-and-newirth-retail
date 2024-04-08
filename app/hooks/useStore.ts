@@ -8,6 +8,7 @@ import {
   StoreFilters,
 } from '@/app/types'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
+import { OtherOptions } from '../components'
 
 interface SelectedSku {
   sku: string | null
@@ -15,8 +16,6 @@ interface SelectedSku {
   variations: Variation[]
   variation?: Variation | null
   images: string[]
-  otherOptions: Variation[]
-  similarProducts: Product[]
   diamondOrigin?: string
   centreCarat?: string
   filterLayers: FilterLayerKeys[]
@@ -25,6 +24,7 @@ interface SelectedSku {
 }
 interface Store {
   productsQuery: ProductsQuery
+  otherOptionsResults: number
   selectedSku: SelectedSku
   basket: BasketItem[]
   searchParams: string
@@ -33,6 +33,9 @@ interface Store {
   showModal: boolean
   isLoading: boolean
   userId: string
+  similarProducts: Product[]
+  setOtherOptionsResults: (otherOptionsResults: number) => void
+  setSimilarProducts: (similarProducts: Product[]) => void
   setToastMessage: (toastMessage: string) => void
   setShowModal: (showModal: boolean) => void
   setIsLoading: (isLoading: boolean) => void
@@ -61,8 +64,6 @@ const selectedSku = {
   variations: [],
   variation: null,
   images: [],
-  otherOptions: [],
-  similarProducts: [],
   diamondOrigin: '',
   centreCarat: '',
   filterLayers: [],
@@ -72,7 +73,9 @@ const selectedSku = {
 
 export const useStore = create<Store>((set) => ({
   selectedSku,
+  similarProducts: [],
   basket: [],
+  otherOptionsResults: 0,
   searchParams: '',
   toastMessage: '',
   showModal: false,
@@ -93,6 +96,10 @@ export const useStore = create<Store>((set) => ({
     pa_coverage: [],
     'pa_ceramic-colour': [],
   },
+  setOtherOptionsResults: (otherOptionsResults: number) =>
+    set((store) => ({ ...store, otherOptionsResults })),
+  setSimilarProducts: (similarProducts: Product[]) =>
+    set((store) => ({ ...store, similarProducts })),
   setToastMessage: (toastMessage: string) =>
     set((store) => ({ ...store, toastMessage })),
   setShowModal: (showModal: boolean) =>
