@@ -23,9 +23,10 @@ interface Props {
   style: 'product' | 'variation'
   label?: 'code'
   item: Product | Variation
+  index: number
 }
 
-export const ProductCard = ({ item, label, style }: Props) => {
+export const ProductCard = ({ item, label, style, index }: Props) => {
   const searchParams = useSearchParams()
   const { filterLayers } = useStore((store) => store.selectedSku)
   const router = useRouter()
@@ -91,7 +92,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
           }`}
         >
           <div
-            id={item.sku}
+            id={`${item.sku}_${index}`}
             className="carousel carousel-crossfade bg-grey-light mb-3"
             data-bs-interval="false"
           >
@@ -118,7 +119,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
                 <button
                   className="carousel-control-prev"
                   type="button"
-                  data-bs-target={`#${item.sku}`}
+                  data-bs-target={`#${item.sku}_${index}`}
                   data-bs-slide="prev"
                 >
                   <span
@@ -130,7 +131,7 @@ export const ProductCard = ({ item, label, style }: Props) => {
                 <button
                   className="carousel-control-next"
                   type="button"
-                  data-bs-target={`#${item.sku}`}
+                  data-bs-target={`#${item.sku}_${index}`}
                   data-bs-slide="next"
                 >
                   <span

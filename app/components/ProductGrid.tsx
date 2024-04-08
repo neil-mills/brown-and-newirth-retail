@@ -25,6 +25,7 @@ const ProductGrid = ({ items, label, style }: Props) => {
               item={item}
               style={style || 'product'}
               label={label}
+              index={i}
             />
           ) : (
             <CategoryCard key={i} item={item} />
