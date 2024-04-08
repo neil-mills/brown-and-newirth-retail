@@ -39,7 +39,7 @@ export const SearchByCode = () => {
           getUniqueArrayValues<string[]>(
             variations.reduce((acc, variation) => {
               if (variation.attributes[variationFilterLayerAttr]) {
-                acc = [...acc, variation.attributes[variationFilterLayerAttr]]
+                acc = [...acc, variation.attributes[variationFilterLayerAttr]!]
               }
               return acc
             }, [] as string[])
