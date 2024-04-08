@@ -6,7 +6,7 @@ import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
 
 export const AddToBasket = () => {
-  const { variation } = useStore((store) => store.selectedSku)
+  const { variation, metal, size } = useStore((store) => store.selectedSku)
   const basket = useStore((store) => store.basket)
   const userId = useStore((store) => store.userId)
   const setBasket = useStore((store) => store.setBasket)
@@ -26,7 +26,12 @@ export const AddToBasket = () => {
       setBasket(updatedBasket)
       try {
         setIsLoading(true)
-        const res = await axios.post('/api/basket', { variationId, userId })
+        const res = await axios.post('/api/basket', {
+          variationId,
+          userId,
+          metal,
+          size,
+        })
         if (res.status === 200) {
           setShowModal(true)
         }

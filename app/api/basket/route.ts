@@ -3,11 +3,11 @@ import axios, { AxiosError } from 'axios'
 
 export async function POST(request: NextRequest) {
   const body = await request.json()
-  const { variationId } = body
+  const { variationId, metal, size } = body
   try {
     const res = await axios.post(
       'https://staging.retailer.brownandnewirth.com/wp-json/addToCart/v1/add-item',
-      { variationId },
+      { variationId, metal, size },
       { timeout: 4000 }
     )
     return NextResponse.json(res.data, { status: res.status })
