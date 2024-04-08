@@ -8,7 +8,6 @@ import {
   StoreFilters,
 } from '@/app/types'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
-import { OtherOptions } from '../components'
 
 interface SelectedSku {
   sku: string | null
