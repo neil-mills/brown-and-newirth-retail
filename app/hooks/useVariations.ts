@@ -16,13 +16,11 @@ import { rangeFilterMap } from '@/app/maps'
 interface Props {
   filterByAttribute: FilterLayerKeys
   filters: Filters | null
-  sku?: string | null
 }
 
 export const useVariations = ({
   filterByAttribute,
   filters,
-  sku,
 }: Props): Variation[] => {
   const { product, filterLayers } = useStore((store) => store.selectedSku)
   const rangeAttributes: RangeFilterAttribute[] = [
@@ -36,10 +34,6 @@ export const useVariations = ({
       ? product.variations
       : [productToVariation(product)]
     filteredVariations = productVariations
-    if (sku)
-      filteredVariations = filteredVariations.filter(
-        (variation) => variation.sku === sku
-      )
     if (filters && Object.keys(filters)) {
       Object.entries(filters).forEach(([filter, values]) => {
         if (rangeAttributes.includes(filter as RangeFilterAttribute))
@@ -119,17 +113,14 @@ export const useVariations = ({
     } else {
       filteredVariations = groupedFilteredVariations
     }
-    filteredVariations = filteredVariations.filter((variation) => variation)
-    if (filteredVariations.length) {
-      filteredVariations = filteredVariations.map((variation) => {
-        const images = getImages(product, variation.sku)
-        return {
-          ...variation,
-          images,
-        }
-      })
-    }
 
+    filteredVariations = filteredVariations.map((variation) => {
+      const images = getImages(product, variation.sku)
+      return {
+        ...variation,
+        images,
+      }
+    })
     let sortBy: RangeFilterAttribute | null = null
     if (filterLayers.includes('pa_width')) sortBy = 'pa_width'
     if (filterLayers.includes('pa_total-carat')) sortBy = 'pa_total-carat'

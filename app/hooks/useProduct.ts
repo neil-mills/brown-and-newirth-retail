@@ -4,6 +4,8 @@ import {
   Styles,
   FilterLayerKeys,
   Filters,
+  isProduct,
+  VariationAttributeKeys,
 } from '@/app/types'
 import { useGetData } from '@/app/hooks'
 import {
@@ -20,6 +22,7 @@ interface ReturnValues {
   product: Product | null
   variations: Variation[]
   images: string[]
+  otherOptions: Variation[]
   similarProducts: Product[]
   category: Styles[] | null
   filterLayers: FilterLayerKeys[]
@@ -39,6 +42,7 @@ export const useProduct = ({
   let product: Product | null = null
   let variations: Variation[] = []
   let images: string[] = []
+  let otherOptions: Variation[] = []
   let similarProducts: Product[] = []
   let category: Styles[] | null = null
   let filterLayers: FilterLayerKeys[] = []
@@ -113,6 +117,27 @@ export const useProduct = ({
           ...p,
           images: getImages(p),
         }))
+
+        otherOptions = otherSkus.map((sku) => {
+          const variations = productVariations.filter(
+            (variation) => variation.sku === sku
+          )
+          const images = getImages(product!, sku)
+          return {
+            ...variations[0],
+            images,
+          }
+        })
+        if (filters) {
+          Object.entries(filters).forEach(([filterAttr, filterValues]) => {
+            otherOptions = otherOptions.filter(
+              (variation) =>
+                Object.keys(variation.attributes).includes(filterAttr) &&
+                variation.attributes[filterAttr as VariationAttributeKeys] ===
+                  filterValues[0]
+            )
+          })
+        }
       }
     }
   }
@@ -122,6 +147,7 @@ export const useProduct = ({
     filterLayers,
     variations,
     images,
+    otherOptions,
     similarProducts,
     isLoading,
     error,

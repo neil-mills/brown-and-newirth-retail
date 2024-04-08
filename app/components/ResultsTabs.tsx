@@ -2,9 +2,9 @@ import React from 'react'
 import { useStore } from '../hooks'
 
 export const ResultsTabs = () => {
-  const similarProducts = useStore((store) => store.similarProducts)
-  const otherOptionsResults = useStore((store) => store.otherOptionsResults)
-  const isLoading = useStore((store) => store.isLoading)
+  const { otherOptions, similarProducts } = useStore(
+    (store) => store.selectedSku
+  )
   return (
     <div className="result-tabs col-pad-sm">
       <div className="nav row g-0" role="tablist">
@@ -15,9 +15,8 @@ export const ResultsTabs = () => {
             data-bs-target="#other"
             type="button"
             role="tab"
-            disabled={isLoading}
           >
-            {`Other options ${!isLoading ? `(${otherOptionsResults})` : ''}`}
+            Other options ({otherOptions.length})
           </button>
         </div>
         <div className="col-6 col-lg-12 col-xl-6">
@@ -27,9 +26,8 @@ export const ResultsTabs = () => {
             data-bs-target="#similar"
             type="button"
             role="tab"
-            disabled={isLoading}
           >
-            {`Similar products ${!isLoading ? `(${similarProducts.length})` : ''}`}
+            Similar products ({similarProducts.length})
           </button>
         </div>
       </div>
