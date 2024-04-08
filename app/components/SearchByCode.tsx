@@ -3,6 +3,8 @@ import { FormEvent, useEffect, useRef, useState } from 'react'
 import { useGetData, useStore } from '@/app/hooks'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { getProductCategory, getUniqueArrayValues } from '../utils'
+import { stylesMap } from '../maps'
 
 const bgStyle = {
   backgroundImage: `url('/img/768x970_01.jpg')`,
@@ -27,7 +29,26 @@ export const SearchByCode = () => {
         product.variations.some((variation) => variation.sku === code)
       )
       if (product) {
-        router.push(`/products/sku/${code}?search=code`)
+        const variations = product.variations.filter(
+          (variation) => variation.sku === code
+        )
+        const category = getProductCategory(product)
+        const { filterLayers } = stylesMap[category![0]]
+        const variationFilterLayerAttr = filterLayers[filterLayers.length - 1]
+        const hasMultipleVariations =
+          getUniqueArrayValues<string[]>(
+            variations.reduce((acc, variation) => {
+              if (variation.attributes[variationFilterLayerAttr]) {
+                acc = [...acc, variation.attributes[variationFilterLayerAttr]]
+              }
+              return acc
+            }, [] as string[])
+          ).length > 1
+        let url = `/products/sku/${code}?search=code`
+        if (hasMultipleVariations) {
+          url = `/products/productId/${product.productId}`
+        }
+        https: router.push(url)
       } else {
         setIsInvalidCode(true)
       }

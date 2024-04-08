@@ -2,11 +2,9 @@
 import { useEffect } from 'react'
 import {
   ProductDetails,
-  ProductGridSkeleton,
   ResultsFilter,
   ResultsTabs,
   SimilarProducts,
-  TitleBar,
 } from '@/app/components'
 import {
   useProduct,

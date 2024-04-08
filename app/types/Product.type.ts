@@ -53,6 +53,13 @@ export interface VariationAttributes {
   pa_size?: VariationSize
   'pa_ceramic-colour'?: VariationCeramicColours
   pa_coverage?: VariationCoverage
+  pa_pattern?: Styles
+  pa_shape?: string
+  pa_shaped?: string
+  pa_setting?: string
+  pa_profile?: string
+  'pa_diamond-set'?: string
+  pa_style?: string
 }
 
 export type VariationStatus = 'publish'

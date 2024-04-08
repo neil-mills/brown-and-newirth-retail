@@ -8,6 +8,7 @@ export type VariationAttributeKeys =
   | 'pa_width'
   | 'pa_size'
   | 'pa_ceramic-colour'
+  | 'pa_pattern'
 
 export type FilterLayerKeys =
   | VariationAttributeKeys
