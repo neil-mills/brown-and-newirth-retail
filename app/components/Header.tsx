@@ -32,14 +32,14 @@ export const Header = () => {
         </div>
         <div className="d-flex h-100 right">
           <a
-            href="/"
+            href="https://staging.retailer.brownandnewirth.com/save-compare/"
             className="btn nav-btn h-100 d-flex align-items-center text-sm px-lg-4 px-xxl-5"
           >
-            <span className="d-none d-lg-inline-block">Saved Quotes</span>
+            <span className="d-none d-lg-inline-block">Save/Compare</span>
             <Image
               className="d-block d-lg-none mx-auto"
               src="/img/svg/icon-floppy.svg"
-              alt="Saved Quotes"
+              alt="Save/Compare"
               width={16}
               height={16}
             />
