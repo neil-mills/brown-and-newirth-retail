@@ -12,6 +12,7 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
     size: selectedSize,
     metal: selectedMetal,
     variation,
+    sku,
   } = useStore((store) => store.selectedSku)
   const setVariation = useStore((store) => store.setVariation)
   const setToastMessage = useStore((store) => store.setToastMessage)
@@ -53,6 +54,7 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
           selectedVariation =
             variations.find(
               (variation) =>
+                variation?.sku === sku &&
                 variation.attributes['pa_metal-code'] === selectedMetal &&
                 variation.attributes.pa_size === sizeRange
             ) || null
