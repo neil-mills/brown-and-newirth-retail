@@ -112,7 +112,7 @@ export const useStore = create<Store>((set) => ({
       selectedSku: { ...store.selectedSku, filterLayers },
     })),
   setFilters: (filters: StoreFilters) =>
-    set((store) => ({ ...store, filters })),
+    set((store) => ({ ...store, filters: { ...store.filters, ...filters } })),
   setSize: (size: string) =>
     set((store) => ({
       ...store,

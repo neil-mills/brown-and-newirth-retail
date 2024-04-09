@@ -13,9 +13,8 @@ interface Props {
 export const FilterGrid = ({ type, filters, childType }: Props) => {
   const storeFilters = useStore((store) => store.filters)
   const setFilters = useStore((store) => store.setFilters)
-
   const handleClick = (value: string) => {
-    const newOptions = storeFilters[type].includes(value)
+    const newOptions = storeFilters?.[type]?.includes(value)
       ? storeFilters[type].filter((option) => option !== value)
       : [value, ...storeFilters[type]]
     const newUrl = getFilterSearchParamUrl({
@@ -46,7 +45,8 @@ export const FilterGrid = ({ type, filters, childType }: Props) => {
             onClick={() => handleClick(filter.slug)}
             disabled={filters.length === 1}
             aria-pressed={
-              storeFilters[type].includes(filter.slug) || filters.length === 1
+              storeFilters?.[type]?.includes(filter.slug) ||
+              filters.length === 1
             }
           >
             <p className="pt-2 mb-0">{filter.label}</p>
