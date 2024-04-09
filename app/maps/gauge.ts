@@ -5,7 +5,7 @@ type GaugeMap = { [K in VariationGauge]: Mapping }
 export const gaugeMap: GaugeMap = {
   ultralight: {
     label: 'Ultra Light',
-    slug: 'ultra-light',
+    slug: 'ultralight',
   },
   light: {
     label: 'Light',
