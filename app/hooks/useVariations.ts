@@ -37,7 +37,14 @@ export const useVariations = ({
     if (filters && Object.keys(filters)) {
       Object.entries(filters).forEach(([filter, values]) => {
         if (rangeAttributes.includes(filter as RangeFilterAttribute))
-          values = values.map((value) => value.replace('.', '-'))
+          values =
+            filter !== 'pa_diamond-quality'
+              ? values.map((value) => value.replace('.', '-'))
+              : values
+        values = [
+          ...values.map((value) => value.toLowerCase()),
+          ...values.map((value) => value.toUpperCase()),
+        ]
         if (!rangeAttributes.includes(filter as RangeFilterAttribute)) {
           filteredVariations = filteredVariations.filter((variation) =>
             values.includes(

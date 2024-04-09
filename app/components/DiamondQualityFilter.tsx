@@ -18,7 +18,6 @@ export const DiamondQualityFilter = ({
     rangeFilter: 'pa_diamond-quality',
     filters: null,
   })
-  console.log({ diamondQualities, availableDiamondQualities })
   const handleClick = (value: string) => {
     const newOptions = storeFilters['pa_diamond-quality'].includes(value)
       ? storeFilters['pa_diamond-quality'].filter((option) => option !== value)
@@ -44,7 +43,6 @@ export const DiamondQualityFilter = ({
       <div className="row row-pad-sm">
         {diamondQualities.map((diamondQuality, i) => {
           const value = diamondQuality.slug.toLowerCase()
-          console.log(value)
           const btnClass = classNames({
             'bg-pink':
               diamondQuality.slug === searchParamsObj?.['pa_diamond-quality'],

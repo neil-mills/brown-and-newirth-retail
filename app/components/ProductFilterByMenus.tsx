@@ -9,7 +9,6 @@ import {
 
 const ProductFilterByMenus = ({ isLoading }: { isLoading: boolean }) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
-  console.log({ filterLayers })
   const showCentreCaratFilter = filterLayers.includes('pa_centre-carat')
   const showTotalCaratFilter = filterLayers.includes('pa_total-carat')
   return (

@@ -44,7 +44,10 @@ export const useFilterSearchParams = (
   let filters: Filters | null = null
   if (!searchParams || Object.keys(searchParams).length === 0) return filters
   filters = Object.entries(searchParams).reduce((acc, [key, values]) => {
-    if (Object.keys(map).includes(key)) {
+    if (
+      Object.keys(map).includes(key) ||
+      Object.keys(map).includes(key.toUpperCase())
+    ) {
       const filterValues = values
         ? values.split(',').map((value) => {
             const index = Object.entries(map[key as SearchParamKeys]).findIndex(

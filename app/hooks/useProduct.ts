@@ -4,7 +4,6 @@ import {
   Styles,
   FilterLayerKeys,
   Filters,
-  isProduct,
   VariationAttributeKeys,
 } from '@/app/types'
 import { useGetData } from '@/app/hooks'
@@ -104,12 +103,16 @@ export const useProduct = ({
         )
         if (filters) {
           Object.entries(filters).forEach(([filterAttr, filterValues]) => {
+            const values = [
+              ...filterValues.map((value) => value.toLowerCase()),
+              ...filterValues.map((value) => value.toUpperCase()),
+            ]
             similarProducts = similarProducts.filter(
               (product) =>
                 Object.keys(product.attributes).includes(filterAttr) &&
                 (
                   product.attributes[filterAttr as FilterLayerKeys] as string[]
-                ).some((value) => filterValues.includes(value))
+                ).some((value) => values.includes(value))
             )
           })
         }
@@ -130,11 +133,16 @@ export const useProduct = ({
         })
         if (filters) {
           Object.entries(filters).forEach(([filterAttr, filterValues]) => {
+            const values = [
+              ...filterValues.map((value) => value.toLowerCase()),
+              ...filterValues.map((value) => value.toUpperCase()),
+            ]
             otherOptions = otherOptions.filter(
               (variation) =>
                 Object.keys(variation.attributes).includes(filterAttr) &&
-                variation.attributes[filterAttr as VariationAttributeKeys] ===
-                  filterValues[0]
+                values.includes(
+                  variation.attributes[filterAttr as VariationAttributeKeys]!
+                )
             )
           })
         }
