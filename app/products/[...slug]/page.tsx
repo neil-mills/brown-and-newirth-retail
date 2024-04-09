@@ -20,6 +20,8 @@ import {
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import FilteredVariations from '@/app/components/FilteredVariations'
+import { Filters, StoreFilters } from '@/app/types'
+import { searchParamsToObject } from '@/app/utils'
 
 interface Props {
   params: {
@@ -57,9 +59,19 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const setSelectedSku = useStore((store) => store.setSelectedSku)
   const resetSelectedSku = useStore((store) => store.resetSelectedSku)
   const setSearchParams = useStore((store) => store.setSearchParams)
+  const setFilters = useStore((store) => store.setFilters)
   const setIsLoading = useStore((store) => store.setIsLoading)
   const searchByCode = searchParams.get('search') === 'code'
   const filters = useFilterSearchParams(searchParams.toString())
+  if (filters) {
+    const filterStore = Object.entries(
+      searchParamsToObject(searchParams.toString())
+    ).reduce((acc, [key, value]) => {
+      acc = { [key]: value.split(',') }
+      return acc
+    }, {} as Filters)
+    setFilters(filterStore as StoreFilters)
+  }
   const {
     product,
     filterLayers,
