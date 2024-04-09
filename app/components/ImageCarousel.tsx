@@ -1,12 +1,13 @@
-import { useStore } from '../hooks'
+'use client'
+import { useStore } from '@/app/hooks'
 import Image from 'next/image'
-import { ImageCarouselSkeleton } from './ImageCarouselSkeleton'
+import { ImageCarouselSkeleton } from '@/app/components'
 
 const ImageCarousel = ({ isLoading }: { isLoading: boolean }) => {
   const { product, images } = useStore((store) => store.selectedSku)
   return (
     <>
-      {isLoading ? (
+      {isLoading || !product || !images ? (
         <ImageCarouselSkeleton />
       ) : (
         <>

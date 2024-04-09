@@ -1,11 +1,15 @@
 'use client'
 import { useEffect } from 'react'
 import {
-  ProductDetails,
   OtherOptions,
   ResultsFilter,
   ResultsTabs,
   SimilarProducts,
+  BackLink,
+  DataTableSkeleton,
+  ImageCarouselSkeleton,
+  ProductFilterByMenusSkeleton,
+  VariationSelection,
 } from '@/app/components'
 import {
   useProduct,
@@ -14,6 +18,7 @@ import {
   useGetParams,
 } from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import FilteredVariations from '@/app/components/FilteredVariations'
 
 interface Props {
@@ -21,6 +26,30 @@ interface Props {
     slug: string[]
   }
 }
+
+const ImageCarousel = dynamic(() => import('@/app/components/ImageCarousel'), {
+  ssr: false,
+  loading: () => <ImageCarouselSkeleton />,
+})
+const DataTable = dynamic(() => import('@/app/components/DataTable'), {
+  ssr: false,
+  loading: () => <DataTableSkeleton />,
+})
+
+const ProductFilterByMenus = dynamic(
+  () => import('@/app/components/ProductFilterByMenus'),
+  {
+    ssr: false,
+    loading: () => (
+      <>
+        <p className="fw-300">Filter By:</p>
+        <ProductFilterByMenusSkeleton />
+        <hr />
+        <ProductFilterByMenusSkeleton />
+      </>
+    ),
+  }
+)
 
 const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const searchParams = useSearchParams()
@@ -52,8 +81,6 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
       filterLayers,
       metal: '',
       size: '',
-      diamondOrigin: searchParams.get('pa_diamond') || '',
-      centreCarat: searchParams.get('pa_centre-carat') || '',
     })
 
     setSearchParams(searchParams.toString())
@@ -79,7 +106,18 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   return (
     <>
       <div className="col-left is-single h-100 d-flex flex-column">
-        <ProductDetails isLoading={isLoading} />
+        <BackLink />
+        <div className="col-left-inner d-flex flex-column justify-content-between has-border">
+          {/* <ImageCarouselSkeleton /> */}
+          <ImageCarousel isLoading={isLoading} />
+          {!sku && <ProductFilterByMenus isLoading={isLoading} />}
+          {sku && (
+            <>
+              <DataTable isLoading={isLoading} />
+              <VariationSelection />
+            </>
+          )}
+        </div>
       </div>
       <div className="col col-right h-100">
         {searchByCode ? (
