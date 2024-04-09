@@ -1,7 +1,7 @@
 import { useStore } from '@/app/hooks'
 import {
   DiamondCaratFilter,
-  DiamondOriginFilter,
+  DiamondQualityFilter,
   WidthFilter,
   GaugeFilter,
   ProductFilterByMenusSkeleton,
@@ -9,6 +9,7 @@ import {
 
 const ProductFilterByMenus = ({ isLoading }: { isLoading: boolean }) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
+  console.log({ filterLayers })
   const showCentreCaratFilter = filterLayers.includes('pa_centre-carat')
   const showTotalCaratFilter = filterLayers.includes('pa_total-carat')
   return (
@@ -24,18 +25,20 @@ const ProductFilterByMenus = ({ isLoading }: { isLoading: boolean }) => {
         <>
           <p className="fw-300">Filter By:</p>
           {filterLayers.some((filterLayer) =>
-            ['pa_gauge', 'pa_diamond'].includes(filterLayer)
+            ['pa_gauge', 'pa_diamond-quality'].includes(filterLayer)
           ) && (
             <>
               {filterLayers.includes('pa_gauge') && <GaugeFilter />}
-              {filterLayers.includes('pa_diamond') && (
-                <DiamondOriginFilter
-                  childType={
-                    showCentreCaratFilter
-                      ? ['pa_centre-carat']
-                      : ['pa_total-carat']
-                  }
-                />
+              {filterLayers.includes('pa_diamond-quality') && (
+                <>
+                  <DiamondQualityFilter
+                    childType={
+                      showCentreCaratFilter
+                        ? ['pa_centre-carat']
+                        : ['pa_total-carat']
+                    }
+                  />
+                </>
               )}
               <hr />
             </>

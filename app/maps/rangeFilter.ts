@@ -1,4 +1,10 @@
-import { widthMap, caratMap, diamondOriginsMap, gaugeMap } from '@/app/maps'
+import {
+  widthMap,
+  caratMap,
+  diamondOriginsMap,
+  gaugeMap,
+  diamondQualityMap,
+} from '@/app/maps'
 import { RangeFilterMaps } from '@/app/types'
 
 export const rangeFilterMap: RangeFilterMaps = {
@@ -6,5 +12,6 @@ export const rangeFilterMap: RangeFilterMaps = {
   'pa_centre-carat': caratMap,
   'pa_total-carat': caratMap,
   pa_diamond: diamondOriginsMap,
+  'pa_diamond-quality': diamondQualityMap,
   pa_gauge: gaugeMap,
 }

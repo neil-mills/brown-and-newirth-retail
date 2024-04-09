@@ -49,6 +49,7 @@ export type ProductFilterAttributeKeys =
 
 export type SearchParamKeys =
   | 'pa_diamond'
+  | 'pa_diamond-quality'
   | 'pa_centre-carat'
   | 'pa_total-carat'
   | 'pa_shape'

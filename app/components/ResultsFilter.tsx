@@ -1,20 +1,23 @@
 'use client'
 import { ChangeEvent, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useStore } from '../hooks'
+import { useStore } from '@/app/hooks'
+import { diamondQualityMap } from '@/app/maps'
 
 export const ResultsFilter = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const value = searchParams.get('pa_diamond') || ''
+  const value = searchParams.get('pa_diamond-quality') || ''
   const selectRef = useRef<HTMLSelectElement>(null)
   const { sku } = useStore((store) => store.selectedSku)
-
+  const options = Object.entries(diamondQualityMap)
+    .filter(([_key, mapping]) => mapping.filterLabel)
+    .map(([_key, { filterLabel: label, slug }]) => ({ label, slug }))
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = selectRef?.current?.value || ''
     router.push(
-      `/products/sku/${sku}?search=code${value ? `&pa_diamond=${value}` : ''}`
+      `/products/sku/${sku}?search=code${value ? `&pa_diamond-quality=${value}` : ''}`
     )
   }
 
@@ -28,8 +31,11 @@ export const ResultsFilter = () => {
         onChange={handleChange}
       >
         <option value="">Select</option>
-        <option value="natural">Natural</option>
-        <option value="lab-grown">Laboratory</option>
+        {options.map((option) => (
+          <option key={option.slug} value={option.slug}>
+            {option.label}
+          </option>
+        ))}
       </select>
     </div>
   )

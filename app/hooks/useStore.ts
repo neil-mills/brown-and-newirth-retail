@@ -80,6 +80,7 @@ export const useStore = create<Store>((set) => ({
   userId: '',
   filters: {
     pa_diamond: [],
+    'pa_diamond-quality': [],
     'pa_centre-carat': [],
     'pa_total-carat': [],
     pa_shape: [],

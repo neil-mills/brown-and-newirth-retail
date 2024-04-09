@@ -37,7 +37,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
 
   let hasSecondFilterLayer = false
   const filterLayerKeys: FilterLayerKeys[] = [
-    'pa_diamond',
+    'pa_diamond-quality',
     'pa_width',
     'pa_centre-carat',
     'pa_total-carat',
@@ -68,8 +68,9 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
   }, [url, router])
 
   const isCreated =
-    (isVariation(item) && item.attributes.pa_diamond === 'LAB GROWN') ||
-    (isProduct(item) && item.attributes.pa_diamond?.includes('LAB GROWN'))
+    (isVariation(item) && item.attributes['pa_diamond-quality'] === 'd-fvs') ||
+    (isProduct(item) &&
+      item.attributes['pa_diamond-quality']?.includes('D-FVS'))
 
   return (
     <div className="col-6 col-sm-4 col-lg-6 col-xxl-4 col-product-grid">

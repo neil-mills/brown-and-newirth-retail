@@ -11,6 +11,7 @@ import {
   settingMap,
   ceramicColoursMap,
   coverageMap,
+  diamondQualityMap,
 } from '@/app/maps'
 import { Map, SearchParamKeys, Filters } from '@/app/types'
 import { searchParamsToObject } from '@/app/utils'
@@ -21,6 +22,7 @@ type FilterSearchParamsMap = {
 
 const map: FilterSearchParamsMap = {
   pa_diamond: diamondOriginsMap,
+  'pa_diamond-quality': diamondQualityMap,
   'pa_centre-carat': caratMap,
   'pa_total-carat': caratMap,
   pa_shape: shapesMap,
