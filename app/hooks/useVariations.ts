@@ -113,14 +113,17 @@ export const useVariations = ({
     } else {
       filteredVariations = groupedFilteredVariations
     }
+    filteredVariations = filteredVariations.filter((variation) => variation)
 
-    filteredVariations = filteredVariations.map((variation) => {
-      const images = getImages(product, variation.sku)
-      return {
-        ...variation,
-        images,
-      }
-    })
+    if (filteredVariations.length) {
+      filteredVariations = filteredVariations.map((variation) => {
+        const images = getImages(product, variation.sku)
+        return {
+          ...variation,
+          images,
+        }
+      })
+    }
     let sortBy: RangeFilterAttribute | null = null
     if (filterLayers.includes('pa_width')) sortBy = 'pa_width'
     if (filterLayers.includes('pa_total-carat')) sortBy = 'pa_total-carat'
