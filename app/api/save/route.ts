@@ -3,11 +3,11 @@ import axios, { AxiosError } from 'axios'
 
 export async function POST(request: NextRequest) {
   const body = await request.json()
-  const { variationId } = body
+  const { variationId, userId } = body
   try {
     const res = await axios.post(
       'https://staging.retailer.brownandnewirth.com/save/',
-      { variationId },
+      { variationId, userId },
       { timeout: 4000 }
     )
     return NextResponse.json(res.data, { status: res.status })
