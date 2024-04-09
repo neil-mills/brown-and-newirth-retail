@@ -46,7 +46,7 @@ export const SearchByCode = () => {
           ).length > 1
         let url = `/products/sku/${code}?search=code`
         if (hasMultipleVariations) {
-          url = `/products/productId/${product.productId}`
+          url = `/products/productId/${product.productId}${code === 'XN' ? `?pa_gauge=light` : ''}`
         }
         https: router.push(url)
       } else {
