@@ -31,9 +31,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
   const { filterLayers } = useStore((store) => store.selectedSku)
   const router = useRouter()
   const carouselImages =
-    item?.images && item?.images?.length > 1
-      ? item.images.slice(1)
-      : [item.images![0]]
+    item?.images && item?.images?.length > 1 ? item.images : [item.images![0]]
 
   let hasSecondFilterLayer = false
   const filterLayerKeys: FilterLayerKeys[] = [
@@ -145,43 +143,39 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             )}
             {isCreated && <CreatedLosenge />}
           </div>
+          {label === 'code' && <p className="mb-2 text-start">{item.sku}</p>}
           {isVariation(item) && (
-            <div className="d-flex d-lg-block d-xl-flex justify-content-between mb-3">
-              {label === 'code' ? (
-                <p className="mb-0">{item.sku}</p>
-              ) : (
-                <>
-                  {filterLayers?.some((filterLayer) =>
-                    ['pa_centre-carat', 'pa_total-carat'].includes(filterLayer)
-                  ) && (
-                    <>
-                      <p className="mb-0">
-                        {formatDiamondQuality(
-                          item?.attributes?.['pa_diamond-quality']
-                        )}
-                      </p>
-                    </>
-                  )}
-                  {filterLayers?.includes('pa_width') && (
+            <div className="d-flex d-lg-block d-xl-flex justify-content-between mb-2">
+              <>
+                {filterLayers?.some((filterLayer) =>
+                  ['pa_centre-carat', 'pa_total-carat'].includes(filterLayer)
+                ) && (
+                  <>
                     <p className="mb-0">
-                      {item.sku} {formatWidth(item.attributes['pa_width'])}
+                      {formatDiamondQuality(
+                        item?.attributes?.['pa_diamond-quality']
+                      )}
                     </p>
-                  )}
-                  {filterLayers?.includes('pa_centre-carat') && (
-                    <p className="ms-xl-2">
-                      carat {formatCarat(item.attributes['pa_centre-carat'])}
-                      <sup>ct</sup>
-                    </p>
-                  )}
-                  {filterLayers?.includes('pa_total-carat') && (
-                    <p className="ms-xl-2">
-                      Total carat{' '}
-                      {formatCarat(item.attributes['pa_total-carat'])}
-                      <sup>ct</sup>
-                    </p>
-                  )}
-                </>
-              )}
+                  </>
+                )}
+                {filterLayers?.includes('pa_width') && (
+                  <p className="mb-0">
+                    {item.sku} {formatWidth(item.attributes['pa_width'])}
+                  </p>
+                )}
+                {filterLayers?.includes('pa_centre-carat') && (
+                  <p className="ms-xl-2">
+                    carat {formatCarat(item.attributes['pa_centre-carat'])}
+                    <sup>ct</sup>
+                  </p>
+                )}
+                {filterLayers?.includes('pa_total-carat') && (
+                  <p className="ms-xl-2">
+                    Total carat {formatCarat(item.attributes['pa_total-carat'])}
+                    <sup>ct</sup>
+                  </p>
+                )}
+              </>
             </div>
           )}
           <button

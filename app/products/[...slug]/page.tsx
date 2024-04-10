@@ -62,6 +62,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const setFilters = useStore((store) => store.setFilters)
   const setIsLoading = useStore((store) => store.setIsLoading)
   const searchByCode = searchParams.get('search') === 'code'
+  const singleVariation = searchParams.get('variation-id')
   const filters = useFilterSearchParams(searchParams.toString())
   if (filters) {
     const filterStore = Object.entries(
@@ -132,7 +133,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
         </div>
       </div>
       <div className="col col-right h-100">
-        {searchByCode ? (
+        {searchByCode || singleVariation ? (
           <>
             <div className="row row-pad-sm align-items-center">
               <ResultsFilter />
