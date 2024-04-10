@@ -5,23 +5,8 @@ import {
   dehydrate,
 } from '@tanstack/react-query'
 import { Suspense } from 'react'
-import {
-  CategoryGridSkeleton,
-  SearchByCode,
-  TitleBar,
-  SetUserId,
-} from '@/app/components'
-import dynamic from 'next/dynamic'
-
-const SearchByStyle = dynamic(() => import('@/app/components/SearchByStyle'), {
-  ssr: false,
-  loading: () => (
-    <>
-      <TitleBar>Search by style</TitleBar>
-      <CategoryGridSkeleton />
-    </>
-  ),
-})
+import { SearchByCode, SetUserId } from '@/app/components'
+import SearchByStyle from '@/app/components/SearchByStyle'
 
 export default async function Home() {
   const queryClient = new QueryClient()

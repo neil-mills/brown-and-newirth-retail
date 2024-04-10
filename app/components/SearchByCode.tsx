@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { getProductCategory, getUniqueArrayValues } from '../utils'
 import { stylesMap } from '../maps'
+import { isAxiosError } from 'axios'
 
 const bgStyle = {
   backgroundImage: `url('/img/768x970_01.jpg')`,
@@ -24,7 +25,7 @@ export const SearchByCode = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     const code = inputRef?.current?.value.toUpperCase()
-    if (code) {
+    if (code && !isAxiosError(products)) {
       const product = products?.find((product) =>
         product.variations.some((variation) => variation.sku === code)
       )

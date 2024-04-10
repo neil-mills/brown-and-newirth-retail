@@ -20,6 +20,7 @@ import {
   coverageMap,
 } from '@/app/maps'
 import { getCategoryProducts, getUniqueArrayValues } from '@/app/utils'
+import { isAxiosError } from 'axios'
 
 type ProductFilterAttributesMap = { [K in ProductFilterAttributeKeys]: Map }
 
@@ -56,8 +57,8 @@ export const useProductFilterOptions = ({
   const filterMap = map[filter]
   const { data: products = [], error, isLoading } = useGetData()
   let filterOptions: Mapping[] = []
-  let filteredProducts = products
-  if (!isLoading && !error && products) {
+  if (!isLoading && !error && products && !isAxiosError(products)) {
+    let filteredProducts = products
     if (category) {
       filteredProducts = getCategoryProducts(products, category)
 

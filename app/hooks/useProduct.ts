@@ -14,6 +14,7 @@ import {
   productToVariation,
 } from '@/app/utils'
 import { stylesMap } from '@/app/maps'
+import { isAxiosError } from 'axios'
 
 interface ReturnValues {
   isLoading: boolean
@@ -48,7 +49,7 @@ export const useProduct = ({
 
   const { data: products, error, isLoading } = useGetData()
 
-  if (!isLoading && !error && products) {
+  if (!isLoading && !error && products && !isAxiosError(products)) {
     if (productId) {
       product =
         products?.find(

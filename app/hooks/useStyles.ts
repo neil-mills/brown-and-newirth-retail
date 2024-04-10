@@ -1,6 +1,7 @@
 import { Mapping, Styles } from '../types'
 import { useGetData } from './'
 import { stylesMap } from '../maps'
+import { isAxiosError } from 'axios'
 
 export const useStyles = (): {
   styles: Mapping[]
@@ -10,7 +11,7 @@ export const useStyles = (): {
   const { data: products, error, isLoading } = useGetData()
 
   let styles: Mapping[] = []
-  if (!isLoading && !error && products) {
+  if (!isLoading && !error && products && !isAxiosError(products)) {
     const productStyles = Array.from(
       new Set(
         products

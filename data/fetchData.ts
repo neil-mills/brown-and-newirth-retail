@@ -1,9 +1,10 @@
 import axios, { AxiosError } from 'axios'
 import { Product } from '@/app/types'
 axios.defaults.timeout === 120000
+import { getBaseUrl } from '@/app/utils'
 
-const fetchData = async () => {
-  const url = '/api/products'
+const fetchData = async (): Promise<Product[] | AxiosError> => {
+  const url = `/api/products`
   const req1 = await axios.get<Product[]>(`${url}?chunk=1`)
   const req2 = await axios.get<Product[]>(`${url}?chunk=2`)
   const req3 = await axios.get<Product[]>(`${url}?chunk=3`)
@@ -28,6 +29,7 @@ const fetchData = async () => {
   } catch (err) {
     const error = err as AxiosError
     console.log(`Error: ${error.message}`)
+    return error
   }
   return products
 }

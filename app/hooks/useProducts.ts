@@ -7,6 +7,7 @@ import {
 } from '@/app/types'
 import { useGetData } from '@/app/hooks'
 import { stylesMap } from '@/app/maps'
+import { isAxiosError } from 'axios'
 
 interface Result {
   products: Product[]
@@ -20,7 +21,7 @@ export const useProducts = (
 ): Result => {
   let products: Product[] = []
   const { data, error, isLoading } = useGetData()
-  if (!isLoading && !error && data) {
+  if (!isLoading && !error && data && !isAxiosError(data)) {
     products = getCategoryProducts(data, category)
 
     stylesMap[category].filterLayers.forEach((filterLayer) => {
