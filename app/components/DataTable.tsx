@@ -115,26 +115,19 @@ const DataTable = ({ isLoading }: { isLoading: boolean }) => {
             </div>
           )}
           {variation?.attributes?.pa_gauge && (
-            <div className="product-single-data-table x3 position-relative">
-              <div className="row g-0">
-                <div className="col-sm-4">
-                  <div className="px-2 px-xl-3 pb-2 pb-sm-0">
-                    <h6>Width</h6>
-                    <p className="fw-300">
-                      {formatWidth(variation?.attributes?.['pa_width'] || '')}
-                    </p>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="px-2 px-xl-3 pb-2 pb-sm-0 pt-2 pt-sm-0">
+            <div className="product-single-data-table x2 position-relative">
+              <div className="row">
+                <div className="col-6">
+                  <div className=" pb-2 pb-sm-0 pt-2 pt-sm-0">
                     <h6>Gauge</h6>
                     <p className="fw-300">
+                      {' '}
                       {formatGauge(variation?.attributes?.['pa_gauge'] || '')}
                     </p>
                   </div>
                 </div>
-                <div className="col-sm-4">
-                  <div className="px-2 px-xl-3 pt-2 pt-sm-0">
+                <div className="col-6">
+                  <div className=" pt-2 pt-sm-0">
                     <h6>Product Code</h6>
                     <p className="fw-300">{variation.sku}</p>
                   </div>

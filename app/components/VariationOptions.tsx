@@ -1,50 +1,50 @@
 'use client'
 import { Select } from '@/app/components'
 import { useStore, useVariationOptions } from '@/app/hooks'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import { sizesMap } from '@/app/maps'
 import { Variation } from '@/app/types'
-import axios, { AxiosError } from 'axios'
 
-export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
+interface Props {
+  showSize: boolean
+  showWidth: boolean
+}
+
+export const VariationOptions = ({ showSize, showWidth }: Props) => {
   const {
     variations,
     size: selectedSize,
     metal: selectedMetal,
-    variation,
+    width: selectedWidth,
     sku,
   } = useStore((store) => store.selectedSku)
   const setVariation = useStore((store) => store.setVariation)
-  const setToastMessage = useStore((store) => store.setToastMessage)
-  const userId = useStore((store) => store.userId)
   const productIsLoading = useStore((store) => store.isLoading)
-  const { sizes, metals } = useVariationOptions()
+  const { sizes, metals, widths } = useVariationOptions()
   const setSize = useStore((store) => store.setSize)
   const setMetal = useStore((store) => store.setMetal)
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleClick = async () => {
-    setToastMessage('')
-    if (variation) {
-      const variationId = variation['variation-id']
-      try {
-        setIsLoading(true)
-        const res = await axios.post('/api/save', { variationId, userId })
-        if (res.status === 200) {
-          setToastMessage('Item successfully saved.')
-        }
-        setIsLoading(false)
-      } catch (err) {
-        const error = err as AxiosError
-        setToastMessage(`Error: ${error.message}`)
-        setIsLoading(false)
-      }
-    }
-  }
+  const setWidth = useStore((store) => store.setWidth)
 
   useEffect(() => {
     let selectedVariation: Variation | null = null
-    if (showSize) {
+    if (showWidth) {
+      if (selectedWidth && selectedSize && selectedMetal) {
+        const sizeRange =
+          Object.entries(sizesMap).find(([key, value]) =>
+            value.includes(selectedSize)
+          )?.[0] || null
+        if (sizeRange) {
+          selectedVariation =
+            variations.find(
+              (variation) =>
+                variation?.sku === sku &&
+                variation.attributes['pa_width'] === selectedWidth &&
+                variation.attributes['pa_metal-code'] === selectedMetal &&
+                variation.attributes.pa_size === sizeRange
+            ) || null
+        }
+      }
+    } else if (showSize) {
       if (selectedSize && selectedMetal) {
         const sizeRange =
           Object.entries(sizesMap).find(([key, value]) =>
@@ -71,10 +71,32 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
     }
 
     if (selectedVariation) setVariation(selectedVariation)
-  }, [selectedSize, selectedMetal, setVariation, variations, showSize])
+  }, [
+    selectedSize,
+    selectedMetal,
+    setVariation,
+    variations,
+    showSize,
+    sku,
+    selectedWidth,
+    showWidth,
+  ])
 
   return (
     <div className="row row-pad-sm mb-16px">
+      {showWidth && (
+        <div className="col-sm col-pad-sm mb-3 mb-sm-0">
+          <Select
+            options={widths}
+            value={selectedWidth}
+            defaultLabel="Width"
+            disabled={productIsLoading}
+            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+              setWidth(event.target.value)
+            }
+          />
+        </div>
+      )}
       {showSize && (
         <div className="col-sm col-pad-sm mb-3 mb-sm-0">
           <Select
@@ -98,15 +120,6 @@ export const VariationOptions = ({ showSize }: { showSize: boolean }) => {
             setMetal(event.target.value)
           }
         />
-      </div>
-      <div className="col col-pad-sm">
-        <button
-          className="btn btn-border w-100"
-          onClick={handleClick}
-          disabled={isLoading || !variation}
-        >
-          <span>Save/Compare</span>
-        </button>
       </div>
     </div>
   )

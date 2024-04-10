@@ -1,5 +1,5 @@
 import { useStore } from '@/app/hooks'
-import { getUniqueArrayValues } from '@/app/utils'
+import { formatWidth, getUniqueArrayValues } from '@/app/utils'
 import { sizesMap, metalsMap } from '@/app/maps'
 import { VariationMetal } from '../types'
 
@@ -11,11 +11,27 @@ interface Option {
 export const useVariationOptions = () => {
   const { variations } = useStore((store) => store.selectedSku)
 
-  let widths: Option[] | null = null
+  let widths: Option[] = []
   let sizes: Option[] = []
   let metals: Option[] = []
 
   if (variations?.length) {
+    if (variations[0]?.attributes?.pa_width) {
+      const allVariationWidths = getUniqueArrayValues<string[]>(
+        variations.reduce((acc, variation) => {
+          if (variation.attributes?.pa_width) {
+            acc = [...acc, variation.attributes.pa_width]
+          }
+          return acc
+        }, [] as string[])
+      )
+
+      widths = allVariationWidths.reduce((acc, width) => {
+        acc = [...acc, { label: formatWidth(width), value: width }]
+        return acc
+      }, [] as Option[])
+    }
+
     if (variations[0]?.attributes?.pa_size) {
       const allVariationSizes = getUniqueArrayValues<string[]>(
         variations.reduce((acc, variation) => {
@@ -25,6 +41,7 @@ export const useVariationOptions = () => {
           return acc
         }, [] as string[])
       )
+
       sizes = allVariationSizes.reduce((acc, size) => {
         acc = [
           ...acc,

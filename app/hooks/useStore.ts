@@ -22,7 +22,9 @@ interface SelectedSku {
   filterLayers: FilterLayerKeys[]
   size?: string
   metal?: VariationMetal | string
+  width?: string
 }
+
 interface Store {
   productsQuery: ProductsQuery
   selectedSku: SelectedSku
@@ -45,6 +47,7 @@ interface Store {
   setFilterLayers: (filterLayers: FilterLayerKeys[]) => void
   setSize: (size: string) => void
   setMetal: (metal: string) => void
+  setWidth: (width: string) => void
   setVariation: (variation: Variation) => void
   setCarat: (carat: string) => void
 }
@@ -68,6 +71,7 @@ const selectedSku = {
   filterLayers: [],
   size: '',
   metal: '',
+  width: '',
 }
 
 export const useStore = create<Store>((set) => ({
@@ -123,6 +127,11 @@ export const useStore = create<Store>((set) => ({
     set((store) => ({
       ...store,
       selectedSku: { ...store.selectedSku, metal },
+    })),
+  setWidth: (width: string) =>
+    set((store) => ({
+      ...store,
+      selectedSku: { ...store.selectedSku, width },
     })),
   setVariation: (variation: Variation) =>
     set((store) => ({

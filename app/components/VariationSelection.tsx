@@ -6,20 +6,35 @@ import { useStore } from '../hooks'
 export const VariationSelection = () => {
   const { product } = useStore((store) => store.selectedSku)
   const showSize = !product?.attributes?.['pa_type-2']?.length
+  const showWidth =
+    product?.attributes?.pa_gauge && product.attributes.pa_gauge.length > 0
+      ? true
+      : false
   const [showAddToBasket, setShowAddToBasket] = useState<boolean>(false)
-  const { size: selectedSize, metal: selectedMetal } = useStore(
-    (store) => store.selectedSku
-  )
+  const {
+    size: selectedSize,
+    metal: selectedMetal,
+    width: selectedWidth,
+  } = useStore((store) => store.selectedSku)
+
   useEffect(() => {
-    const show = !showSize
-      ? selectedMetal !== ''
-      : selectedSize !== '' && selectedMetal !== ''
+    let show = false
+    if (!showSize && !showWidth) {
+      show = selectedMetal !== ''
+    } else if (showWidth && showSize) {
+      show =
+        ![undefined, ''].includes(selectedWidth) &&
+        selectedSize !== '' &&
+        selectedMetal !== ''
+    } else {
+      show = selectedSize !== '' && selectedMetal !== ''
+    }
     setShowAddToBasket(show)
-  }, [selectedSize, selectedMetal, showSize])
+  }, [selectedSize, selectedMetal, selectedWidth, showSize, showWidth])
 
   return (
     <>
-      <VariationOptions showSize={showSize} />
+      <VariationOptions showSize={showSize} showWidth={showWidth} />
       {showAddToBasket && <AddToBasket />}
     </>
   )

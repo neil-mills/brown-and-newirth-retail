@@ -6,13 +6,37 @@ import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
 
 export const AddToBasket = () => {
-  const { variation, metal, size } = useStore((store) => store.selectedSku)
+  const {
+    variation,
+    metal = '',
+    size = '',
+    width = '',
+  } = useStore((store) => store.selectedSku)
   const basket = useStore((store) => store.basket)
   const userId = useStore((store) => store.userId)
   const setBasket = useStore((store) => store.setBasket)
   const setShowModal = useStore((store) => store.setShowModal)
   const setToastMessage = useStore((store) => store.setToastMessage)
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleSaveClick = async () => {
+    setToastMessage('')
+    if (variation) {
+      const variationId = variation['variation-id']
+      try {
+        setIsLoading(true)
+        const res = await axios.post('/api/save', { variationId, userId })
+        if (res.status === 200) {
+          setToastMessage('Item successfully saved.')
+        }
+        setIsLoading(false)
+      } catch (err) {
+        const error = err as AxiosError
+        setToastMessage(`Error: ${error.message}`)
+        setIsLoading(false)
+      }
+    }
+  }
 
   const handleClick = async () => {
     setToastMessage('')
@@ -29,6 +53,7 @@ export const AddToBasket = () => {
         const res = await axios.post('/api/basket', {
           variationId,
           userId,
+          width,
           metal,
           size,
         })
@@ -43,24 +68,38 @@ export const AddToBasket = () => {
       }
     }
   }
-
   return (
     <>
-      <div className="row g-0">
-        <div className="product-single-price-wrapper d-flex align-items-center product-single-price-wrapper">
-          <span className="text-xs text-uppercase letter-spacing me-2 me-sm-3">
-            Price
-          </span>
-          <span className="fw-300 ms-0">&pound;{variation?.price || ''}</span>
-        </div>
-        <div className="product-single-add-to-basket">
+      <div className="row row-pad-sm">
+        <div className="col-sm-4 col-pad-sm mb-3 mb-sm-0">
           <button
-            className="btn bg-pink w-100"
-            disabled={isLoading}
-            onClick={() => handleClick()}
+            className="btn btn-border w-100"
+            onClick={handleSaveClick}
+            disabled={isLoading || !variation}
           >
-            <span>Add to basket</span>
+            <span>Save/Compare</span>
           </button>
+        </div>
+        <div className="col-sm-8 col-pad-sm">
+          <div className="row g-0 h-100">
+            <div className="product-single-price-wrapper d-flex align-items-center product-single-price-wrapper">
+              <span className="text-xs text-uppercase letter-spacing me-2 me-sm-3">
+                Price
+              </span>
+              <span className="fw-300 ms-0">
+                &pound;{variation?.price || ''}
+              </span>
+            </div>
+            <div className="product-single-add-to-basket">
+              <button
+                className="btn bg-pink w-100 h-100"
+                disabled={isLoading}
+                onClick={() => handleClick()}
+              >
+                <span>Add to basket</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <BasketModal />
