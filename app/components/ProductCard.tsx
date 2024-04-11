@@ -144,7 +144,8 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             )}
             {isCreated && isVariation(item) && <CreatedLosenge />}
           </div>
-          {searchByCode && <p className="mb-2 text-start">{item.sku}</p>}
+          {(searchByCode || item?.attributes?.['pa_total-carat']) &&
+            label === 'code' && <p className="mb-2 text-start">{item.sku}</p>}
           {filterLayers?.includes('pa_width') &&
             isVariation(item) &&
             !searchByCode && (
