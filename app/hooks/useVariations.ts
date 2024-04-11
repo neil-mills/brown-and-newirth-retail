@@ -70,11 +70,6 @@ export const useVariations = ({
               return { start, end }
             })
 
-            const allKeys = Object.keys(map).sort(
-              (a, b) => parseFloat(a) - parseFloat(b)
-            )
-
-            const lastOption = parseFloat(allKeys[allKeys.length - 1])
             if (numericValue) {
               for (const range of ranges) {
                 if (
