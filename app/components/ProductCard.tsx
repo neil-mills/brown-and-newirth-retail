@@ -142,10 +142,9 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
                 </button>
               </>
             )}
-            {isCreated && <CreatedLosenge />}
+            {isCreated && isVariation(item) && <CreatedLosenge />}
           </div>
-          {(label === 'code' && !filterLayers?.includes('pa_width')) ||
-            (searchByCode && <p className="mb-2 text-start">{item.sku}</p>)}
+          {searchByCode && <p className="mb-2 text-start">{item.sku}</p>}
           {filterLayers?.includes('pa_width') &&
             isVariation(item) &&
             !searchByCode && (
