@@ -1,8 +1,19 @@
 import ProductGrid from '@/app/components/ProductGrid'
 import { useStore } from '@/app/hooks'
+import { ProductGridSkeleton } from './ProductGridSkeleton'
 
-export const OtherOptions = () => {
+const OtherOptions = () => {
   const { otherOptions } = useStore((store) => store.selectedSku)
-  // return <ProductGrid style="product" label="code" items={otherOptions} />
-  return <ProductGrid style="variation" label="code" items={otherOptions} />
+  const isLoading = useStore((store) => store.isLoading)
+  return (
+    <>
+      {isLoading ? (
+        <ProductGridSkeleton />
+      ) : (
+        <ProductGrid style="variation" label="code" items={otherOptions} />
+      )}
+    </>
+  )
 }
+
+export default OtherOptions

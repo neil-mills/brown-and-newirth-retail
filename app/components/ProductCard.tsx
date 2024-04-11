@@ -143,8 +143,15 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             )}
             {isCreated && <CreatedLosenge />}
           </div>
-          {label === 'code' && <p className="mb-2 text-start">{item.sku}</p>}
-          {isVariation(item) && (
+          {label === 'code' && !filterLayers?.includes('pa_width') && (
+            <p className="mb-2 text-start">{item.sku}</p>
+          )}
+          {filterLayers?.includes('pa_width') && isVariation(item) && (
+            <p className="mb-2 text-start">
+              {item.sku} {formatWidth(item.attributes['pa_width'] as string)}
+            </p>
+          )}
+          {isVariation(item) && !item?.attributes?.pa_gauge && (
             <div className="d-flex d-lg-block d-xl-flex justify-content-between mb-2">
               <>
                 {filterLayers?.some((filterLayer) =>
@@ -158,11 +165,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
                     </p>
                   </>
                 )}
-                {filterLayers?.includes('pa_width') && (
-                  <p className="mb-0">
-                    {item.sku} {formatWidth(item.attributes['pa_width'])}
-                  </p>
-                )}
+
                 {filterLayers?.includes('pa_centre-carat') && (
                   <p className="ms-xl-2">
                     carat {formatCarat(item.attributes['pa_centre-carat'])}

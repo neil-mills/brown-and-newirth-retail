@@ -29,7 +29,7 @@ const FilteredProducts = ({
       ) : (
         <>
           <TitleBar>Results ({products.length})</TitleBar>
-          <ProductGrid style="product" items={products} />
+          <ProductGrid style="variation" items={products} />
         </>
       )}
     </>

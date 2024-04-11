@@ -3,5 +3,5 @@ import { useStore } from '@/app/hooks'
 
 export const SimilarProducts = () => {
   const { similarProducts } = useStore((store) => store.selectedSku)
-  return <ProductGrid style="product" label="code" items={similarProducts} />
+  return <ProductGrid style="variation" items={similarProducts} />
 }

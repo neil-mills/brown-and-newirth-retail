@@ -27,7 +27,7 @@ const FilteredVariations = ({
       ) : (
         <>
           <TitleBar>Results ({variations.length})</TitleBar>
-          <ProductGrid style="variation" items={variations} />
+          <ProductGrid style="variation" label="code" items={variations} />
         </>
       )}
     </>
