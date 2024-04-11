@@ -1,66 +1,58 @@
 import { Product, Styles } from '@/app/types'
 
 export const getProductCategory = (product: Product): Styles[] | null => {
-  let category: Styles[] | null = null
-  if (
-    !category &&
-    product?.attributes?.pa_shaped &&
-    product.attributes.pa_shaped.length
-  ) {
-    category = ['Shaped']
+  let category: Styles[] | null = []
+  if (product?.attributes?.pa_shaped && product.attributes.pa_shaped.length) {
+    category.push('Shaped')
   }
   if (
-    !category &&
     product?.attributes?.pa_coverage &&
     product.attributes.pa_coverage.includes('Half')
   ) {
-    category = ['HALF SET']
+    category.push('HALF SET')
   }
   if (
-    !category &&
     product?.attributes?.pa_coverage &&
     product.attributes.pa_coverage.includes('Full')
   ) {
-    category = ['FULL SET']
+    category.push('FULL SET')
   }
   if (
-    !category &&
     product?.attributes?.pa_pattern &&
     product.attributes.pa_pattern.includes('MIXED METAL')
   ) {
-    category = ['Two Colour']
+    category.push('Two Colour')
   }
   if (
-    !category &&
     product?.attributes?.pa_pattern &&
     product.attributes.pa_pattern.every(
       (filter) => !['PLAIN', 'CERAMIC', 'MIXED METAL'].includes(filter)
     )
   ) {
-    category = ['Patterns']
+    category.push('Patterns')
   }
-  if (!category && product.attributes['pa_diamond-set']?.includes('Yes')) {
-    category = ['Diamond']
+  if (product.attributes['pa_diamond-set']?.includes('Yes')) {
+    category.push('Diamond')
   }
   if (
-    !category &&
     product?.attributes?.pa_pattern &&
     product.attributes.pa_pattern.includes('PLAIN')
   ) {
-    category = ['PLAIN']
+    category.push('PLAIN')
   }
   if (
-    !category &&
     product?.attributes?.pa_pattern &&
     product.attributes.pa_pattern.includes('CERAMIC')
   ) {
-    category = ['CERAMIC']
+    category.push('CERAMIC')
   }
-  if (!category && product?.attributes?.pa_style) {
-    category = product.attributes.pa_style
+  if (product?.attributes?.pa_style) {
+    category = [...category, ...product.attributes.pa_style]
   }
-  if (!category && product?.attributes?.['pa_type-2']) {
-    category = product.attributes['pa_type-2']
+  if (product?.attributes?.['pa_type-2']) {
+    category = [...category, ...product.attributes['pa_type-2']]
   }
+  console.log({ category })
+  if (!category.length) return null
   return category
 }
