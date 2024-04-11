@@ -29,6 +29,7 @@ interface Props {
 export const ProductCard = ({ item, label, style, index }: Props) => {
   const searchParams = useSearchParams()
   const { filterLayers } = useStore((store) => store.selectedSku)
+  const searchByCode = searchParams.get('search')
   const router = useRouter()
   const carouselImages =
     item?.images && item?.images?.length > 1 ? item.images : [item.images![0]]
@@ -143,14 +144,15 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             )}
             {isCreated && <CreatedLosenge />}
           </div>
-          {label === 'code' && !filterLayers?.includes('pa_width') && (
-            <p className="mb-2 text-start">{item.sku}</p>
-          )}
-          {filterLayers?.includes('pa_width') && isVariation(item) && (
-            <p className="mb-2 text-start">
-              {item.sku} {formatWidth(item.attributes['pa_width'] as string)}
-            </p>
-          )}
+          {(label === 'code' && !filterLayers?.includes('pa_width')) ||
+            (searchByCode && <p className="mb-2 text-start">{item.sku}</p>)}
+          {filterLayers?.includes('pa_width') &&
+            isVariation(item) &&
+            !searchByCode && (
+              <p className="mb-2 text-start">
+                {item.sku} {formatWidth(item.attributes['pa_width'] as string)}
+              </p>
+            )}
           {isVariation(item) && !item?.attributes?.pa_gauge && (
             <div className="d-flex d-lg-block d-xl-flex justify-content-between mb-2">
               <>
