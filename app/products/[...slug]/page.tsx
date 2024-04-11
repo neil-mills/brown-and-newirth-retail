@@ -1,7 +1,6 @@
 'use client'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import {
-  OtherOptions,
   ResultsFilter,
   ResultsTabs,
   SimilarProducts,
@@ -10,6 +9,8 @@ import {
   ImageCarouselSkeleton,
   ProductFilterByMenusSkeleton,
   VariationSelection,
+  TitleBar,
+  ProductGridSkeleton,
 } from '@/app/components'
 import {
   useProduct,
@@ -19,7 +20,6 @@ import {
 } from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
-import FilteredVariations from '@/app/components/FilteredVariations'
 import { Filters, StoreFilters } from '@/app/types'
 import { searchParamsToObject } from '@/app/utils'
 
@@ -48,6 +48,26 @@ const ProductFilterByMenus = dynamic(
         <ProductFilterByMenusSkeleton />
         <hr />
         <ProductFilterByMenusSkeleton />
+      </>
+    ),
+  }
+)
+
+const OtherOptions = dynamic(() => import('@/app/components/OtherOptions'), {
+  ssr: false,
+  loading: () => <ProductGridSkeleton />,
+})
+
+const FilteredVariations = dynamic(
+  () => import('@/app/components/FilteredVariations'),
+  {
+    ssr: false,
+    loading: () => (
+      <>
+        <TitleBar>
+          <span style={{ visibility: 'hidden' }}>Loading</span>
+        </TitleBar>
+        <ProductGridSkeleton />
       </>
     ),
   }
@@ -147,7 +167,9 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
                 role="tabpanel"
                 tabIndex={0}
               >
-                <OtherOptions />
+                <Suspense>
+                  <OtherOptions />
+                </Suspense>
               </div>
               <div
                 className="tab-pane fade"
@@ -160,7 +182,9 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
             </div>
           </>
         ) : (
-          <FilteredVariations isLoading={isLoading} filters={filters} />
+          <Suspense>
+            <FilteredVariations isLoading={isLoading} filters={filters} />
+          </Suspense>
         )}
       </div>
     </>
