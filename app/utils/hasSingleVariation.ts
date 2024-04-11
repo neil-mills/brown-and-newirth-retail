@@ -12,7 +12,7 @@ export const hasSingleVariation = (product: Product) => {
   const totalVariants = getUniqueArrayValues<string>(
     product.variations.reduce((acc, variation) => {
       if (variation?.attributes?.[attr]) {
-        acc = [...acc, variation.attributes[attr]]
+        acc = [...acc, variation.attributes[attr]!]
       }
       return acc
     }, [] as string[])
