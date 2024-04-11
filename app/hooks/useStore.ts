@@ -57,7 +57,22 @@ interface ProductsQuery {
   sku?: string
   category?: string
 }
-
+export const filters = {
+  pa_diamond: [],
+  'pa_diamond-quality': [],
+  'pa_centre-carat': [],
+  'pa_total-carat': [],
+  pa_shape: [],
+  pa_shaped: [],
+  'pa_diamond-set': [],
+  pa_gauge: [],
+  pa_width: [],
+  pa_pattern: [],
+  pa_setting: [],
+  pa_profile: [],
+  pa_coverage: [],
+  'pa_ceramic-colour': [],
+}
 const selectedSku = {
   sku: null,
   product: null,
@@ -82,22 +97,7 @@ export const useStore = create<Store>((set) => ({
   showModal: false,
   isLoading: true,
   userId: '',
-  filters: {
-    pa_diamond: [],
-    'pa_diamond-quality': [],
-    'pa_centre-carat': [],
-    'pa_total-carat': [],
-    pa_shape: [],
-    pa_shaped: [],
-    'pa_diamond-set': [],
-    pa_gauge: [],
-    pa_width: [],
-    pa_pattern: [],
-    pa_setting: [],
-    pa_profile: [],
-    pa_coverage: [],
-    'pa_ceramic-colour': [],
-  },
+  filters,
   setToastMessage: (toastMessage: string) =>
     set((store) => ({ ...store, toastMessage })),
   setShowModal: (showModal: boolean) =>

@@ -7,6 +7,7 @@ import {
 import { Suspense } from 'react'
 import { SearchByCode, SetUserId } from '@/app/components'
 import SearchByStyle from '@/app/components/SearchByStyle'
+import ResetFilters from './components/ResetFilters'
 
 export default async function Home() {
   const queryClient = new QueryClient()
@@ -17,6 +18,7 @@ export default async function Home() {
 
   return (
     <>
+      <ResetFilters />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense>
           <SetUserId />
