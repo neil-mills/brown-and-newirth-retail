@@ -1,5 +1,4 @@
 import { useFilterOptions, useStore } from '@/app/hooks'
-import { rangeFilterMap } from '@/app/maps'
 import {
   Mapping,
   Filters,
@@ -20,7 +19,10 @@ export const useRangeFilter = <T>({
   childRangeFilter,
   filters,
 }: Props): [Mapping[], T[]] => {
-  const allOptions = useFilterOptions(rangeFilter)
+  let allOptions = useFilterOptions(rangeFilter)
+  allOptions = allOptions.sort(
+    (a, b) => parseFloat(a.slug) - parseFloat(b.slug)
+  )
   let availableOptions: T[] = []
 
   const { product } = useStore((store) => store.selectedSku)
@@ -32,6 +34,10 @@ export const useRangeFilter = <T>({
     filteredVariations = productVariations
     if (filters) {
       Object.entries(filters).forEach(([filter, values]) => {
+        const allValues = [
+          ...values.map((value) => value.toLowerCase()),
+          ...values.map((value) => value.toUpperCase()),
+        ]
         if (
           ![rangeFilter, childRangeFilter].includes(
             filter as RangeFilterAttribute
@@ -40,7 +46,7 @@ export const useRangeFilter = <T>({
           filteredVariations = filteredVariations.filter(
             (variation) =>
               variation?.attributes?.[filter as VariationAttributeKeys] &&
-              values.includes(
+              allValues.includes(
                 variation.attributes[filter as VariationAttributeKeys]!
               )
           )
@@ -64,16 +70,16 @@ export const useRangeFilter = <T>({
             const numericOption = parseFloat(
               option?.replace('-', '.') as string
             )
+
             const lastOption = allOptions[allOptions.length - 1].start
-            const rangeMap = rangeFilterMap[rangeFilter]
             const index =
               numericOption < lastOption!
-                ? Object.entries(rangeMap).findIndex(
-                    ([_widthKey, { start, end }]) =>
+                ? allOptions.findIndex(
+                    ({ start, end }) =>
                       numericOption >= start! && numericOption <= end!
                   )
-                : Object.keys(rangeMap).length - 1
-            return Object.keys(rangeMap)[index]
+                : allOptions.length - 1
+            return allOptions[index].slug
           })
           .filter((option) => option !== undefined)
       )
