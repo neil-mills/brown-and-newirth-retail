@@ -38,7 +38,7 @@ export const DiamondQualityFilter = ({
     })
     window.history.pushState({ path: newUrl }, '', newUrl)
   }
-
+  if (filteredAvailableDiamondQualities.length === 0) return null
   return (
     <>
       <div className="row row-pad-sm">
@@ -78,6 +78,7 @@ export const DiamondQualityFilter = ({
           )
         })}
       </div>
+      <hr />
     </>
   )
 }
