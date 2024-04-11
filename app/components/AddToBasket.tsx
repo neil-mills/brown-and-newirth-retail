@@ -17,23 +17,24 @@ export const AddToBasket = () => {
   const setBasket = useStore((store) => store.setBasket)
   const setShowModal = useStore((store) => store.setShowModal)
   const setToastMessage = useStore((store) => store.setToastMessage)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingBasket, setIsLoadingBasket] = useState(false)
+  const [isLoadingSave, setIsLoadingSave] = useState(false)
 
   const handleSaveClick = async () => {
     setToastMessage('')
     if (variation) {
       const variationId = variation['variation-id']
       try {
-        setIsLoading(true)
+        setIsLoadingSave(true)
         const res = await axios.post('/api/save', { variationId, userId })
         if (res.status === 200) {
           setToastMessage('Item successfully saved.')
         }
-        setIsLoading(false)
+        setIsLoadingSave(false)
       } catch (err) {
         const error = err as AxiosError
         setToastMessage(`Error: ${error.message}`)
-        setIsLoading(false)
+        setIsLoadingSave(false)
       }
     }
   }
@@ -49,7 +50,7 @@ export const AddToBasket = () => {
       })
       setBasket(updatedBasket)
       try {
-        setIsLoading(true)
+        setIsLoadingBasket(true)
         const res = await axios.post('/api/basket', {
           variationId,
           userId,
@@ -60,11 +61,11 @@ export const AddToBasket = () => {
         if (res.status === 200) {
           setShowModal(true)
         }
-        setIsLoading(false)
+        setIsLoadingBasket(false)
       } catch (err) {
         const error = err as AxiosError
         setToastMessage(`Error: ${error.message}`)
-        setIsLoading(false)
+        setIsLoadingBasket(false)
       }
     }
   }
@@ -75,9 +76,19 @@ export const AddToBasket = () => {
           <button
             className="btn btn-border w-100"
             onClick={handleSaveClick}
-            disabled={isLoading || !variation}
+            disabled={isLoadingSave || !variation}
           >
-            <span>Save/Compare</span>
+            {isLoadingSave && (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                {` `}
+              </>
+            )}
+            Save/Compare
           </button>
         </div>
         <div className="col-sm-8 col-pad-sm">
@@ -93,10 +104,20 @@ export const AddToBasket = () => {
             <div className="product-single-add-to-basket">
               <button
                 className="btn bg-pink w-100 h-100"
-                disabled={isLoading}
+                disabled={isLoadingBasket}
                 onClick={() => handleClick()}
               >
-                <span>Add to basket</span>
+                {isLoadingBasket && (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    {` `}
+                  </>
+                )}
+                {`Add to basket`}
               </button>
             </div>
           </div>
