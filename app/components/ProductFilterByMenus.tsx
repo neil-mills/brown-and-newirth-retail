@@ -39,7 +39,6 @@ const ProductFilterByMenus = ({ isLoading }: { isLoading: boolean }) => {
                   />
                 </>
               )}
-              <hr />
             </>
           )}
           {filterLayers.includes('pa_width') && <WidthFilter />}

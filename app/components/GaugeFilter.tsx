@@ -30,36 +30,39 @@ export const GaugeFilter = () => {
   }
 
   return (
-    <div className="row row-pad-xs row-panels-sm">
-      {gauges.map((gauge) => {
-        const btnClass = classNames({
-          'bg-pink btn-border':
-            storeFilters['pa_gauge'].includes(gauge.slug) ||
-            (availableGauges.length === 1 &&
-              availableGauges.includes(gauge.slug as VariationGauge)),
-          'btn-border': !storeFilters['pa_gauge'].includes(gauge.slug),
-        })
+    <>
+      <div className="row row-pad-xs row-panels-sm">
+        {gauges.map((gauge) => {
+          const btnClass = classNames({
+            'bg-pink btn-border':
+              storeFilters['pa_gauge'].includes(gauge.slug) ||
+              (availableGauges.length === 1 &&
+                availableGauges.includes(gauge.slug as VariationGauge)),
+            'btn-border': !storeFilters['pa_gauge'].includes(gauge.slug),
+          })
 
-        return (
-          <div key={gauge.slug} className="col col-pad-xs col-panel-sm">
-            <button
-              className={`btn btn-filter ${btnClass} h-100 w-100 px-1`}
-              onClick={() => handleClick(gauge.slug)}
-              disabled={
-                !availableGauges.includes(gauge.slug as VariationGauge) ||
-                availableGauges.length === 1
-              }
-              aria-pressed={
-                storeFilters['pa_diamond-quality'].includes(
-                  gauge.slug as VariationGauge
-                ) || availableGauges.includes(gauge.slug as VariationGauge)
-              }
-            >
-              <span>{gauge.label}</span>
-            </button>
-          </div>
-        )
-      })}
-    </div>
+          return (
+            <div key={gauge.slug} className="col col-pad-xs col-panel-sm">
+              <button
+                className={`btn btn-filter ${btnClass} h-100 w-100 px-1`}
+                onClick={() => handleClick(gauge.slug)}
+                disabled={
+                  !availableGauges.includes(gauge.slug as VariationGauge) ||
+                  availableGauges.length === 1
+                }
+                aria-pressed={
+                  storeFilters['pa_diamond-quality'].includes(
+                    gauge.slug as VariationGauge
+                  ) || availableGauges.includes(gauge.slug as VariationGauge)
+                }
+              >
+                <span>{gauge.label}</span>
+              </button>
+            </div>
+          )
+        })}
+      </div>
+      <hr />
+    </>
   )
 }
