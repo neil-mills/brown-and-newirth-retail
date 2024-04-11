@@ -1,6 +1,6 @@
 'use client'
 import { useRangeFilter, useStore } from '@/app/hooks'
-import { getFilterSearchParamUrl, searchParamsToObject } from '@/app/utils'
+import { getFilterSearchParamUrl } from '@/app/utils'
 import classNames from 'classnames'
 import { decode } from 'html-entities'
 
@@ -11,13 +11,14 @@ export const DiamondQualityFilter = ({
 }) => {
   const storeFilters = useStore((store) => store.filters)
   const setFilters = useStore((store) => store.setFilters)
-  const searchParams = useStore((store) => store.searchParams)
-  const searchParamsObj = searchParamsToObject(searchParams)
 
-  const [diamondQualities, availableDiamondQualities] = useRangeFilter({
+  const [diamondQualities, availableDiamondQualities] = useRangeFilter<string>({
     rangeFilter: 'pa_diamond-quality',
     filters: null,
   })
+  const filteredAvailableDiamondQualities = availableDiamondQualities.filter(
+    (quality) => ['hsi', 'd-fvs'].includes(quality)
+  )
   const handleClick = (value: string) => {
     const newOptions = storeFilters['pa_diamond-quality'].includes(value)
       ? storeFilters['pa_diamond-quality'].filter((option) => option !== value)
@@ -44,10 +45,11 @@ export const DiamondQualityFilter = ({
         {diamondQualities.map((diamondQuality, i) => {
           const value = diamondQuality.slug.toLowerCase()
           const btnClass = classNames({
-            'bg-pink':
-              diamondQuality.slug === searchParamsObj?.['pa_diamond-quality'],
-            'btn-border':
-              diamondQuality.slug !== searchParamsObj?.['pa_diamond-quality'],
+            'bg-pink btn-border':
+              storeFilters['pa_diamond-quality'].includes(value) ||
+              (filteredAvailableDiamondQualities.length === 1 &&
+                filteredAvailableDiamondQualities.includes(value)),
+            'btn-border': !storeFilters['pa_diamond-quality'].includes(value),
           })
           return (
             <div
@@ -60,12 +62,12 @@ export const DiamondQualityFilter = ({
                 className={`btn btn-filter ${btnClass} ${diamondQuality.class} w-100`}
                 onClick={() => handleClick(diamondQuality.slug)}
                 disabled={
-                  !availableDiamondQualities.includes(value) ||
-                  availableDiamondQualities.length === 1
+                  !filteredAvailableDiamondQualities.includes(value) ||
+                  filteredAvailableDiamondQualities.length === 1
                 }
                 aria-pressed={
-                  storeFilters.pa_diamond.includes(diamondQuality.slug) ||
-                  availableDiamondQualities.includes(value)
+                  storeFilters['pa_diamond-quality'].includes(value) ||
+                  filteredAvailableDiamondQualities.includes(value)
                 }
               >
                 <span>
