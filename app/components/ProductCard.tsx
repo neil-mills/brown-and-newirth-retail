@@ -16,6 +16,7 @@ import {
   formatWidth,
   formatDiamondQuality,
   formatSearchParams,
+  hasSingleVariation,
 } from '@/app/utils'
 import { useEffect } from 'react'
 
@@ -56,11 +57,23 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
         'variation-id': item['variation-id'].toString(),
       })
     : ''
-  const url = isVariation(item)
-    ? `sku/${item.sku}?${params}`
-    : hasSecondFilterLayer
-      ? `productId/${item.productId}`
-      : `sku/${item.sku}`
+
+  let singleVariation = isProduct(item) && hasSingleVariation(item)
+  let url = ''
+  if (isVariation(item)) {
+    url = `sku/${item.sku}?${params}`
+  }
+  if (isProduct(item)) {
+    if (hasSecondFilterLayer && !singleVariation) {
+      url = `productId/${item.productId}`
+    }
+    if ((hasSecondFilterLayer && singleVariation) || !hasSecondFilterLayer) {
+      url = `sku/${item.sku}`
+    }
+    if (singleVariation) {
+      url = `sku/${item.sku}?variation-id=${item.variations[0]['variation-id']}`
+    }
+  }
 
   useEffect(() => {
     router.prefetch(`/products/${url}`)

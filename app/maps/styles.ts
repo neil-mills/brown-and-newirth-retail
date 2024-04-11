@@ -99,7 +99,7 @@ export const stylesMap: StyleMap = {
     label: 'Shaped',
     slug: 'shaped',
     image: '/img/09_shaped.png',
-    filterLayers: ['pa_diamond-set', 'pa_shape', 'pa_width'],
+    filterLayers: ['pa_diamond-set', 'pa_shape'],
   },
   PLAIN: {
     label: 'Plains',
