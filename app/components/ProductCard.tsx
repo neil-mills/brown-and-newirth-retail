@@ -18,7 +18,6 @@ import {
   formatSearchParams,
   hasSingleVariation,
 } from '@/app/utils'
-import { useEffect } from 'react'
 
 interface Props {
   style: 'product' | 'variation'
@@ -74,10 +73,6 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
       url = `sku/${item.sku}?variation-id=${item.variations[0]['variation-id']}`
     }
   }
-
-  useEffect(() => {
-    router.prefetch(`/products/${url}`)
-  }, [url, router])
 
   const isCreated =
     (isVariation(item) && item.attributes['pa_diamond-quality'] === 'd-fvs') ||
