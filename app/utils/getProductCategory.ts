@@ -52,7 +52,6 @@ export const getProductCategory = (product: Product): Styles[] | null => {
   if (product?.attributes?.['pa_type-2']) {
     category = [...category, ...product.attributes['pa_type-2']]
   }
-  console.log({ category })
   if (!category.length) return null
   return category
 }
