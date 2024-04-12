@@ -32,7 +32,7 @@ const ImageCarousel = ({ isLoading }: { isLoading: boolean }) => {
                       className={`carousel-item bg-grey-light${i === 0 ? ' active' : ''}`}
                     >
                       <Image
-                        priority
+                        priority={i === 0}
                         src={src}
                         width={720}
                         height={880}
@@ -83,7 +83,6 @@ const ImageCarousel = ({ isLoading }: { isLoading: boolean }) => {
                         src={src}
                         fill={true}
                         sizes="(max-width: 220px) 20vw, 10vw"
-                        objectPosition="center"
                         alt=""
                         priority
                       />
