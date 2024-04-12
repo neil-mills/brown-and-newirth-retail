@@ -84,15 +84,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const searchByCode = searchParams.get('search') === 'code'
   const singleVariation = searchParams.get('variation-id')
   const filters = useFilterSearchParams(searchParams.toString())
-  if (filters) {
-    const filterStore = Object.entries(
-      searchParamsToObject(searchParams.toString())
-    ).reduce((acc, [key, value]) => {
-      acc = { [key]: value.split(',') }
-      return acc
-    }, {} as Filters)
-    setFilters(filterStore as StoreFilters)
-  }
+
   const {
     product,
     filterLayers,
@@ -118,6 +110,17 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     })
 
     setSearchParams(searchParams.toString())
+
+    if (filters) {
+      const filterStore = Object.entries(
+        searchParamsToObject(searchParams.toString())
+      ).reduce((acc, [key, value]) => {
+        acc = { [key]: value.split(',') }
+        return acc
+      }, {} as Filters)
+      setFilters(filterStore as StoreFilters)
+    }
+
     return () => resetSelectedSku()
   }, [
     setSelectedSku,
@@ -131,6 +134,8 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     setSearchParams,
     filterLayers,
     resetSelectedSku,
+    filters,
+    setFilters,
   ])
   if (error) return <p>{error.message}</p>
 
