@@ -1,23 +1,10 @@
-'use client'
 import Image from 'next/image'
-import {
-  FilterLayerKeys,
-  Product,
-  ProductAttributeKeys,
-  Variation,
-  isProduct,
-  isVariation,
-} from '@/app/types'
+import { Product, Variation, isProduct, isVariation } from '@/app/types'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { CreatedLosenge } from '@/app/components'
 import { useStore } from '@/app/hooks'
-import {
-  formatCarat,
-  formatWidth,
-  formatDiamondQuality,
-  formatSearchParams,
-  hasSingleVariation,
-} from '@/app/utils'
+import { formatCarat, formatWidth, formatDiamondQuality } from '@/app/utils'
+import { useProductUrl } from '../hooks/useProductUrl'
 
 interface Props {
   style: 'product' | 'variation'
@@ -28,51 +15,12 @@ interface Props {
 
 export const ProductCard = ({ item, label, style, index }: Props) => {
   const searchParams = useSearchParams()
+  const url = useProductUrl(item)
   const { filterLayers } = useStore((store) => store.selectedSku)
   const searchByCode = searchParams.get('search')
   const router = useRouter()
   const carouselImages =
     item?.images && item?.images?.length > 1 ? item.images : [item.images![0]]
-
-  let hasSecondFilterLayer = false
-  const filterLayerKeys: FilterLayerKeys[] = [
-    'pa_diamond-quality',
-    'pa_width',
-    'pa_centre-carat',
-    'pa_total-carat',
-  ]
-  if (isProduct(item)) {
-    filterLayerKeys.forEach((filterLayer) => {
-      if (
-        filterLayers.includes(filterLayer) &&
-        item?.attributes?.[filterLayer as ProductAttributeKeys] &&
-        item.attributes[filterLayer as ProductAttributeKeys]!.length > 1
-      )
-        hasSecondFilterLayer = true
-    })
-  }
-  const params = isVariation(item)
-    ? formatSearchParams(searchParams.toString(), {
-        'variation-id': item['variation-id'].toString(),
-      })
-    : ''
-
-  let singleVariation = isProduct(item) && hasSingleVariation(item)
-  let url = ''
-  if (isVariation(item)) {
-    url = `sku/${item.sku}?${params}`
-  }
-  if (isProduct(item)) {
-    if (hasSecondFilterLayer && !singleVariation) {
-      url = `productId/${item.productId}`
-    }
-    if ((hasSecondFilterLayer && singleVariation) || !hasSecondFilterLayer) {
-      url = `sku/${item.sku}`
-    }
-    if (singleVariation) {
-      url = `sku/${item.sku}?variation-id=${item.variations[0]['variation-id']}`
-    }
-  }
 
   const isCreated =
     (isVariation(item) && item.attributes['pa_diamond-quality'] === 'd-fvs') ||
@@ -111,6 +59,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
                   className={`carousel-item${i === 0 ? ' active' : ''}`}
                 >
                   <Image
+                    priority={i === 0}
                     src={image}
                     className="img-fluid w-100"
                     width={612}
@@ -193,7 +142,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
           )}
           <button
             className="btn btn-border w-100"
-            onClick={() => router.push(`/products/${url}`)}
+            onClick={() => router.push(url)}
           >
             <span>View</span>
           </button>
