@@ -36,11 +36,10 @@ export const SearchByCode = () => {
     <>
       <SetIsLoading isError={isError} isLoading={isLoading} error={error} />
       <Image
-        className="position-absolute cover bg-cover banner-img"
+        className="object-fit-cover position-absolute cover bg-cover banner-img"
         src={'/img/768x970_01.jpg'}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
+        fill={true}
+        sizes="(max-width: 220px) 100vw,  60vw"
         alt=""
         priority
       />

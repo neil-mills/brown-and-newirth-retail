@@ -2,12 +2,7 @@ import type { Metadata } from 'next'
 import '@/app/globals.css'
 import Head from 'next/head'
 import QueryProvider from '@/lib/QueryProvider'
-import {
-  BsToast,
-  Header,
-  LoadingOverlay,
-  Sidebar,
-} from '@/app/components'
+import { BsToast, Header, LoadingOverlay, Sidebar } from '@/app/components'
 
 export const metadata: Metadata = {
   title: 'Brown & Newirth',
@@ -21,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html className="h-100" lang="en">
+      <html className="h-100" lang="en" suppressHydrationWarning={true}>
         <Head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -68,7 +63,7 @@ export default function RootLayout({
             type="font/woff"
           />
         </Head>
-        <body className="h-100 overflow-hidden">
+        <body className="h-100 overflow-hidden" suppressHydrationWarning={true}>
           <LoadingOverlay />
           <BsToast />
           <Header />

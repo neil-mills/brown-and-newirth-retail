@@ -79,10 +79,10 @@ const ImageCarousel = ({ isLoading }: { isLoading: boolean }) => {
                       className="bg-grey-light mx-0 active"
                     >
                       <Image
-                        className="position-absolute cover bg-cover banner-img"
+                        className="object-fit-cover position-absolute cover bg-cover banner-img"
                         src={src}
-                        layout="fill"
-                        objectFit="cover"
+                        fill={true}
+                        sizes="(max-width: 220px) 20vw, 10vw"
                         objectPosition="center"
                         alt=""
                         priority
