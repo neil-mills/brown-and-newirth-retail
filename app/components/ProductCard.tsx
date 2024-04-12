@@ -73,7 +73,6 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
       url = `sku/${item.sku}?variation-id=${item.variations[0]['variation-id']}`
     }
   }
-  router.prefetch(`/products/${url}`)
 
   const isCreated =
     (isVariation(item) && item.attributes['pa_diamond-quality'] === 'd-fvs') ||
