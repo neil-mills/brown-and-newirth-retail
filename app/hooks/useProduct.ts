@@ -18,6 +18,7 @@ import { isAxiosError } from 'axios'
 
 interface ReturnValues {
   isLoading: boolean
+  isError: boolean
   error: Error | null
   product: Product | null
   variations: Variation[]
@@ -47,7 +48,7 @@ export const useProduct = ({
   let category: Styles[] | null = null
   let filterLayers: FilterLayerKeys[] = []
 
-  const { data: products, error, isLoading } = useGetData()
+  const { data: products, error, isLoading, isError } = useGetData()
 
   if (!isLoading && !error && products && !isAxiosError(products)) {
     if (productId) {
@@ -159,6 +160,7 @@ export const useProduct = ({
     otherOptions,
     similarProducts,
     isLoading,
+    isError,
     error,
   }
 }

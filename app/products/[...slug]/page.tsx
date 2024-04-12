@@ -11,6 +11,7 @@ import {
   VariationSelection,
   TitleBar,
   ProductGridSkeleton,
+  SetIsLoading,
 } from '@/app/components'
 import {
   useProduct,
@@ -80,7 +81,6 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const resetSelectedSku = useStore((store) => store.resetSelectedSku)
   const setSearchParams = useStore((store) => store.setSearchParams)
   const setFilters = useStore((store) => store.setFilters)
-  const setIsLoading = useStore((store) => store.setIsLoading)
   const searchByCode = searchParams.get('search') === 'code'
   const singleVariation = searchParams.get('variation-id')
   const filters = useFilterSearchParams(searchParams.toString())
@@ -101,6 +101,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     otherOptions,
     similarProducts,
     isLoading,
+    isError,
     error,
   } = useProduct({ productId, sku, filters })
   useEffect(() => {
@@ -117,7 +118,6 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     })
 
     setSearchParams(searchParams.toString())
-    setIsLoading(isLoading)
     return () => resetSelectedSku()
   }, [
     setSelectedSku,
@@ -131,17 +131,15 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     setSearchParams,
     filterLayers,
     resetSelectedSku,
-    isLoading,
-    setIsLoading,
   ])
   if (error) return <p>{error.message}</p>
 
   return (
     <>
+      <SetIsLoading isLoading={isLoading} isError={isError} error={error} />
       <div className="col-left is-single h-100 d-flex flex-column">
         <BackLink />
         <div className="col-left-inner d-flex flex-column justify-content-between has-border">
-          {/* <ImageCarouselSkeleton /> */}
           <ImageCarousel isLoading={isLoading} />
           {!sku && <ProductFilterByMenus isLoading={isLoading} />}
           {sku && (

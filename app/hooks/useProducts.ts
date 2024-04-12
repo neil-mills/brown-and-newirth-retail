@@ -12,6 +12,7 @@ import { isAxiosError } from 'axios'
 interface Result {
   products: Product[]
   isLoading: boolean
+  isError: boolean
   error: Error | null
 }
 
@@ -20,7 +21,7 @@ export const useProducts = (
   filters: ProductFilters | null
 ): Result => {
   let products: Product[] = []
-  const { data, error, isLoading } = useGetData()
+  const { data, error, isLoading, isError } = useGetData()
   if (!isLoading && !error && data && !isAxiosError(data)) {
     products = getCategoryProducts(data, category)
 
@@ -44,5 +45,5 @@ export const useProducts = (
       return { ...product, images }
     })
   }
-  return { products, isLoading, error }
+  return { products, isLoading, isError, error }
 }

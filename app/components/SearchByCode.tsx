@@ -1,9 +1,10 @@
 'use client'
-import { FormEvent, useEffect, useRef, useState } from 'react'
-import { useGetData, useStore } from '@/app/hooks'
+import { FormEvent, useRef, useState } from 'react'
+import { useGetData } from '@/app/hooks'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { isAxiosError } from 'axios'
+import { SetIsLoading } from './SetIsLoading'
 
 const bgStyle = {
   backgroundImage: `url('/img/768x970_01.jpg')`,
@@ -11,14 +12,9 @@ const bgStyle = {
 
 export const SearchByCode = () => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { data: products, error, isLoading } = useGetData()
+  const { data: products, error, isError, isLoading } = useGetData()
   const [isInvalidCode, setIsInvalidCode] = useState(false)
   const router = useRouter()
-  const setIsLoading = useStore((store) => store.setIsLoading)
-
-  useEffect(() => {
-    setIsLoading(isLoading)
-  }, [isLoading, setIsLoading])
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -38,6 +34,7 @@ export const SearchByCode = () => {
 
   return (
     <>
+      <SetIsLoading isError={isError} isLoading={isLoading} error={error} />
       <Image
         className="position-absolute cover bg-cover banner-img"
         src={'/img/768x970_01.jpg'}

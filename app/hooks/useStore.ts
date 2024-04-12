@@ -34,10 +34,13 @@ interface Store {
   toastMessage: string
   showModal: boolean
   isLoading: boolean
+  isError: boolean
+  error: string
   userId: string
   setToastMessage: (toastMessage: string) => void
   setShowModal: (showModal: boolean) => void
   setIsLoading: (isLoading: boolean) => void
+  setError: (isError: boolean, error: string) => void
   setUserId: (userId: string) => void
   setFilters: (filters: StoreFilters) => void
   setSearchParams: (searchParams: string) => void
@@ -96,6 +99,8 @@ export const useStore = create<Store>((set) => ({
   toastMessage: '',
   showModal: false,
   isLoading: true,
+  isError: false,
+  error: '',
   userId: '',
   filters,
   setToastMessage: (toastMessage: string) =>
@@ -104,6 +109,7 @@ export const useStore = create<Store>((set) => ({
     set((store) => ({ ...store, showModal })),
   setIsLoading: (isLoading: boolean) =>
     set((store) => ({ ...store, isLoading })),
+  setError: (isError, error) => set((store) => ({ ...store, isError, error })),
   setUserId: (userId: string) => set((store) => ({ ...store, userId })),
   productsQuery: {} as ProductsQuery,
   setSelectedSku: (selectedSku: SelectedSku) =>

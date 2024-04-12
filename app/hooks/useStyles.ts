@@ -6,9 +6,10 @@ import { isAxiosError } from 'axios'
 export const useStyles = (): {
   styles: Mapping[]
   isLoading: boolean
+  isError: boolean
   error: Error | null
 } => {
-  const { data: products, error, isLoading } = useGetData()
+  const { data: products, error, isError, isLoading } = useGetData()
 
   let styles: Mapping[] = []
   if (!isLoading && !error && products && !isAxiosError(products)) {
@@ -51,5 +52,5 @@ export const useStyles = (): {
     ]
   }
 
-  return { styles, isLoading, error }
+  return { styles, isLoading, isError, error }
 }

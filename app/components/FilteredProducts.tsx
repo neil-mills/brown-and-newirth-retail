@@ -1,5 +1,5 @@
 'use client'
-import { ProductGridSkeleton, TitleBar } from '@/app/components'
+import { ProductGridSkeleton, SetIsLoading, TitleBar } from '@/app/components'
 import { useProducts, useStore } from '@/app/hooks'
 import { ProductFilters, Styles } from '@/app/types'
 import ProductGrid from '@/app/components/ProductGrid'
@@ -13,7 +13,7 @@ const FilteredProducts = ({
   filters: ProductFilters | null
 }) => {
   const setIsLoading = useStore((store) => store.setIsLoading)
-  const { products, isLoading, error } = useProducts(category, filters)
+  const { products, isLoading, isError, error } = useProducts(category, filters)
 
   useEffect(() => {
     setIsLoading(isLoading)
@@ -21,6 +21,7 @@ const FilteredProducts = ({
 
   return (
     <>
+      <SetIsLoading isLoading={isLoading} isError={isError} error={error} />
       {isLoading || error ? (
         <>
           <TitleBar>{'  '}</TitleBar>
