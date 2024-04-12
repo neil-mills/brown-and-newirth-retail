@@ -18,7 +18,6 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
   const url = useProductUrl(item)
   const { filterLayers } = useStore((store) => store.selectedSku)
   const searchByCode = searchParams.get('search')
-  const variationId = searchParams.get('variation-id')
   const router = useRouter()
   const carouselImages =
     item?.images && item?.images?.length > 1 ? item.images : [item.images![0]]
@@ -60,6 +59,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
                   className={`carousel-item${i === 0 ? ' active' : ''}`}
                 >
                   <Image
+                    priority={i === 0}
                     src={image}
                     className="img-fluid w-100"
                     width={612}
@@ -101,23 +101,15 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             )}
             {isCreated && isVariation(item) && <CreatedLosenge />}
           </div>
-          {searchByCode ||
-            item?.attributes?.['pa_total-carat'] ||
-            (item?.attributes?.['pa_gauge'] &&
-              variationId &&
-              label === 'code' && (
-                <p className="mb-2 text-start">{item.sku}</p>
-              ))}
-
+          {(searchByCode || item?.attributes?.['pa_total-carat']) &&
+            label === 'code' && <p className="mb-2 text-start">{item.sku}</p>}
           {filterLayers?.includes('pa_width') &&
             isVariation(item) &&
-            !searchByCode &&
-            !variationId && (
+            !searchByCode && (
               <p className="mb-2 text-start">
                 {item.sku} {formatWidth(item.attributes['pa_width'] as string)}
               </p>
             )}
-
           {isVariation(item) && !item?.attributes?.pa_gauge && (
             <div className="d-flex d-lg-block d-xl-flex justify-content-between mb-2">
               <>
