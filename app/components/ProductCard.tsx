@@ -18,6 +18,13 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
   const url = useProductUrl(item)
   const { filterLayers } = useStore((store) => store.selectedSku)
   const searchByCode = searchParams.get('search')
+  const variationId = searchParams.get('variation-id')
+  const isDiamondItem = item?.attributes?.['pa_total-carat']
+  const isGaugeItem = item?.attributes?.['pa_width']
+  const showSkuOnly =
+    searchByCode || isDiamondItem || (isGaugeItem && !variationId)
+  const showSkuAndWidth = isGaugeItem && isVariation(item) && !searchByCode
+
   const router = useRouter()
   const carouselImages =
     item?.images && item?.images?.length > 1 ? item.images : [item.images![0]]
@@ -101,15 +108,14 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             )}
             {isCreated && isVariation(item) && <CreatedLosenge />}
           </div>
-          {(searchByCode || item?.attributes?.['pa_total-carat']) &&
-            label === 'code' && <p className="mb-2 text-start">{item.sku}</p>}
-          {filterLayers?.includes('pa_width') &&
-            isVariation(item) &&
-            !searchByCode && (
-              <p className="mb-2 text-start">
-                {item.sku} {formatWidth(item.attributes['pa_width'] as string)}
-              </p>
-            )}
+          {showSkuOnly && label === 'code' && (
+            <p className="mb-2 text-start">{item.sku}</p>
+          )}
+          {showSkuAndWidth && (
+            <p className="mb-2 text-start">
+              {item.sku} {formatWidth(item.attributes['pa_width'] as string)}
+            </p>
+          )}
           {isVariation(item) && !item?.attributes?.pa_gauge && (
             <div className="d-flex d-lg-block d-xl-flex justify-content-between mb-2">
               <>
