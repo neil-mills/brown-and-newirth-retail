@@ -142,6 +142,15 @@ export const useVariations = ({
           parseInt(b.attributes[sortBy!]!.replace('-', '.'))
       )
     }
+    filteredVariations.sort((a, b) => {
+      if (a.sku < b.sku) {
+        return -1
+      }
+      if (a.sku > b.sku) {
+        return 1
+      }
+      return 0
+    })
   }
 
   return filteredVariations
