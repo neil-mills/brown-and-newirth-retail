@@ -6,10 +6,16 @@ export const getCategoryProducts = (
 ): Product[] => {
   let products: Product[] = []
   if (data) {
-    if (['Solitaire', 'Halo', 'Cluster', 'Three Stone'].includes(category)) {
+    if (['Solitaire', 'Halo', 'Cluster'].includes(category)) {
       products = data.filter(
         (product) =>
           product?.attributes?.pa_style?.includes(category) &&
+          product.category === 'ENGAGEMENT'
+      )
+    } else if (category === 'Three Stone') {
+      products = data.filter(
+        (product) =>
+          product?.attributes?.pa_style?.includes('Trilogy') &&
           product.category === 'ENGAGEMENT'
       )
     } else if (['EARRING', 'PENDANT', 'BRACELET'].includes(category)) {

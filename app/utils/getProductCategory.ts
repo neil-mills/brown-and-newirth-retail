@@ -47,7 +47,11 @@ export const getProductCategory = (product: Product): Styles[] | null => {
     category.push('CERAMIC')
   }
   if (product?.attributes?.pa_style) {
-    category = [...category, ...product.attributes.pa_style]
+    if (product?.attributes?.pa_style?.includes('Trilogy')) {
+      category.push('Three Stone')
+    } else {
+      category = [...category, ...product.attributes.pa_style]
+    }
   }
   if (product?.attributes?.['pa_type-2']) {
     category = [...category, ...product.attributes['pa_type-2']]

@@ -104,6 +104,11 @@ export const useProductFilterOptions = ({
           (option) => option.slug !== 'other'
         )
       }
+      if (category === 'Two Colour') {
+        filterOptions = filterOptions.filter(
+          (option) => option.slug !== 'mixed-metal'
+        )
+      }
       if (filterMap[Object.keys(filterMap)[0]]?.index) {
         filterOptions = filterOptions.sort((a, b) => a.index! - b.index!)
       }
