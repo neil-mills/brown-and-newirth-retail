@@ -138,8 +138,11 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     filters,
     setFilters,
   ])
-  if (error) return <p>{error.message}</p>
 
+  const showOtherOptions =
+    otherOptions.length > 0 || similarProducts.length === 0
+  const showSimilarProducts =
+    otherOptions.length === 0 && similarProducts.length > 0
   return (
     <>
       <SetIsLoading isLoading={isLoading} isError={isError} error={error} />
@@ -166,7 +169,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
 
             <div className="tab-content">
               <div
-                className="tab-pane fade show active"
+                className={`tab-pane fade${showOtherOptions ? ' show active' : ''}`}
                 id="other"
                 role="tabpanel"
                 tabIndex={0}
@@ -176,7 +179,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
                 </Suspense>
               </div>
               <div
-                className="tab-pane fade"
+                className={`tab-pane fade${showSimilarProducts ? ' show active' : ''}`}
                 id="similar"
                 role="tabpanel"
                 tabIndex={0}
