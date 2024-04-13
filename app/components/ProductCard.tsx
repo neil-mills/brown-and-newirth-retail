@@ -20,8 +20,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
   const searchByCode = searchParams.get('search')
   const variationId = searchParams.get('variation-id')
   const isDiamondItem = item?.attributes?.['pa_total-carat']
-  const isGaugeItem =
-    item?.attributes?.['pa_width'] && item.attributes['pa_width'] !== '0-00'
+  const isGaugeItem = !item?.attributes?.['pa_total-carat']
   const showSkuOnly =
     searchByCode || isDiamondItem || (isGaugeItem && variationId)
   const showSkuAndWidth =
