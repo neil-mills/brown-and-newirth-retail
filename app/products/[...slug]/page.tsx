@@ -21,7 +21,7 @@ import {
 } from '@/app/hooks'
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
-import { Filters, StoreFilters } from '@/app/types'
+import { Filters, ProductDiamondQuality, StoreFilters } from '@/app/types'
 import { searchParamsToObject } from '@/app/utils'
 
 interface Props {
@@ -145,6 +145,11 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     otherOptions.length === 0 && similarProducts.length > 0
   const showDiamondQualityFilter =
     product?.attributes?.['pa_diamond-quality'] &&
+    ['HSI', 'D-FVS'].every((quality) =>
+      product.attributes['pa_diamond-quality']?.includes(
+        quality as ProductDiamondQuality
+      )
+    ) &&
     (otherOptions.length > 0 || similarProducts.length > 0)
 
   return (
