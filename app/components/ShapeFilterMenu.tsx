@@ -18,9 +18,7 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
   const filter = category === 'Shaped' ? 'pa_shaped' : 'pa_shape'
-  const shapeCategory = category === 'Shaped' ? null : category
   const setIsLoading = useStore((store) => store.setIsLoading)
-
   const {
     filterOptions: shapes,
     isLoading,
@@ -28,7 +26,7 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
   } = useProductFilterOptions({
     filter,
     filters: hasChild ? null : filters,
-    category: shapeCategory,
+    category,
   })
 
   useEffect(() => {
