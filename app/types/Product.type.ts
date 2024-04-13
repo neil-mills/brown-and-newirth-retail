@@ -47,7 +47,7 @@ export interface VariationAttributes {
   'pa_total-carat'?: string
   'pa_centre-carat'?: string
   'pa_diamond-quality'?: VariationDiamondQuality
-  pa_diamond?: string
+  pa_diamond?: DiamondOrigin
   pa_gauge?: VariationGauge
   pa_width?: string
   pa_size?: VariationSize

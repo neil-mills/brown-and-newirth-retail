@@ -1,14 +1,13 @@
 import { useStore } from '@/app/hooks'
 import {
   formatCarat,
+  formatDiamondOrigin,
   formatDiamondQuality,
   formatGauge,
   formatWidth,
 } from '@/app/utils'
-import { diamondOriginsMap, diamondQualityMap } from '@/app/maps'
 import { useSearchParams } from 'next/navigation'
 import { DataTableSkeleton } from './DataTableSkeleton'
-import { ProductDiamondQuality, VariationDiamondQuality } from '../types'
 
 const DataTable = ({ isLoading }: { isLoading: boolean }) => {
   const { product, variations } = useStore((store) => store.selectedSku)
@@ -65,15 +64,10 @@ const DataTable = ({ isLoading }: { isLoading: boolean }) => {
                       <div className="px-2 px-xl-3 pb-2 pb-sm-3 pt-2 pt-sm-0">
                         <h6>Diamond Origin</h6>
                         <p className="fw-300">
-                          {variation?.attributes?.['pa_diamond-quality']
-                            ? diamondQualityMap[
-                                (
-                                  variation.attributes[
-                                    'pa_diamond-quality'
-                                  ] as VariationDiamondQuality
-                                ).toUpperCase() as ProductDiamondQuality
-                              ].filterLabel
-                            : ''}
+                          {formatDiamondOrigin(
+                            variation?.attributes?.['pa_diamond-quality'],
+                            variation?.attributes?.['pa_diamond']
+                          )}
                         </p>
                       </div>
                     </div>
