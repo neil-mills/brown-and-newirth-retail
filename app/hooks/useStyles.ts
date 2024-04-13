@@ -36,9 +36,10 @@ export const useStyles = (): {
         label: map?.label || '',
         slug: map?.slug || '',
         image: map?.image || '',
+        index: map?.index,
+        display: map?.display,
       }
     })
-
     styles = [
       ...styles,
       stylesMap.Shaped,
@@ -50,6 +51,8 @@ export const useStyles = (): {
       stylesMap.PLAIN,
       stylesMap['Two Colour'],
     ]
+      .filter((style) => style?.display === true)
+      .sort((a, b) => a.index! - b.index!)
   }
 
   return { styles, isLoading, isError, error }

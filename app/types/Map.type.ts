@@ -17,6 +17,7 @@ export interface Mapping {
   start?: number
   end?: number
   index?: number
+  display?: boolean
 }
 
 export interface Map {
