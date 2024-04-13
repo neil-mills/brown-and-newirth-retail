@@ -143,6 +143,10 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     otherOptions.length > 0 || similarProducts.length === 0
   const showSimilarProducts =
     otherOptions.length === 0 && similarProducts.length > 0
+  const showDiamondQualityFilter =
+    product?.attributes?.['pa_diamond-quality'] &&
+    (otherOptions.length > 0 || similarProducts.length > 0)
+
   return (
     <>
       <SetIsLoading isLoading={isLoading} isError={isError} error={error} />
@@ -163,7 +167,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
         {searchByCode || singleVariation ? (
           <>
             <div className="row row-pad-sm align-items-center">
-              {product?.attributes?.['pa_diamond-quality'] && <ResultsFilter />}
+              {showDiamondQualityFilter && <ResultsFilter />}
               <ResultsTabs />
             </div>
 
