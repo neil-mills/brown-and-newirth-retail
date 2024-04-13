@@ -96,6 +96,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     isError,
     error,
   } = useProduct({ productId, sku, filters })
+
   useEffect(() => {
     setSelectedSku({
       sku,
@@ -159,7 +160,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
         {searchByCode || singleVariation ? (
           <>
             <div className="row row-pad-sm align-items-center">
-              <ResultsFilter />
+              {product?.attributes?.['pa_diamond-quality'] && <ResultsFilter />}
               <ResultsTabs />
             </div>
 
