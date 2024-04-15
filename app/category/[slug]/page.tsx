@@ -144,18 +144,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
         </div>
       </div>
       <div className="col col-right h-100">
-        <Suspense
-          fallback={
-            <>
-              <TitleBar>
-                <span style={{ visibility: 'hidden' }}>Loading</span>{' '}
-              </TitleBar>
-              <ProductGridSkeleton />{' '}
-            </>
-          }
-        >
-          <FilteredProducts filters={filters} category={category} />
-        </Suspense>
+        <FilteredProducts filters={filters} category={category} />
       </div>
     </>
   )
