@@ -486,11 +486,17 @@ sup {
   background-color: rgba(0, 0, 0, 0.35);
 }
 
+.btn.bg-pink.disabled,
+.btn.bg-pink:disabled {
+  opacity: 1;
+}
+
 .btn.disabled,
 .btn:disabled {
   border-color: #ccc;
   opacity: 0.5;
 }
+
 .btn-icon[aria-pressed='true'] {
   box-shadow: inset 0 0 0 1px #000;
 }
