@@ -1,7 +1,10 @@
-import fetchData from '@/data/fetchData'
-import { QueryClient } from '@tanstack/react-query'
 import { Suspense } from 'react'
-import { SearchByCode, SetUserId } from '@/app/components'
+import {
+  CategoryGridSkeleton,
+  SearchByCode,
+  SetUserId,
+  TitleBar,
+} from '@/app/components'
 import SearchByStyle from '@/app/components/SearchByStyle'
 import ResetFilters from './components/ResetFilters'
 
@@ -16,7 +19,16 @@ export default async function Home() {
         <SearchByCode />
       </div>
       <div className="col col-right h-100">
-        <SearchByStyle />
+        <Suspense
+          fallback={
+            <>
+              <TitleBar>Search by style</TitleBar>
+              <CategoryGridSkeleton />
+            </>
+          }
+        >
+          <SearchByStyle />
+        </Suspense>
       </div>
     </>
   )

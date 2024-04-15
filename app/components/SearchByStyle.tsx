@@ -1,15 +1,13 @@
-'use client'
-import { CategoryGridSkeleton, SetIsLoading, TitleBar } from '@/app/components'
-import { useStyles } from '@/app/hooks'
+import { TitleBar } from '@/app/components'
 import ProductGrid from '@/app/components/ProductGrid'
+import { fetchStyles } from '@/data/fetchStyles'
 
-const SearchByStyle = () => {
-  const { styles, isLoading, isError, error } = useStyles()
+const SearchByStyle = async () => {
+  const styles = await fetchStyles()
   return (
     <>
-      <SetIsLoading isLoading={isLoading} isError={isError} error={error} />
       <TitleBar>Search by style</TitleBar>
-      {isLoading ? <CategoryGridSkeleton /> : <ProductGrid items={styles} />}
+      <ProductGrid items={styles} />
     </>
   )
 }
