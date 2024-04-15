@@ -1,5 +1,5 @@
 'use client'
-import { FilterGrid, TitleBar, FilterGridSkeleton } from '@/app/components'
+import { FilterGrid, TitleBar } from '@/app/components'
 import {
   useFilterSearchParams,
   useProductFilterOptions,
@@ -19,11 +19,7 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
   const filters = useFilterSearchParams(searchParams.toString())
   const filter = category === 'Shaped' ? 'pa_shaped' : 'pa_shape'
   const setIsLoading = useStore((store) => store.setIsLoading)
-  const {
-    filterOptions: shapes,
-    isLoading,
-    error,
-  } = useProductFilterOptions({
+  const { filterOptions: shapes, isLoading } = useProductFilterOptions({
     filter,
     filters: hasChild ? null : filters,
     category,
@@ -33,20 +29,14 @@ const ShapeFilterMenu = ({ category, hasChild = false }: Props) => {
     setIsLoading(isLoading)
   }, [isLoading, setIsLoading])
 
-  if (error) return <p>{error.message}</p>
-
   return (
     <div className="mb-225rem">
       <TitleBar>Choose your shape</TitleBar>
-      {isLoading ? (
-        <FilterGridSkeleton />
-      ) : (
-        <FilterGrid
-          type={filter}
-          filters={shapes}
-          childType={hasChild ? ['pa_setting', 'pa_coverage'] : null}
-        />
-      )}
+      <FilterGrid
+        type={filter}
+        filters={shapes}
+        childType={hasChild ? ['pa_setting', 'pa_coverage'] : null}
+      />
     </div>
   )
 }
