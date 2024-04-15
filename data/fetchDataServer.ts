@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios'
 import { Product } from '@/app/types'
+import { cache } from 'react'
 
-const fetchDataServer = async (): Promise<Product[]> => {
+const fetchDataServer = cache(async (): Promise<Product[]> => {
   let data: Product[] = []
   try {
     const chunkUrls = await axios<string[]>(
@@ -26,6 +27,6 @@ const fetchDataServer = async (): Promise<Product[]> => {
     const error = err as AxiosError
     throw new Error(error.message)
   }
-}
+})
 
 export default fetchDataServer
