@@ -1,12 +1,15 @@
-import fetchData from '@/data/fetchData'
+import axios from 'axios'
 import { Product } from '../types'
 
 const DataOutput = async () => {
-  const data = await fetchData()
+  const response = await axios.get<Product[]>(
+    'https://staging.retailer.brownandnewirth.com/cache-data/product-data/product-data-1.json',
+    { timeout: 120000 }
+  )
 
   return (
     <ul>
-      {data.map((product, i) => {
+      {response.data.map((product, i) => {
         if (i < 5) {
           return <li key={i}>{product.name}</li>
         }
