@@ -13,7 +13,8 @@ import {
   TitleBar,
 } from '@/app/components'
 import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
+import FilteredProducts from '@/app/components/FilteredProducts'
 
 interface Props {
   params: { slug: string }
@@ -93,20 +94,20 @@ const CoverageFilterMenu = dynamic(
   }
 )
 
-const FilteredProducts = dynamic(
-  () => import('@/app/components/FilteredProducts'),
-  {
-    ssr: false,
-    loading: () => (
-      <>
-        <TitleBar>
-          <span style={{ visibility: 'hidden' }}>Loading</span>
-        </TitleBar>
-        <ProductGridSkeleton />
-      </>
-    ),
-  }
-)
+// const FilteredProducts = dynamic(
+//   () => import('@/app/components/FilteredProducts'),
+//   {
+//     ssr: false,
+//     loading: () => (
+//       <>
+//         <TitleBar>
+//           <span style={{ visibility: 'hidden' }}>Loading</span>
+//         </TitleBar>
+//         <ProductGridSkeleton />
+//       </>
+//     ),
+//   }
+// )
 
 const ProductCategoryPage = ({ params: { slug } }: Props) => {
   const setFilterLayers = useStore((store) => store.setFilterLayers)
@@ -173,7 +174,9 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
         </div>
       </div>
       <div className="col col-right h-100">
-        <FilteredProducts filters={filters} category={category} />
+        <Suspense>
+          <FilteredProducts filters={filters} category={category} />
+        </Suspense>
       </div>
     </>
   )
