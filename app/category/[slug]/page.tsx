@@ -15,99 +15,16 @@ import {
 import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
 import { Suspense, useEffect } from 'react'
 import FilteredProducts from '@/app/components/FilteredProducts'
+import ShapeFilterMenu from '@/app/components/ShapeFilterMenu'
+import SettingFilterMenu from '@/app/components/SettingFilterMenu'
+import PatternFilterMenu from '@/app/components/PatternFilterMenu'
+import ProfileFilterMenu from '@/app/components/ProfileFilterMenu'
+import CeramicColourFilterMenu from '@/app/components/CeramicColourFilterMenu'
+import CoverageFilterMenu from '@/app/components/CoverageFilterMenu'
 
 interface Props {
   params: { slug: string }
 }
-
-const ShapeFilterMenu = dynamic(
-  () => import('@/app/components/ShapeFilterMenu'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mb-225rem">
-        <TitleBar>Choose your shape</TitleBar>
-        <FilterGridSkeleton />
-      </div>
-    ),
-  }
-)
-
-const SettingFilterMenu = dynamic(
-  () => import('@/app/components/SettingFilterMenu'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mb-225rem">
-        <TitleBar>Choose your setting</TitleBar>
-        <FilterGridSkeleton />
-      </div>
-    ),
-  }
-)
-const PatternFilterMenu = dynamic(
-  () => import('@/app/components/PatternFilterMenu'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mb-225rem">
-        <TitleBar>Choose your style</TitleBar>
-        <FilterGridSkeleton />
-      </div>
-    ),
-  }
-)
-const ProfileFilterMenu = dynamic(
-  () => import('@/app/components/ProfileFilterMenu'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mb-225rem">
-        <TitleBar>Choose your profile</TitleBar>
-        <FilterGridSkeleton />
-      </div>
-    ),
-  }
-)
-const CeramicColourFilterMenu = dynamic(
-  () => import('@/app/components/CeramicColourFilterMenu'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mb-225rem">
-        <TitleBar>Choose your colour</TitleBar>
-        <FilterGridSkeleton />
-      </div>
-    ),
-  }
-)
-const CoverageFilterMenu = dynamic(
-  () => import('@/app/components/CoverageFilterMenu'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="mb-225rem">
-        <TitleBar>Choose your coverage</TitleBar>
-        <FilterGridSkeleton />
-      </div>
-    ),
-  }
-)
-
-// const FilteredProducts = dynamic(
-//   () => import('@/app/components/FilteredProducts'),
-//   {
-//     ssr: false,
-//     loading: () => (
-//       <>
-//         <TitleBar>
-//           <span style={{ visibility: 'hidden' }}>Loading</span>
-//         </TitleBar>
-//         <ProductGridSkeleton />
-//       </>
-//     ),
-//   }
-// )
 
 const ProductCategoryPage = ({ params: { slug } }: Props) => {
   const setFilterLayers = useStore((store) => store.setFilterLayers)
@@ -162,19 +79,93 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
           <CategoryBanner category={categoryData} />
           {showDiamondSetFilter && <DiamondSetFilter />}
           {showShapeFilter && (
-            <ShapeFilterMenu category={category} hasChild={showSettingFilter} />
+            <Suspense
+              fallback={
+                <div className="mb-225rem">
+                  <TitleBar>Choose your shape</TitleBar>
+                  <FilterGridSkeleton />
+                </div>
+              }
+            >
+              <ShapeFilterMenu
+                category={category}
+                hasChild={showSettingFilter}
+              />
+            </Suspense>
           )}
-          {showSettingFilter && <SettingFilterMenu category={category} />}
-          {showProfileFilter && <ProfileFilterMenu category={category} />}
-          {showPatternFilter && <PatternFilterMenu category={category} />}
+          {showSettingFilter && (
+            <Suspense
+              fallback={
+                <div className="mb-225rem">
+                  <TitleBar>Choose your setting</TitleBar>
+                  <FilterGridSkeleton />
+                </div>
+              }
+            >
+              <SettingFilterMenu category={category} />
+            </Suspense>
+          )}
+          {showProfileFilter && (
+            <Suspense
+              fallback={
+                <div className="mb-225rem">
+                  <TitleBar>Choose your profile</TitleBar>
+                  <FilterGridSkeleton />
+                </div>
+              }
+            >
+              <ProfileFilterMenu category={category} />
+            </Suspense>
+          )}
+          {showPatternFilter && (
+            <Suspense
+              fallback={
+                <div className="mb-225rem">
+                  <TitleBar>Choose your style</TitleBar>
+                  <FilterGridSkeleton />
+                </div>
+              }
+            >
+              <PatternFilterMenu category={category} />
+            </Suspense>
+          )}
           {showCeramicColourFilter && (
-            <CeramicColourFilterMenu category={category} />
+            <Suspense
+              fallback={
+                <div className="mb-225rem">
+                  <TitleBar>Choose your colour</TitleBar>
+                  <FilterGridSkeleton />
+                </div>
+              }
+            >
+              <CeramicColourFilterMenu category={category} />
+            </Suspense>
           )}
-          {showCoverageFilter && <CoverageFilterMenu category={category} />}
+          {showCoverageFilter && (
+            <Suspense
+              fallback={
+                <div className="mb-225rem">
+                  <TitleBar>Choose your coverage</TitleBar>
+                  <FilterGridSkeleton />
+                </div>
+              }
+            >
+              <CoverageFilterMenu category={category} />
+            </Suspense>
+          )}
         </div>
       </div>
       <div className="col col-right h-100">
-        <Suspense>
+        <Suspense
+          fallback={
+            <>
+              <TitleBar>
+                <span style={{ visibility: 'hidden' }}>Loading</span>{' '}
+              </TitleBar>
+              <ProductGridSkeleton />{' '}
+            </>
+          }
+        >
           <FilteredProducts filters={filters} category={category} />
         </Suspense>
       </div>
