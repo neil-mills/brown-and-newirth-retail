@@ -1,15 +1,18 @@
 import axios from 'axios'
 import { Product } from '../types'
+import fetchDataServer from '@/data/fetchDataServer'
 
 const DataOutput = async () => {
-  const response = await axios.get<Product[]>(
-    'https://staging.retailer.brownandnewirth.com/cache-data/product-data/product-data-1.json',
-    { timeout: 120000 }
-  )
+  let data: Product[] = []
+  try {
+    data = await fetchDataServer()
+  } catch (err) {
+    console.log(err)
+  }
 
   return (
     <ul>
-      {response.data.map((product, i) => {
+      {data.map((product, i) => {
         if (i < 5) {
           return <li key={i}>{product.name}</li>
         }
