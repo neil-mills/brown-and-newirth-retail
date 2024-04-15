@@ -79,19 +79,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
           <CategoryBanner category={categoryData} />
           {showDiamondSetFilter && <DiamondSetFilter />}
           {showShapeFilter && (
-            <Suspense
-              fallback={
-                <div className="mb-225rem">
-                  <TitleBar>Choose your shape</TitleBar>
-                  <FilterGridSkeleton />
-                </div>
-              }
-            >
-              <ShapeFilterMenu
-                category={category}
-                hasChild={showSettingFilter}
-              />
-            </Suspense>
+            <ShapeFilterMenu category={category} hasChild={showSettingFilter} />
           )}
           {showSettingFilter && (
             <Suspense
