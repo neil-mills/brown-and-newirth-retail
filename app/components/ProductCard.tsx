@@ -18,13 +18,10 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
   const url = useProductUrl(item)
   const { filterLayers } = useStore((store) => store.selectedSku)
   const searchByCode = searchParams.get('search')
-  const variationId = searchParams.get('variation-id')
   const isDiamondItem = item?.attributes?.['pa_total-carat']
   const isGaugeItem = !item?.attributes?.['pa_total-carat']
-  const showSkuOnly =
-    searchByCode || isDiamondItem || (isGaugeItem && variationId)
-  const showSkuAndWidth =
-    isGaugeItem && isVariation(item) && !searchByCode && !variationId
+  const showSkuOnly = searchByCode || isDiamondItem
+  const showSkuAndWidth = isGaugeItem && isVariation(item) && !searchByCode
 
   const router = useRouter()
   const carouselImages =

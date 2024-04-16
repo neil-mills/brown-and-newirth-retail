@@ -17,20 +17,21 @@ export const useProductUrl = (item: Product | Variation) => {
         'variation-id': item['variation-id'].toString(),
       })
     : ''
-  let singleVariation = isProduct(item) && hasSingleVariation(item)
+  // let singleVariation = isProduct(item) && hasSingleVariation(item)
   if (isVariation(item)) {
     url = `/products/sku/${item.sku}?${params}`
   }
   if (isProduct(item)) {
-    if (secondFilterLayer && !singleVariation) {
-      url = `/products/productId/${item.productId}`
-    }
-    if ((secondFilterLayer && singleVariation) || !hasSecondFilterLayer) {
-      url = `/products/sku/${item.sku}`
-    }
-    if (singleVariation) {
-      url = `/products/sku/${item.sku}?variation-id=${item.variations[0]['variation-id']}`
-    }
+    url = `/products/productId/${item.productId}`
+    // if (secondFilterLayer && !singleVariation) {
+    //   url = `/products/productId/${item.productId}`
+    // }
+    // if ((secondFilterLayer && singleVariation) || !hasSecondFilterLayer) {
+    //   url = `/products/sku/${item.sku}`
+    // }
+    // if (singleVariation) {
+    //   url = `/products/sku/${item.sku}?variation-id=${item.variations[0]['variation-id']}&single=true`
+    // }
   }
   return url
 }
