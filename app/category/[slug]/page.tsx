@@ -15,12 +15,7 @@ import {
 import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
 import { Suspense, useEffect } from 'react'
 import FilteredProducts from '@/app/components/FilteredProducts'
-import ShapeFilterMenu from '@/app/components/ShapeFilterMenu'
-import SettingFilterMenu from '@/app/components/SettingFilterMenu'
-import PatternFilterMenu from '@/app/components/PatternFilterMenu'
-import ProfileFilterMenu from '@/app/components/ProfileFilterMenu'
-import CeramicColourFilterMenu from '@/app/components/CeramicColourFilterMenu'
-import CoverageFilterMenu from '@/app/components/CoverageFilterMenu'
+import FilterMenu from '@/app/components/FilterMenu'
 
 interface Props {
   params: { slug: string }
@@ -79,19 +74,13 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
           <CategoryBanner category={categoryData} />
           {showDiamondSetFilter && <DiamondSetFilter />}
           {showShapeFilter && (
-            <Suspense
-              fallback={
-                <div className="mb-225rem">
-                  <TitleBar>Choose your shape</TitleBar>
-                  <FilterGridSkeleton />
-                </div>
-              }
-            >
-              <ShapeFilterMenu
-                category={category}
-                hasChild={showSettingFilter}
-              />
-            </Suspense>
+            <FilterMenu
+              category={category}
+              childFilters={['pa_setting', 'pa_coverage']}
+              filters={filters}
+              filter={category === 'Shaped' ? 'pa_shaped' : 'pa_shape'}
+              label="Choose your shape"
+            />
           )}
           {showSettingFilter && (
             <Suspense
@@ -102,7 +91,12 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <SettingFilterMenu category={category} />
+              <FilterMenu
+                category={category}
+                filters={filters}
+                filter={'pa_setting'}
+                label="Choose your setting"
+              />
             </Suspense>
           )}
           {showProfileFilter && (
@@ -114,7 +108,12 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <ProfileFilterMenu category={category} />
+              <FilterMenu
+                category={category}
+                filters={filters}
+                filter={'pa_profile'}
+                label="Choose your profile"
+              />
             </Suspense>
           )}
           {showPatternFilter && (
@@ -126,7 +125,12 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <PatternFilterMenu category={category} />
+              <FilterMenu
+                category={category}
+                filters={filters}
+                filter={'pa_pattern'}
+                label="Choose your style"
+              />
             </Suspense>
           )}
           {showCeramicColourFilter && (
@@ -138,7 +142,12 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <CeramicColourFilterMenu category={category} />
+              <FilterMenu
+                category={category}
+                filters={filters}
+                filter={'pa_ceramic-colour'}
+                label="Choose your colour"
+              />
             </Suspense>
           )}
           {showCoverageFilter && (
@@ -150,7 +159,12 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <CoverageFilterMenu category={category} />
+              <FilterMenu
+                category={category}
+                filters={filters}
+                filter={'pa_coverage'}
+                label="Choose your coverage"
+              />
             </Suspense>
           )}
         </div>
