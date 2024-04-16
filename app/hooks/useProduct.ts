@@ -33,7 +33,7 @@ interface Props {
   sku: string | null
   productId: string | null
   filters?: Filters | null
-  variationId?: string
+  variationId?: string | null
 }
 
 export const useProduct = ({
