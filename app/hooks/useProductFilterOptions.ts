@@ -53,9 +53,10 @@ export const useProductFilterOptions = ({
   filterOptions: Mapping[]
   isLoading: boolean
   error: Error | null
+  isError: boolean
 } => {
   const filterMap = map[filter]
-  const { data: products = [], error, isLoading } = useGetData()
+  const { data: products = [], isError, error, isLoading } = useGetData()
   let filterOptions: Mapping[] = []
   if (!isLoading && !error && products && !isAxiosError(products)) {
     let filteredProducts = products
@@ -114,5 +115,5 @@ export const useProductFilterOptions = ({
       }
     }
   }
-  return { filterOptions, isLoading, error }
+  return { filterOptions, isLoading, error, isError }
 }
