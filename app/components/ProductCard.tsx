@@ -58,22 +58,26 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             data-bs-interval="false"
           >
             <div className="carousel-inner">
-              {carouselImages.map((image, i) => (
-                <div
-                  key={i}
-                  className={`carousel-item${i === 0 ? ' active' : ''}`}
-                >
-                  <Image
-                    priority={i === 0}
-                    src={image}
-                    className="img-fluid w-100"
-                    width={612}
-                    height={749}
-                    sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
-                    alt={item.name}
-                  />
-                </div>
-              ))}
+              {carouselImages.map((image, i) => {
+                if (i < 4) {
+                  return (
+                    <div
+                      key={i}
+                      className={`carousel-item${i === 0 ? ' active' : ''}`}
+                    >
+                      <Image
+                        priority={i === 0}
+                        src={image}
+                        className="img-fluid w-100"
+                        width={612}
+                        height={749}
+                        sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
+                        alt={item.name}
+                      />
+                    </div>
+                  )
+                }
+              })}
             </div>
 
             {carouselImages.length > 1 && (
