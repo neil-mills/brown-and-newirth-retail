@@ -96,7 +96,6 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     isError,
     error,
   } = useProduct({ productId, sku, filters, variationId })
-  console.log(product)
   useEffect(() => {
     setSelectedSku({
       sku,

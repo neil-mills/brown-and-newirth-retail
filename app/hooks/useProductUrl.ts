@@ -1,25 +1,21 @@
 import { isProduct, isVariation, Variation, Product } from '@/app/types'
-import {
-  formatSearchParams,
-  hasSingleVariation,
-  hasSecondFilterLayer,
-} from '@/app/utils'
+import { formatSearchParams } from '@/app/utils'
 import { useSearchParams } from 'next/navigation'
-import { useStore } from './useStore'
 
 export const useProductUrl = (item: Product | Variation) => {
-  const { filterLayers } = useStore((store) => store.selectedSku)
   const searchParams = useSearchParams()
-  const secondFilterLayer = hasSecondFilterLayer(item, filterLayers)
+  const searchByCode = searchParams.get('search') === 'code'
   let url = ''
   const params = isVariation(item)
     ? formatSearchParams(searchParams.toString(), {
         'variation-id': item['variation-id'].toString(),
       })
     : ''
-  // let singleVariation = isProduct(item) && hasSingleVariation(item)
-  if (isVariation(item)) {
+  if (isVariation(item) && !searchByCode) {
     url = `/products/sku/${item.sku}?${params}`
+  }
+  if (isVariation(item) && searchByCode) {
+    url = `/products/sku/${item.sku}?search=code`
   }
   if (isProduct(item)) {
     url = `/products/productId/${item.productId}`
