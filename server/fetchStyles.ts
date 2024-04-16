@@ -1,13 +1,13 @@
-import fetchDataServer from '@/data/fetchDataServer'
+'use server'
+import { fetchProducts } from '@/server/actions'
 import { Mapping, Styles, Product } from '@/app/types'
 import { stylesMap } from '@/app/maps'
-export const revalidate = 10
 
 export const fetchStyles = async (): Promise<Mapping[]> => {
   let products: Product[] = []
   let styles: Mapping[] = []
   try {
-    products = await fetchDataServer()
+    products = await fetchProducts()
   } catch (err) {
     const error = err as Error
     throw new Error(error.message)

@@ -1,10 +1,10 @@
-import fetchData from '@/data/fetchData'
+import { fetchProducts } from '@/server/actions'
 import { useQuery } from '@tanstack/react-query'
 import { Product } from '@/app/types'
 
 export function useGetData() {
   return useQuery<Product[]>({
-    queryFn: async () => fetchData(),
+    queryFn: fetchProducts,
     queryKey: ['products'],
   })
 }
