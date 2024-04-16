@@ -1,6 +1,6 @@
 import { TitleBar } from '@/app/components'
 import ProductGrid from '@/app/components/ProductGrid'
-import { fetchStyles } from '@/server/actions'
+import { fetchStyles } from '@/data/fetchStyles'
 
 const SearchByStyle = async () => {
   const styles = await fetchStyles()
