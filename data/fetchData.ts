@@ -1,17 +1,16 @@
-'use server'
 import axios, { AxiosError } from 'axios'
 import { Product } from '@/app/types'
+
 const fetchData = async (): Promise<Product[]> => {
+  const endpoint = `/api/products`
   let data: Product[] = []
   try {
-    const chunkUrls = await axios<string[]>(
-      `https://staging.retailer.brownandnewirth.com/wp-json/productData/v1/concat?files-only=1`,
-      { timeout: 120000 }
-    )
+    const chunkUrls = await axios<string[]>(`/api/chunks`)
     try {
       const responses = await Promise.all(
         chunkUrls.data.map(
-          async (url) => await axios.get(url, { timeout: 120000 })
+          async (url) =>
+            await axios.get(`${endpoint}?url=${url}`, { timeout: 120000 })
         )
       )
       data = responses.reduce((acc, res) => {
