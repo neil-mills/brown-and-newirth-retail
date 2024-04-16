@@ -33,12 +33,14 @@ interface Props {
   sku: string | null
   productId: string | null
   filters?: Filters | null
+  variationId?: string
 }
 
 export const useProduct = ({
   sku,
   productId,
   filters,
+  variationId,
 }: Props): ReturnValues => {
   let product: Product | null = null
   let variations: Variation[] = []
@@ -89,7 +91,22 @@ export const useProduct = ({
       if (category) filterLayers = stylesMap[category[0]].filterLayers
 
       if (variations?.length) {
-        images = getImages(product)
+        if (variationId) {
+          const variation = variations.find(
+            (variation) => variation['variation-id'] === parseInt(variationId)
+          )
+          if (variation) {
+            const { sku } = variation
+            const width =
+              product?.attributes?.pa_gauge && product?.attributes?.pa_width
+                ? variation.attributes.pa_width
+                : ''
+            images = getImages(product, sku, width)
+          }
+        } else {
+          images = getImages(product)
+        }
+
         const otherSkus = Array.from(
           new Set(
             productVariations
