@@ -46,10 +46,11 @@ export const getImages = (
     )
     const variationImages = getAllVariationImages(variations)
     let widthCode = width ? width.replace('-', '').substring(0, 2) : ''
-    if (['90', '10'].includes(widthCode)) widthCode = '80'
     if (widthCode?.charAt(1) === '5') {
       widthCode = `${parseInt(widthCode.charAt(0)) + 1}0`
     }
+    if (['90', '10'].includes(widthCode)) widthCode = '80'
+
     widthCode = widthCode ? `W${widthCode}` : widthCode
     firstImage =
       variationImages.find((image) => image.includes(`${widthCode}_3.jpg`)) ||
