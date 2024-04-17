@@ -24,7 +24,7 @@ const FilterMenu = ({
   })
   return (
     <div className="mb-225rem">
-      {isLoading || isError ? (
+      {isLoading || isError ? ( 
         <>
           <TitleBar>{label}</TitleBar>
           <FilterGridSkeleton />
