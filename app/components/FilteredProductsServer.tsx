@@ -1,17 +1,18 @@
+'use client'
 import { TitleBar } from '@/app/components'
-import { ProductFilters, Styles } from '@/app/types'
+import { Product } from '@/app/types'
 import ProductGrid from '@/app/components/ProductGrid'
-import { fetchProducts } from '@/data/fetchProducts'
+import { useProducts, useFilterSearchParams } from '@/app/hooks'
+import { useSearchParams } from 'next/navigation'
 
-const FilteredProductsServer = async ({
-  category,
-  filters,
-}: {
-  category: Styles
-  filters: ProductFilters | null
-}) => {
-  const products = await fetchProducts(category, filters)
+interface Props {
+  categoryProducts: Product[]
+}
 
+const FilteredProductsServer = ({ categoryProducts }: Props) => {
+  const searchParams = useSearchParams()
+  const filters = useFilterSearchParams(searchParams.toString())
+  const products = useProducts({ categoryProducts, filters })
   return (
     <>
       <TitleBar>Results ({products.length})</TitleBar>

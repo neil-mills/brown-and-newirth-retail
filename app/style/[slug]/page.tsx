@@ -9,6 +9,8 @@ import { Suspense } from 'react'
 
 import { getCategory } from '@/app/utils/getCategory'
 import FilterMenus from '@/app/components/FilterMenus'
+import FilteredProductsServer from '@/app/components/FilteredProductsServer'
+import { fetchCategoryProducts } from '@/data/fetchCategoryProducts'
 
 interface Props {
   params: { slug: string }
@@ -17,7 +19,7 @@ interface Props {
 
 const ProductStylePage = async ({ params: { slug } }: Props) => {
   const [category, categoryData] = getCategory(slug)
-
+  const categoryProducts = await fetchCategoryProducts(category)
   if (!category || !categoryData) {
     return notFound()
   }
@@ -42,7 +44,7 @@ const ProductStylePage = async ({ params: { slug } }: Props) => {
             </>
           }
         >
-          {/* <FilteredProductsServer filters={filters} category={category} /> */}
+          <FilteredProductsServer categoryProducts={categoryProducts} />
         </Suspense>
       </div>
     </>

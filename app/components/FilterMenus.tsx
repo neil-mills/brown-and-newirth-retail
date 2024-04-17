@@ -1,7 +1,5 @@
 import { getCategoryFilterLayers } from '../utils'
 import { getCategory } from '../utils/getCategory'
-import { Mapping, ProductFilterAttributeKeys } from '../types'
-
 import FilterMenuServer from './FilterMenuServer'
 import { fetchCategoryProducts } from '@/data/fetchCategoryProducts'
 
@@ -25,7 +23,6 @@ const FilterMenus = async ({ slug }: Props) => {
         filterLayers={filterLayers}
         categoryProducts={categoryProducts}
       />
-
       <FilterMenuServer
         category={category}
         filter={'pa_profile'}

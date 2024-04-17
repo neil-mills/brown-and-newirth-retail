@@ -1,49 +1,30 @@
-import { getCategoryProducts, getImages } from '@/app/utils'
-import {
-  Product,
-  ProductAttributeKeys,
-  ProductFilters,
-  Styles,
-} from '@/app/types'
-import { useGetData } from '@/app/hooks'
-import { stylesMap } from '@/app/maps'
-import { isAxiosError } from 'axios'
+import { getImages } from '@/app/utils'
+import { Product, ProductAttributeKeys, ProductFilters } from '@/app/types'
 
-interface Result {
-  products: Product[]
-  isLoading: boolean
-  isError: boolean
-  error: Error | null
+interface Props {
+  categoryProducts: Product[]
+  filters: ProductFilters | null
 }
 
-export const useProducts = (
-  category: Styles,
-  filters: ProductFilters | null
-): Result => {
-  let products: Product[] = []
-  const { data, error, isLoading, isError } = useGetData()
-  if (!isLoading && !error && data && !isAxiosError(data)) {
-    products = getCategoryProducts(data, category)
+export const useProducts = ({
+  categoryProducts,
+  filters,
+}: Props): Product[] => {
+  let products: Product[] = categoryProducts
 
-    stylesMap[category].filterLayers.forEach((filterLayer) => {
-      products = products.filter(
-        (product) => product?.attributes?.[filterLayer]
+  if (filters) {
+    Object.entries(filters).forEach(([filter, values]) => {
+      products = products.filter((product) =>
+        product?.attributes?.[filter as ProductAttributeKeys]?.some(
+          (attrValue) => values.includes(attrValue)
+        )
       )
     })
-
-    if (filters) {
-      Object.entries(filters).forEach(([filter, values]) => {
-        products = products.filter((product) =>
-          product?.attributes?.[filter as ProductAttributeKeys]?.some(
-            (attrValue) => values.includes(attrValue)
-          )
-        )
-      })
-    }
-    products = products.map((product) => {
-      const images = getImages(product)
-      return { ...product, images }
-    })
   }
-  return { products, isLoading, isError, error }
+  products = products.map((product) => {
+    const images = getImages(product)
+    return { ...product, images }
+  })
+
+  return products
 }

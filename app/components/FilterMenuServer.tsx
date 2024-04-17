@@ -28,7 +28,7 @@ const FilterMenuServer = ({
 }: Props) => {
   const searchParams = useSearchParams()
   const paDiamondSet = searchParams.get('pa_diamond-set')
-  const isShapeFilter = filterLayers.includes('pa_shape')
+  const isShapeFilter = filter === 'pa_shape'
   const filters = useFilterSearchParams(searchParams.toString())
   const filterOptions = useProductFilterOptions({
     categoryProducts,
@@ -37,10 +37,14 @@ const FilterMenuServer = ({
     category,
   })
   useEffect(() => {}, [filters])
-  let showMenu =
+  let showMenu = false
+  if (
     (isShapeFilter && category !== 'Shaped') ||
     (isShapeFilter && category === 'Shaped' && paDiamondSet)
-  if (!showMenu) {
+  ) {
+    showMenu = true
+  }
+  if (!isShapeFilter) {
     showMenu = filterLayers.includes(filter)
   }
   if (!showMenu) return null
@@ -48,7 +52,7 @@ const FilterMenuServer = ({
     <Suspense
       fallback={
         <div className="mb-225rem">
-          <TitleBar>Choose your shape</TitleBar>
+          <TitleBar>{label}</TitleBar>
           <FilterGridSkeleton />
         </div>
       }
