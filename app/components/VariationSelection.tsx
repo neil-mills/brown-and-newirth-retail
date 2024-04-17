@@ -2,12 +2,17 @@
 import { AddToBasket, VariationOptions } from '@/app/components'
 import { useState, useEffect } from 'react'
 import { useStore } from '../hooks'
+import { useSearchParams } from 'next/navigation'
 
 export const VariationSelection = () => {
   const { product } = useStore((store) => store.selectedSku)
   const showSize = !product?.attributes?.['pa_type-2']?.length
+  const searchParams = useSearchParams()
+  const variationId = searchParams.get('variation-id')
   const showWidth =
-    product?.attributes?.pa_gauge && product.attributes.pa_gauge.length > 0
+    product?.attributes?.pa_gauge &&
+    !variationId &&
+    product.attributes.pa_gauge.length > 0
       ? true
       : false
   const [showAddToBasket, setShowAddToBasket] = useState<boolean>(false)

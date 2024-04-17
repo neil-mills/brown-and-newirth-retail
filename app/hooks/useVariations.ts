@@ -123,7 +123,11 @@ export const useVariations = ({
 
     if (filteredVariations.length) {
       filteredVariations = filteredVariations.map((variation) => {
-        const images = getImages(product, variation.sku)
+        const images = getImages(
+          product,
+          variation.sku,
+          variation?.attributes?.pa_gauge ? variation?.attributes?.pa_width : ''
+        )
         return {
           ...variation,
           images,

@@ -1,4 +1,3 @@
-import { useGetData } from '@/app/hooks'
 import {
   Mapping,
   Product,
@@ -20,7 +19,7 @@ import {
   coverageMap,
 } from '@/app/maps'
 import { getCategoryProducts, getUniqueArrayValues } from '@/app/utils'
-import { isAxiosError } from 'axios'
+import fetchDataServer from './fetchDataServer'
 
 type ProductFilterAttributesMap = { [K in ProductFilterAttributeKeys]: Map }
 
@@ -44,21 +43,22 @@ interface Props {
   productId?: string | undefined
 }
 
-export const useProductFilterOptions = ({
+export const fetchProductFilterOptions = async ({
   filter,
   filters,
   category,
   productId,
-}: Props): {
-  filterOptions: Mapping[]
-  isLoading: boolean
-  error: Error | null
-  isError: boolean
-} => {
+}: Props): Promise<Mapping[]> => {
+  let products: Product[] = []
   const filterMap = map[filter]
-  const { data: products = [], isError, error, isLoading } = useGetData()
+  try {
+    products = await fetchDataServer()
+  } catch (err) {
+    const error = err as Error
+    throw new Error(error.message)
+  }
   let filterOptions: Mapping[] = []
-  if (!isLoading && !error && products && !isAxiosError(products)) {
+  if (products) {
     let filteredProducts = products
     if (category) {
       filteredProducts = getCategoryProducts(products, category)
@@ -115,5 +115,5 @@ export const useProductFilterOptions = ({
       }
     }
   }
-  return { filterOptions, isLoading, error, isError }
+  return filterOptions
 }

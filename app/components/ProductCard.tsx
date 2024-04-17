@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import { Product, Variation, isProduct, isVariation } from '@/app/types'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -18,13 +19,10 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
   const url = useProductUrl(item)
   const { filterLayers } = useStore((store) => store.selectedSku)
   const searchByCode = searchParams.get('search')
-  const variationId = searchParams.get('variation-id')
   const isDiamondItem = item?.attributes?.['pa_total-carat']
   const isGaugeItem = !item?.attributes?.['pa_total-carat']
-  const showSkuOnly =
-    searchByCode || isDiamondItem || (isGaugeItem && variationId)
-  const showSkuAndWidth =
-    isGaugeItem && isVariation(item) && !searchByCode && !variationId
+  const showSkuOnly = searchByCode || isDiamondItem
+  const showSkuAndWidth = isGaugeItem && isVariation(item) && !searchByCode
 
   const router = useRouter()
   const carouselImages =
@@ -61,22 +59,26 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
             data-bs-interval="false"
           >
             <div className="carousel-inner">
-              {carouselImages.map((image, i) => (
-                <div
-                  key={i}
-                  className={`carousel-item${i === 0 ? ' active' : ''}`}
-                >
-                  <Image
-                    priority={i === 0}
-                    src={image}
-                    className="img-fluid w-100"
-                    width={612}
-                    height={749}
-                    sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
-                    alt={item.name}
-                  />
-                </div>
-              ))}
+              {carouselImages.map((image, i) => {
+                if (i < 4) {
+                  return (
+                    <div
+                      key={i}
+                      className={`carousel-item${i === 0 ? ' active' : ''}`}
+                    >
+                      <Image
+                        priority={i === 0}
+                        src={image}
+                        className="img-fluid w-100"
+                        width={612}
+                        height={749}
+                        sizes="(max-width: 220px) 100vw, (max-width: 240px) 50vw, 33vw"
+                        alt={item.name}
+                      />
+                    </div>
+                  )
+                }
+              })}
             </div>
 
             {carouselImages.length > 1 && (

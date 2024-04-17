@@ -22,7 +22,7 @@ import {
 import { useSearchParams } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { Filters, ProductDiamondQuality, StoreFilters } from '@/app/types'
-import { searchParamsToObject } from '@/app/utils'
+import { searchParamsToObject, hasSingleVariation } from '@/app/utils'
 
 interface Props {
   params: {
@@ -82,7 +82,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
   const setSearchParams = useStore((store) => store.setSearchParams)
   const setFilters = useStore((store) => store.setFilters)
   const searchByCode = searchParams.get('search') === 'code'
-  const singleVariation = searchParams.get('variation-id')
+  const variationId = searchParams.get('variation-id')
   const filters = useFilterSearchParams(searchParams.toString())
 
   const {
@@ -95,8 +95,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     isLoading,
     isError,
     error,
-  } = useProduct({ productId, sku, filters })
-
+  } = useProduct({ productId, sku, filters, variationId })
   useEffect(() => {
     setSelectedSku({
       sku,
@@ -138,7 +137,7 @@ const ProductDetailsPage = ({ params: { slug } }: Props) => {
     filters,
     setFilters,
   ])
-
+  const singleVariation = hasSingleVariation(product)
   const showOtherOptions =
     otherOptions.length > 0 || similarProducts.length === 0
   const showSimilarProducts =
