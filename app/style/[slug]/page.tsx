@@ -1,7 +1,7 @@
-import { notFound, useSearchParams } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { stylesMap } from '@/app/maps'
-import { Filters, StoreFilters, Styles } from '@/app/types'
-import { getFilterSearchParams, searchParamsToObject } from '@/app/utils'
+import { Styles } from '@/app/types'
+import { getFilterSearchParams } from '@/app/utils'
 import {
   BackLink,
   CategoryBanner,
@@ -15,6 +15,7 @@ import FilteredProducts from '@/app/components/FilteredProducts'
 import FilterMenuServer from '@/app/components/FilterMenuServer'
 import { headers } from 'next/headers'
 import { getCategory } from '@/app/utils/getCategory'
+import FilteredProductsServer from '@/app/components/FilteredProductsServer'
 
 interface Props {
   params: { slug: string }
@@ -184,8 +185,7 @@ const ProductStylePage = ({ params: { slug } }: Props) => {
         </div>
       </div>
       <div className="col col-right h-100">
-        Grid here
-        {/* <Suspense
+        <Suspense
           fallback={
             <>
               <TitleBar>
@@ -195,8 +195,19 @@ const ProductStylePage = ({ params: { slug } }: Props) => {
             </>
           }
         >
-          <FilteredProducts filters={filters} category={category} />
-        </Suspense> */}
+          <Suspense
+            fallback={
+              <>
+                <TitleBar>
+                  <span style={{ visibility: 'hidden' }}>Loading</span>{' '}
+                </TitleBar>
+                <ProductGridSkeleton />
+              </>
+            }
+          >
+            <FilteredProductsServer filters={filters} category={category} />
+          </Suspense>
+        </Suspense>
       </div>
     </>
   )

@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import { Product, Variation, isProduct, isVariation } from '@/app/types'
 import { useRouter, useSearchParams } from 'next/navigation'
