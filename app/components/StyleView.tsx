@@ -1,48 +1,45 @@
 'use client'
 import { notFound, useSearchParams } from 'next/navigation'
-import { stylesMap } from '@/app/maps'
-import { Filters, StoreFilters, Styles } from '@/app/types'
-import { searchParamsToObject } from '@/app/utils'
-import dynamic from 'next/dynamic'
-import {
-  BackLink,
-  CategoryBanner,
-  DiamondSetFilter,
-  FilterGridSkeleton,
-  ProductCardSkeleton,
-  ProductGridSkeleton,
-  TitleBar,
-} from '@/app/components'
-import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
-import { Suspense, useEffect } from 'react'
-import FilteredProducts from '@/app/components/FilteredProducts'
-import FilterMenu from '@/app/components/FilterMenu'
+import { Suspense } from 'react'
+import { BackLink } from './BackLink'
+import { CategoryBanner } from './CategoryBanner'
+import { DiamondSetFilter } from './DiamondSetFilter'
+import FilteredProductsServer from './FilteredProductsServer'
+import { FilterGridSkeleton } from './FilterGridSkeleton'
+import FilterMenuServer from './FilterMenuServer'
+import { ProductGridSkeleton } from './ProductGridSkeleton'
+import { TitleBar } from './TitleBar'
+import { getFilterSearchParams } from '../utils'
+import { stylesMap } from '../maps'
+import { getCategory } from '../utils/getCategory'
+import { Styles } from '../types'
 
-interface Props {
-  params: { slug: string }
-}
-
-const ProductCategoryPage = ({ params: { slug } }: Props) => {
-  const setFilterLayers = useStore((store) => store.setFilterLayers)
-  const setFilters = useStore((store) => store.setFilters)
+const StyleView = ({ slug }: { slug: string }) => {
   const searchParams = useSearchParams()
-  const filters = useFilterSearchParams(searchParams.toString())
-  if (filters) {
-    const filterStore = Object.entries(
-      searchParamsToObject(searchParams.toString())
-    ).reduce((acc, [key, value]) => {
-      acc = { [key]: value.split(',') }
-      return acc
-    }, {} as Filters)
-    setFilters(filterStore as StoreFilters)
-  }
+  const paDiamondSet = searchParams.get('pa_diamond-set')
+  const filters = getFilterSearchParams(
+    searchParams ? searchParams.toString() : ''
+  )
+  // const setFilterLayers = useStore((store) => store.setFilterLayers)
+  // const setFilters = useStore((store) => store.setFilters)
+  // const searchParams = useSearchParams()
 
-  const [category, categoryData] = useCategory(slug)
+  // if (filters) {
+  //   const filterStore = Object.entries(
+  //     searchParamsToObject(searchParams.toString())
+  //   ).reduce((acc, [key, value]) => {
+  //     acc = { [key]: value.split(',') }
+  //     return acc
+  //   }, {} as Filters)
+  //   setFilters(filterStore as StoreFilters)
+  // }
+
+  const [category, categoryData] = getCategory(slug)
   const { filterLayers } = stylesMap[category!]
 
-  useEffect(() => {
-    setFilterLayers(filterLayers)
-  }, [setFilterLayers, filterLayers])
+  // useEffect(() => {
+  //   setFilterLayers(filterLayers)
+  // }, [setFilterLayers, filterLayers])
 
   if (!category || !categoryData) {
     return notFound()
@@ -56,9 +53,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
     stylesMap[category as Styles].filterLayers.includes('pa_shape')
   const showShapeFilter =
     (hasShapeFilter && category !== 'Shaped') ||
-    (hasShapeFilter &&
-      category === 'Shaped' &&
-      searchParams.get('pa_diamond-set'))
+    (hasShapeFilter && category === 'Shaped' && paDiamondSet)
   const showSettingFilter =
     stylesMap[category as Styles].filterLayers.includes('pa_setting')
   const showProfileFilter =
@@ -75,13 +70,22 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
           <CategoryBanner category={categoryData} />
           {showDiamondSetFilter && <DiamondSetFilter />}
           {showShapeFilter && (
-            <FilterMenu
-              category={category}
-              childFilters={['pa_setting', 'pa_coverage']}
-              filters={filters}
-              filter={category === 'Shaped' ? 'pa_shaped' : 'pa_shape'}
-              label="Choose your shape"
-            />
+            <Suspense
+              fallback={
+                <div className="mb-225rem">
+                  <TitleBar>Choose your shape</TitleBar>
+                  <FilterGridSkeleton />
+                </div>
+              }
+            >
+              <FilterMenuServer
+                category={category}
+                childFilters={['pa_setting', 'pa_coverage']}
+                filters={filters}
+                filter={category === 'Shaped' ? 'pa_shaped' : 'pa_shape'}
+                label="Choose your shape"
+              />
+            </Suspense>
           )}
           {showSettingFilter && (
             <Suspense
@@ -92,7 +96,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <FilterMenu
+              <FilterMenuServer
                 category={category}
                 filters={filters}
                 filter={'pa_setting'}
@@ -109,7 +113,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <FilterMenu
+              <FilterMenuServer
                 category={category}
                 filters={filters}
                 filter={'pa_profile'}
@@ -126,7 +130,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <FilterMenu
+              <FilterMenuServer
                 category={category}
                 filters={filters}
                 filter={'pa_pattern'}
@@ -143,7 +147,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <FilterMenu
+              <FilterMenuServer
                 category={category}
                 filters={filters}
                 filter={'pa_ceramic-colour'}
@@ -160,7 +164,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
                 </div>
               }
             >
-              <FilterMenu
+              <FilterMenuServer
                 category={category}
                 filters={filters}
                 filter={'pa_coverage'}
@@ -177,15 +181,15 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
               <TitleBar>
                 <span style={{ visibility: 'hidden' }}>Loading</span>{' '}
               </TitleBar>
-              <ProductGridSkeleton />{' '}
+              <ProductGridSkeleton />
             </>
           }
         >
-          <FilteredProducts filters={filters} category={category} />
+          <FilteredProductsServer filters={filters} category={category} />
         </Suspense>
       </div>
     </>
   )
 }
 
-export default ProductCategoryPage
+export default StyleView

@@ -7,10 +7,8 @@ import { Product } from '@/app/types'
 
 interface Props {
   products: Product[] | undefined
-  isLoading: boolean
-  isError: boolean
 }
-const SearchByCodeForm = ({ products, isLoading, isError }: Props) => {
+const SearchByCodeForm = ({ products }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isInvalidCode, setIsInvalidCode] = useState(false)
   const router = useRouter()
@@ -47,7 +45,6 @@ const SearchByCodeForm = ({ products, isLoading, isError }: Props) => {
             placeholder="Enter Code..."
             required
             ref={inputRef}
-            disabled={isLoading || isError}
           />
           <Image
             className="position-absolute"
@@ -63,11 +60,7 @@ const SearchByCodeForm = ({ products, isLoading, isError }: Props) => {
           </div>
         )}
       </div>
-      <button
-        type="submit"
-        className="btn btn-lg bg-pink"
-        disabled={isLoading || isError}
-      >
+      <button type="submit" className="btn btn-lg bg-pink">
         <span>Search</span>
       </button>
     </form>

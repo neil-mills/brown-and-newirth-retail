@@ -1,10 +1,14 @@
 'use client'
 import { useStore } from '@/app/hooks'
+import { usePathname } from 'next/navigation'
 
 export const LoadingOverlay = () => {
   const isLoading = useStore((store) => store.isLoading)
   const isError = useStore((store) => store.isError)
   const error = useStore((store) => store.error)
+  const pathname = usePathname()
+  const showLoader = !pathname.includes('/style/')
+  if (!showLoader) return null
   if (!isLoading && !isError) return null
   return (
     <div
