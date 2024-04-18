@@ -1,5 +1,5 @@
 import { isProduct, isVariation, Variation, Product } from '@/app/types'
-import { formatSearchParams } from '@/app/utils'
+import { formatSearchParams, hasSingleVariation } from '@/app/utils'
 import { useSearchParams } from 'next/navigation'
 
 export const useProductUrl = (item: Product | Variation) => {
@@ -18,16 +18,13 @@ export const useProductUrl = (item: Product | Variation) => {
     url = `/products/sku/${item.sku}?search=code`
   }
   if (isProduct(item)) {
-    url = `/products/productId/${item.productId}`
-    // if (secondFilterLayer && !singleVariation) {
-    //   url = `/products/productId/${item.productId}`
-    // }
-    // if ((secondFilterLayer && singleVariation) || !hasSecondFilterLayer) {
-    //   url = `/products/sku/${item.sku}`
-    // }
-    // if (singleVariation) {
-    //   url = `/products/sku/${item.sku}?variation-id=${item.variations[0]['variation-id']}&single=true`
-    // }
+    const singleVariation = hasSingleVariation(item)
+    if (singleVariation) {
+      url = `/products/sku/${item.sku}`
+    }
+    if (!singleVariation) {
+      url = `/products/productId/${item.productId}`
+    }
   }
   return url
 }
