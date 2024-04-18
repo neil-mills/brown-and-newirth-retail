@@ -2,6 +2,8 @@ import Image from 'next/image'
 import SearchByCodeForm from './SearchByCodeForm'
 import fetchDataServer from '@/data/fetchDataServer'
 
+export const revalidate = 36000
+
 export const SearchByCode = async () => {
   const products = await fetchDataServer()
   return (

@@ -60,7 +60,7 @@ export const ProductCard = ({ item, label, style, index }: Props) => {
           >
             <div className="carousel-inner">
               {carouselImages.map((image, i) => {
-                if (i < 4) {
+                if (i < 2) {
                   return (
                     <div
                       key={i}

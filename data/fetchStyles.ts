@@ -2,6 +2,8 @@ import fetchDataServer from '@/data/fetchDataServer'
 import { Mapping, Styles, Product } from '@/app/types'
 import { stylesMap } from '@/app/maps'
 
+export const revalidate = 36000
+
 export const fetchStyles = async (): Promise<Mapping[]> => {
   let products: Product[] = []
   let styles: Mapping[] = []
