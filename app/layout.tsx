@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '@/app/globals.css'
 import Head from 'next/head'
 import QueryProvider from '@/lib/QueryProvider'
-import { BsToast, Header, LoadingOverlay, Sidebar } from '@/app/components'
+import { BsToast, Header, Sidebar } from '@/app/components'
 import Provider from './components/Providers'
 import {
   dehydrate,
@@ -78,7 +78,6 @@ export default async function RootLayout({
         <body className="h-100 overflow-hidden" suppressHydrationWarning={true}>
           <Provider>
             <HydrationBoundary state={dehydrate(queryClient)}>
-              <LoadingOverlay />
               <BsToast />
               <Header />
               <div className="wrapper d-flex">
