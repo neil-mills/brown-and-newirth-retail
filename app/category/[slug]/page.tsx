@@ -3,19 +3,18 @@ import { notFound, useSearchParams } from 'next/navigation'
 import { stylesMap } from '@/app/maps'
 import { Filters, StoreFilters, Styles } from '@/app/types'
 import { searchParamsToObject } from '@/app/utils'
-import dynamic from 'next/dynamic'
 import {
   BackLink,
   CategoryBanner,
   DiamondSetFilter,
   FilterGridSkeleton,
-  ProductGridSkeleton,
   TitleBar,
 } from '@/app/components'
 import { useCategory, useFilterSearchParams, useStore } from '@/app/hooks'
 import { Suspense, useEffect } from 'react'
 import FilteredProducts from '@/app/components/FilteredProducts'
 import FilterMenu from '@/app/components/FilterMenu'
+import ResetFilters from '@/app/components/ResetFilters'
 
 interface Props {
   params: { slug: string }
@@ -68,6 +67,7 @@ const ProductCategoryPage = ({ params: { slug } }: Props) => {
     stylesMap[category as Styles].filterLayers.includes('pa_coverage')
   return (
     <>
+      <ResetFilters />
       <div className="col-left h-100 d-flex flex-column">
         <BackLink />
         <div className="col-left-inner flex-grow-1 d-flex flex-column p-0">
