@@ -1,15 +1,15 @@
-import type { Metadata } from 'next'
-import '@/app/globals.css'
-import Head from 'next/head'
-import QueryProvider from '@/lib/QueryProvider'
 import { BsToast, Header, Sidebar } from '@/app/components'
-import Provider from './components/Providers'
+import '@/app/globals.css'
+import fetchData from '@/data/fetchData'
+import QueryProvider from '@/lib/QueryProvider'
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query'
-import fetchData from '@/data/fetchData'
+import type { Metadata } from 'next'
+import Head from 'next/head'
+import Provider from './components/Providers'
 
 export const metadata: Metadata = {
   title: 'Brown & Newirth',
