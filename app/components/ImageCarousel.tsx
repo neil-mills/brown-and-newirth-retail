@@ -17,12 +17,6 @@ const ImageCarousel = ({ isLoading }: { isLoading: boolean }) => {
             data-bs-interval="false"
           >
             <div className="carousel-inner">
-              <a
-                href={product?.permalink || '#'}
-                className="btn bubble position-absolute bg-grey px-3 px-sm-4 px-lg-3 px-xxl-4"
-              >
-                <span>View Online</span>
-              </a>
               {images.map((src: string, i: number) => {
                 if (i < 4) {
                   return (
