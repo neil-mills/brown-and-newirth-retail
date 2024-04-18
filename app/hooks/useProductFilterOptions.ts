@@ -5,26 +5,34 @@ import {
   Styles,
   ProductFilterAttributeKeys,
 } from '@/app/types'
-import { productFilterAttributesMap } from '@/app/maps'
-import { getFilterOptions } from '@/app/utils'
+import { productFilterAttributesMap, stylesMap } from '@/app/maps'
+import { getCategoryProducts, getFilterOptions } from '@/app/utils'
 
 const map = productFilterAttributesMap
 
 interface Props {
-  categoryProducts: Product[]
+  products: Product[]
   filter: ProductFilterAttributeKeys
   filters?: Filters | null
   category?: Styles | undefined | null
 }
 
 export const useProductFilterOptions = ({
-  categoryProducts,
+  products,
   filter,
   filters,
   category,
 }: Props): Mapping[] => {
-  let filteredProducts: Product[] = categoryProducts
+  let filteredProducts: Product[] = products
   let filterOptions: Mapping[] = []
+  if (category) {
+    filteredProducts = getCategoryProducts(products, category)
+    stylesMap[category].filterLayers.forEach((filterLayer) => {
+      filteredProducts = filteredProducts.filter(
+        (product) => product?.attributes?.[filterLayer]
+      )
+    })
+  }
   if (filters) {
     Object.entries(filters).forEach(([filterKey, values]) => {
       if (filterKey !== filter) {

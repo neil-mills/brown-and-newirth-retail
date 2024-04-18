@@ -3,20 +3,23 @@ import { TitleBar } from '@/app/components'
 import { Product } from '@/app/types'
 import ProductGrid from '@/app/components/ProductGrid'
 import { useProducts, useFilterSearchParams } from '@/app/hooks'
-import { useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
+import { getCategory } from '../utils/getCategory'
 
 interface Props {
-  categoryProducts: Product[]
+  products: Product[]
 }
 
-const FilteredProductsServer = ({ categoryProducts }: Props) => {
+const FilteredProductsServer = ({ products }: Props) => {
   const searchParams = useSearchParams()
   const filters = useFilterSearchParams(searchParams.toString())
-  const products = useProducts({ categoryProducts, filters })
+  const { slug } = useParams()
+  const [category] = getCategory(slug as string)
+  const categoryProducts = useProducts({ products, filters, category })
   return (
     <>
-      <TitleBar>Results ({products.length})</TitleBar>
-      <ProductGrid style="variation" items={products} />
+      <TitleBar>Results ({categoryProducts.length})</TitleBar>
+      <ProductGrid style="variation" items={categoryProducts} />
     </>
   )
 }

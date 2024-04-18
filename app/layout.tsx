@@ -78,7 +78,7 @@ export default async function RootLayout({
         <body className="h-100 overflow-hidden" suppressHydrationWarning={true}>
           <Provider>
             <HydrationBoundary state={dehydrate(queryClient)}>
-              <LoadingOverlay />
+              {/* <LoadingOverlay /> */}
               <BsToast />
               <Header />
               <div className="wrapper d-flex">

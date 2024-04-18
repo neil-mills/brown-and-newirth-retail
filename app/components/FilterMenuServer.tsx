@@ -1,37 +1,29 @@
 'use client'
 import { FilterGrid, FilterGridSkeleton, TitleBar } from '@/app/components'
-import {
-  FilterLayerKeys,
-  Product,
-  ProductFilterAttributeKeys,
-  Styles,
-} from '@/app/types'
-import { useSearchParams } from 'next/navigation'
+import { Product, ProductFilterAttributeKeys } from '@/app/types'
+import { useParams, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect } from 'react'
 import { useFilterSearchParams, useProductFilterOptions } from '@/app/hooks'
+import { getCategory } from '../utils/getCategory'
+import { getCategoryFilterLayers } from '../utils'
 
 interface Props {
-  category: Styles | undefined
   filter: ProductFilterAttributeKeys
-  filterLayers: FilterLayerKeys[]
   childFilters?: ProductFilterAttributeKeys[]
-  categoryProducts: Product[]
+  products: Product[]
   label: string
 }
-const FilterMenuServer = ({
-  category,
-  filter,
-  childFilters,
-  label,
-  filterLayers,
-  categoryProducts,
-}: Props) => {
+const FilterMenuServer = ({ filter, childFilters, label, products }: Props) => {
   const searchParams = useSearchParams()
   const paDiamondSet = searchParams.get('pa_diamond-set')
   const isShapeFilter = filter === 'pa_shape'
   const filters = useFilterSearchParams(searchParams.toString())
+  const { slug } = useParams()
+  const [category] = getCategory(slug as string)
+  if (category === 'Shaped' && filter === 'pa_shape') filter = 'pa_shaped'
+  const filterLayers = getCategoryFilterLayers(category)
   const filterOptions = useProductFilterOptions({
-    categoryProducts,
+    products,
     filter,
     filters,
     category,
